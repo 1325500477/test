@@ -242,7 +242,7 @@ void Op_ResetChannal(void)
 			{
 				if (input_get_one(SN_CHANNAL_ORG) == SENSOR_TYPE_BEAM_OFF) //不在热压工位
 				{
-					sm_run(SM_CHANNEL, SM_CHANNEL_FORWARDD, parameter[SM_CHANNAL_SPEED], 3000);
+					sm_run(SM_CHANNEL, DIR_SM_CHANNEL_FORWARD, parameter[SM_CHANNAL_SPEED], 3000);
 					CurrentOp->nStep = STEP2;
 				}
 				else
@@ -255,7 +255,7 @@ void Op_ResetChannal(void)
 			if (input_get_one(SN_CHANNAL_ORG) == SENSOR_TYPE_BEAM_ON) //到达热压工位
 			{
 				sm_stop(SM_CHANNEL);  //要先停止然后再运行否者运行不正常
-				sm_run(SM_CHANNEL, SM_CHANNEL_FORWARDD, parameter[SM_CHANNAL_SPEED], parameter[WARM_STEP]); //向前再走一点(补偿)
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_FORWARD, parameter[SM_CHANNAL_SPEED], parameter[WARM_STEP]); //向前再走一点(补偿)
 				CurrentOp->nStep = STEP3;
 			}
 			else
@@ -281,7 +281,7 @@ void Op_ResetChannal(void)
 			}
 		break;
 		case STEP5:
-			sm_run(SM_CHANNEL, SM_CHANNEL_BACKWARD, parameter[SM_CHANNAL_SPEED], parameter[BACK_STEP]); //继续往回走一段距离
+			sm_run(SM_CHANNEL, DIR_SM_CHANNEL_BACKWARD, parameter[SM_CHANNAL_SPEED], parameter[BACK_STEP]); //继续往回走一段距离
 			CurrentOp->nStep = STEP6;
 			break;
 		case STEP6:
@@ -339,7 +339,7 @@ void Op_SendCardToWarm(void)
 		case STEP1:
 			if (nLocation == ENUM_OUTSIDE)
 			{
-				sm_run(SM_CHANNEL, SM_CHANNEL_FORWARDD, parameter[SM_CHANNAL_SPEED],5000);
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_FORWARD, parameter[SM_CHANNAL_SPEED],5000);
 				CurrentOp->nStep = STEP2;
 			}
 			else
@@ -351,7 +351,7 @@ void Op_SendCardToWarm(void)
 			if (input_get_one(SN_CHANNAL_ORG) == SENSOR_TYPE_BEAM_ON) //到达热压工位
 			{
 				sm_stop(SM_CHANNEL);  //要先停止然后再运行否者运行不正常
-				sm_run(SM_CHANNEL, SM_CHANNEL_FORWARDD, parameter[SM_CHANNAL_SPEED], parameter[WARM_STEP]); //向前再走一点(补偿)
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_FORWARD, parameter[SM_CHANNAL_SPEED], parameter[WARM_STEP]); //向前再走一点(补偿)
 				CurrentOp->nStep = STEP3;
 			}
 			else
@@ -423,7 +423,7 @@ void Op_SendCardToCool(void)
 		case STEP2:
 			if (IsChildOpOK(CurrentOp, &OpSendCardToWarm)) //在热压工位的基础上再向冷压工位运行
 			{
-				sm_run(SM_CHANNEL, SM_CHANNEL_FORWARDD, parameter[SM_CHANNAL_SPEED],(2000 + parameter[COOL_STEP]));
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_FORWARD, parameter[SM_CHANNAL_SPEED],(2000 + parameter[COOL_STEP]));
 				CurrentOp->nStep = STEP3;
 			}
 		break;
@@ -474,7 +474,7 @@ void Op_ChannalBackORG(void)
 		case STEP3:
 			if ((nLocation == ENUM_INSIDE_WARE) || (nLocation == ENUM_INSIDE_COOL)) //如果在热压或者冷压工位才可以向后运行
 			{
-				sm_run(SM_CHANNEL, SM_CHANNEL_BACKWARD, parameter[SM_CHANNAL_SPEED], 8000); //往回走
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_BACKWARD, parameter[SM_CHANNAL_SPEED], 8000); //往回走
 				CurrentOp->nStep = STEP4;
 			}
 			else
@@ -486,7 +486,7 @@ void Op_ChannalBackORG(void)
 			if (input_get_one(SN_CHANNAL_ORG) == SENSOR_TYPE_BEAM_ON) //向后运行到热压工位
 			{
 				sm_stop(SM_CHANNEL);  //要先停止然后再运行否者运行不正常
-				sm_run(SM_CHANNEL, SM_CHANNEL_BACKWARD, parameter[SM_CHANNAL_SPEED], parameter[BACK_STEP]); //继续往回走一段距离
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_BACKWARD, parameter[SM_CHANNAL_SPEED], parameter[BACK_STEP]); //继续往回走一段距离
 				CurrentOp->nStep = STEP5;
 			}
 			else
@@ -1390,7 +1390,7 @@ void Op_CutCardPosition(void)
 		case STEP1:
 			if (input_get_one(SN_CHANNAL_ORG) == SENSOR_TYPE_BEAM_OFF) //不在热压工位
 			{
-				sm_run(SM_CHANNEL, SM_CHANNEL_BACKWARD, parameter[SM_CHANNAL_SPEED], 8000); //走到热压工位
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_BACKWARD, parameter[SM_CHANNAL_SPEED], 8000); //走到热压工位
 				CurrentOp->nStep = STEP2;
 			}
 		break;
@@ -1409,7 +1409,7 @@ void Op_CutCardPosition(void)
 			}
 		break;
 		case STEP4:																																														//走到裁剪工位
-			sm_run(SM_CHANNEL, SM_CHANNEL_FORWARDD, parameter[SM_CHANNAL_SPEED], parameter[CUT_CARD_POSITION]); //走到热压工位
+			sm_run(SM_CHANNEL, DIR_SM_CHANNEL_FORWARD, parameter[SM_CHANNAL_SPEED], parameter[CUT_CARD_POSITION]); //走到热压工位
 			CurrentOp->nStep = STEP5;
 		break;
 		case STEP5:
@@ -1966,11 +1966,11 @@ void Op_ShiftTrolley(int iStepNum)
 		case STEP1:
 			if (iStepNum >= 0) //步数为正  
 			{
-				sm_run(SM_TROLLEY,DIR_TROLLEY_FORWARD,g_sTrolleyPara.uiSpeed,iStepNum); //向前走N歩
+				sm_run(SM_TROLLEY,DIR_SM_TROLLEY_FORWARD,g_sTrolleyPara.uiSpeed,iStepNum); //向前走N歩
 			}
 			else  //步数为负
 			{
-				sm_run(SM_TROLLEY,DIR_TROLLEY_BACKWARD,g_sTrolleyPara.uiSpeed,iStepNum); //向后走N歩
+				sm_run(SM_TROLLEY,DIR_SM_TROLLEY_BACKWARD,g_sTrolleyPara.uiSpeed,iStepNum); //向后走N歩
 			}
 			CurrentOp->nStep = STEP2;	
 		break;
@@ -2014,7 +2014,7 @@ void Op_TrolleyDown(void)
 			else if ((input_get_one(SN_TROLLEY_DOWN) == SENSOR_TYPE_BEAM_OFF) 
 			  ||(input_get_one(SN_TROLLEY_UP) == SENSOR_TYPE_BEAM_ON))//已经在升起位
 			  {
-						sm_
+						sm_run(SM_TROLLEY,)
 
 
 			  }	
@@ -2022,6 +2022,7 @@ void Op_TrolleyDown(void)
 
 
  		default:
+
 		break;
 	}                                                                     										
 

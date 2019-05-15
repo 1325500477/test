@@ -42,17 +42,18 @@ extern "C"
 
     //***** 步进电机编号定义***********************************************************
 #define SM_CHANNEL              	SM_1        // 通道控制电机SM101
-#define SM_TROLLEY                	SM_2        // 推本控制电机SM102
+#define SM_TROLLEY                	SM_2        // 小车电机SM102
 #define SM_BELT                 	SM_4        // 传送带控制电机SM104
 
 
 
     //***** 步进电机转动方向定义********************************************************
-#define SM_CHANNEL_BACKWARD     	SM_CW       //通道电机返回 
-#define SM_CHANNEL_FORWARDD     	SM_CCW      //通道电机前进
+#define DIR_SM_CHANNEL_BACKWARD     SM_CW       //通道电机返回 
+#define DIR_SM_CHANNEL_FORWARD     	SM_CCW      //通道电机前进 
 
-#define DIR_TROLLEY_FORWARD        	SM_CW       // 传送带传送电机向前转动方向
-#define DIR_TROLLEY_BACKWARD       	SM_CCW      // 传送带传送电机后退转动方向
+DIR_SM_CHANNEL_FORWADD
+#define DIR_SM_TROLLEY_FORWARD     	SM_CW       // 传送带传送电机向前转动方向
+#define DIR_SM_TROLLEY_BACKWARD    	SM_CCW      // 传送带传送电机后退转动方向
 
     //***** 直流电机动作状态定义********************************************************
 #define DM_CLAMP_OPEN           	DM_CW       // 挡板控制电机顺时针转动
@@ -75,11 +76,11 @@ extern "C"
 #define SM7_DIR_ABS_P	        	SM_CW		//绝对方向正向定义
 #define SM8_DIR_ABS_P	        	SM_CW		//绝对方向正向定义
 
-    enum _enum_motor_type
-    {
-        STEP_MOTOR  = 0,     //步进电机
-        SERVO_MOTOR = 1,    //伺服电机
-    };
+enum _enum_motor_type
+{
+    STEP_MOTOR  = 0,     //步进电机
+    SERVO_MOTOR = 1,    //伺服电机
+};
 
 #define MOTOR_TYPE_SM1  STEP_MOTOR  //步进电机
 #define MOTOR_TYPE_SM2  STEP_MOTOR  //步进电机
