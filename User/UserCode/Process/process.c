@@ -2014,7 +2014,7 @@ void Op_TrolleyDown(void)
 			else if ((input_get_one(SN_TROLLEY_DOWN) == SENSOR_TYPE_BEAM_OFF) 
 			  ||(input_get_one(SN_TROLLEY_UP) == SENSOR_TYPE_BEAM_ON))//已经在升起位
 			  {
-						sm_brake;
+						sm
 
 
 			  }	
