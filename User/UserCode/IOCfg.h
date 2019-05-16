@@ -51,7 +51,6 @@ extern "C"
 #define DIR_SM_CHANNEL_BACKWARD     SM_CW       //通道电机返回 
 #define DIR_SM_CHANNEL_FORWARD     	SM_CCW      //通道电机前进 
 
-DIR_SM_CHANNEL_FORWADD
 #define DIR_SM_TROLLEY_FORWARD     	SM_CW       // 传送带传送电机向前转动方向
 #define DIR_SM_TROLLEY_BACKWARD    	SM_CCW      // 传送带传送电机后退转动方向
 
