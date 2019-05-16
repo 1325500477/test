@@ -28,7 +28,8 @@ extern "C"
 
     //***** 输出端口定义（单向直流马达、电磁铁、指示灯...）*******************************
 #define DM_BUTTON1					DM1		// 按钮1指示灯
-#define DM_BUTTON2					DM2		// 按钮2指示灯 #define DM_BUTTON3					DM3		// 按钮3指示灯
+#define DM_BUTTON2					DM2		// 按钮2指示灯
+#define DM_BUTTON3					DM3		// 按钮3指示灯
 #define DM_BUTTON4					DM4		// 按钮4指示灯
 	
 #define DM_WARM_CONTROL				DM5		// 加热继电器5控制
