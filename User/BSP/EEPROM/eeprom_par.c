@@ -1,7 +1,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "eeprom_par.h"
 #include "Bsp.h"
-
+#include "process.h"
 
 uint16_t  eeprom_parameter[MAX_PARAMETER_NUM+2];
 
@@ -84,6 +84,7 @@ void init_parameter(void)
 		}
 		FLASH_Lock();
 	}		   
+	ProcessUpdateParameter(); //更新工位定位参数
 }
 
 /****************************************************************************************
@@ -133,6 +134,7 @@ unsigned int get_parameter(void)
 //        comm_send_buf[10+(i*2)+1] = parameter[i] & 0xFF; 	//L8
 	}
 	nLen = i*2;
+	ProcessUpdateParameter(); //更新工位定位参数
 	return nLen;
 }
 
@@ -158,4 +160,5 @@ void save_parameter(void)
 		EE_WriteVariable(VirtAddVarTab[i], u16_data);
 	}
 	FLASH_Lock();
+	ProcessUpdateParameter(); //更新工位定位参数
 }

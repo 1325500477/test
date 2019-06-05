@@ -1,37 +1,34 @@
-
 #include "parameter.h"
-
+#include "process.h"
 
 signed int parameter[MAX_PARAMETER_NUM];
 
 //第一次使用控制板，自动初始化相关参数，由底层人员根据调试经验设置
 void DefaultParameter(void)
 {
-    parameter[SM_CHANNAL_SPEED]  = 200;  		   //1通道电机速度
-    parameter[WARM_TIME] 		 = 100;              //2加热时间
-    parameter[COOL_TIME] 		 = 20;              //3冷却时间
-    parameter[WARM_STEP] 		 = 250;             //4到热压工位补偿
-    parameter[COOL_STEP] 		 = 1400;            //5到冷压工位补偿    
-    parameter[BACK_STEP] 		 = 2500;           //6返回原点位补偿 
-    parameter[CUT_CARD_POSITION] = 800;            //7到裁剪卡的位置
-    
-    parameter[PAR_BAK8]  = 11;
-    parameter[PAR_BAK9]  = 12;
-    parameter[PAR_BAK10] = 13; 
-    parameter[PAR_BAK11] = 11;
-    parameter[PAR_BAK12] = 12;
-    parameter[PAR_BAK13] = 13;
-    parameter[PAR_BAK14] = 14;
-    parameter[PAR_BAK15] = 15;
-    parameter[PAR_BAK16] = 16;
-    parameter[PAR_BAK17] = 17;
-    parameter[PAR_BAK18] = 18;
-    parameter[PAR_BAK19] = 19;
-    parameter[PAR_BAK20] = 20;
-    
-    parameter[PAR_BAK21] = 21;
-    parameter[PAR_BAK22] = 22;
-    parameter[PAR_BAK23] = 23;
+    parameter[PAR_WARM_STEP] 		           = 140;    //1到热压工位补偿
+    parameter[PAR_COOL_STEP] 		           = 1830;   //2到冷压工位补偿  
+    parameter[PAR_WASTE]                       = 3500;   //3到废料位
+    parameter[PAR_PRETARGETING]                = 4800;   //4到预定位
+    parameter[PAR_CUT_CARD_POSITION]           = 6200;   //5到剪卡位
+    parameter[PAR_BACK_STEP] 		           = 25;     //6预留
+    parameter[PAR_SM_CHANNAL_SPEED]            = 150;    //7小车速度
+    parameter[PAR_PRETARGET_UP_POSITION]       = 600;    //8预定位上升步数
+    parameter[PAR_WASTESTORAGE_DN_POSTION] 	   = 1100;   //9废料场下降步数
+    parameter[PAR_WARM_TIME]                   = 100; 	 //10加热时间s
+    parameter[PAR_COOL_TIME]                   = 40;     //11冷却时间s
+    parameter[PAR_SUCK_CARD_CAR_ACCESSORY]     = 12;     //12 吸卡小车辅料位
+    parameter[PAR_SUCK_CARD_CAR_PRETARGETING]  = 13;     //13 吸卡小车预定位
+    parameter[PAR_SUCK_CARD_CAR_TEMPORARY]     = 14;     //14 吸卡小车暂放卡位
+    parameter[PAR_SUCK_CARD_CAR_NEW_ACCESSORY] = 15;     //15 吸卡小车新辅料位
+    parameter[PAR_SUCK_CARD_CAR_PRINT]         = 16;     //16 吸卡小车打印位
+    parameter[PAR_SUCK_CARD_CAR_BLANK]         = 17;     //17 吸卡小车空白卡位
+    parameter[PAR_SUCK_ACCESSORY]              = 18;     //18 吸盘辅料位  
+    parameter[PAR_SUCK_PRETARGETING]           = 19;     //19 吸盘预定位
+    parameter[PAR_SUCK_TEMPORARY]              = 20;     //20 吸盘暂放卡位
+    parameter[PAR_SUCK_NEW_ACCESSORY]          = 21;     //21 吸盘新辅料位
+    parameter[PAR_SUCK_PRINT]                  = 22;     //22 吸盘打印位
+    parameter[PAR_SUCK_BLANK]                  = 23;     //23 吸盘空白卡位
     parameter[PAR_BAK24] = 24;
     parameter[PAR_BAK25] = 25;
     parameter[PAR_BAK26] = 26;
@@ -59,6 +56,6 @@ void DefaultParameter(void)
     parameter[PAR_BAK46] = 46;
     parameter[PAR_BAK47] = 47;
     parameter[PAR_BAK48] = 48;   
-
+    ProcessUpdateParameter(); //更新工位定位参数
 }
 

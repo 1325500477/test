@@ -5,8 +5,7 @@
 #include "command.h"
 
 extern unsigned int txlen;
-extern unsigned char CardStatus[10];
-
+unsigned char CardStatus[10];
 unsigned int cmd_get_mcu_data(void)
 {
     unsigned int nLen = 0;

@@ -13,31 +13,29 @@ extern "C"
 
 enum ENUM_PARAMETER
 {
-    SM_CHANNAL_SPEED,                   //1通道电机速度
-    WARM_TIME,                          //2加热时间
-    COOL_TIME,                          //3冷却时间
-    WARM_STEP,							//4到热压工位补偿
-    COOL_STEP,							//5到冷压工位补偿   
-    BACK_STEP,							//6返回原点位补偿 
-    CUT_CARD_POSITION,                  //7裁剪卡位置补偿
-    
-	PAR_BAK8,				//8
-    PAR_BAK9,				//9
-    PAR_BAK10,				//10 
-    PAR_BAK11,				//11
-    PAR_BAK12,				//12
-    PAR_BAK13,				//13
-    PAR_BAK14,				//14
-    PAR_BAK15,				//15
-    PAR_BAK16,				//16
-    PAR_BAK17,				//17
-    PAR_BAK18,			    //18
-    PAR_BAK19,				//19
-    PAR_BAK20,				//20
-    
-    PAR_BAK21,				//21
-    PAR_BAK22,				//22
-    PAR_BAK23,				//23
+    PAR_WARM_STEP,							//1 到热压工位
+    PAR_COOL_STEP,							//2 到冷压工位   
+    PAR_WASTE,                              //3 到废料工位
+    PAR_PRETARGETING,                       //4 到预定位
+    PAR_CUT_CARD_POSITION,                  //5 裁剪卡位置
+    PAR_BACK_STEP,							//6 预留
+    PAR_SM_CHANNAL_SPEED,                   //7 小车速度
+    PAR_PRETARGET_UP_POSITION,              //8 预定位电机上升步数
+    PAR_WASTESTORAGE_DN_POSTION,            //9 废料场电机下降步数
+    PAR_WARM_TIME,							//10 热压时间 
+    PAR_COOL_TIME,							//11 冷压时间
+    PAR_SUCK_CARD_CAR_ACCESSORY,            //12 吸卡小车辅料位
+    PAR_SUCK_CARD_CAR_PRETARGETING,		    //13 吸卡小车预定位
+    PAR_SUCK_CARD_CAR_TEMPORARY,			//14 吸卡小车暂放卡位
+    PAR_SUCK_CARD_CAR_NEW_ACCESSORY,		//15 吸卡小车新辅料位
+    PAR_SUCK_CARD_CAR_PRINT,				//16 吸卡小车打印位
+    PAR_SUCK_CARD_CAR_BLANK,				//17 吸卡小车空白卡位
+    PAR_SUCK_ACCESSORY,			            //18 吸盘辅料位  
+    PAR_SUCK_PRETARGETING,				    //19 吸盘预定位
+    PAR_SUCK_TEMPORARY,				        //20 吸盘暂放卡位
+    PAR_SUCK_NEW_ACCESSORY,				    //21 吸盘新辅料位
+    PAR_SUCK_PRINT,				            //22 吸盘打印位
+    PAR_SUCK_BLANK,				            //23 吸盘空白卡位
     PAR_BAK24,				//24
     PAR_BAK25,				//25
     PAR_BAK26,				//26
@@ -67,14 +65,6 @@ enum ENUM_PARAMETER
     PAR_BAK48,			    //48
 
     MAX_PARAMETER_NUM,
-};
-
-enum ENUM_LOCATION
-{
-    ENUM_OUTSIDE = 1,	//夹卡片的夹子在外面
-    ENUM_INSIDE_WARE,	//夹卡片的夹子在里面热压工位
-    ENUM_INSIDE_COOL,	//夹卡片的夹子在里面冷压工位
-
 };
 
 extern int parameter[];

@@ -170,7 +170,7 @@
             <Capability>1</Capability>
             <DriverSelection>4099</DriverSelection>
           </Flash1>
-          <bUseTDR>1</bUseTDR>
+          <bUseTDR>0</bUseTDR>
           <Flash2>Segger\JL2CM3.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\Libraries\CMSIS\CM3\CoreSupport;..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x;..\..\User\UserCode;..\..\User\BSP;..\..\User\BSP\Stm32f10x</IncludePath>
+              <IncludePath>..\..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\Libraries\CMSIS\CM3\CoreSupport;..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x;..\..\User\UserCode;..\..\User\BSP;..\..\User\BSP\Stm32f10x;..\..\User\UserCode\Process</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

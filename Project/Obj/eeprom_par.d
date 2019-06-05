@@ -51,3 +51,4 @@
 ..\obj\eeprom_par.o: ..\..\User\BSP\./StepMotor/StepMotor.h
 ..\obj\eeprom_par.o: ..\..\User\BSP\./Test/Test.h
 ..\obj\eeprom_par.o: ..\..\User\BSP\BspConfig.h
+..\obj\eeprom_par.o: ..\..\User\UserCode\Process\process.h
