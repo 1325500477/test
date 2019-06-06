@@ -50,13 +50,14 @@ void init_parameter(void)
         u16_crc = 0;
 		for(i = 0; i < MAX_PARAMETER_NUM; i++)
 		{
-			parameter[i] = eeprom_parameter[i];
+			//parameter[i] = eeprom_parameter[i];
             u16_crc +=  eeprom_parameter[i];
 		}
         if(u16_crc != eeprom_parameter[PAR_CRC_DATA])           //校验值不正确
         {
             bFlagDataErr = 1;
         }
+		memcpy(parameter,eeprom_parameter,MAX_PARAMETER_NUM*2); 
 	}
     else
     {
@@ -68,9 +69,10 @@ void init_parameter(void)
 		//Get_Default_Value();
         DefaultParameter();
         u16_crc = 0;
+		memcpy(eeprom_parameter,parameter,MAX_PARAMETER_NUM*2);
 		for(i = 0; i < MAX_PARAMETER_NUM; i++)
 		{
-			eeprom_parameter[i] = parameter[i];
+			//eeprom_parameter[i] = parameter[i];
             u16_crc += parameter[i];
 		}
         eeprom_parameter[PAR_CRC_DATA] = u16_crc;               //校验值

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\Obj\EMP6910.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\Obj\EMP6910.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue Jun 04 19:56:38 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Jun 06 16:10:17 2019
 <BR><P>
 <H3>Maximum Stack Usage =        180 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -299,6 +299,7 @@ Global Symbols
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_udp
 <LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_tcp
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_get_mcu_data
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_parameter
 </UL>
 
 <P><STRONG><a name="[6b]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
@@ -381,7 +382,13 @@ Global Symbols
 <P><STRONG><a name="[94]"></a>CheckOpTimeDelay</STRONG> (Thumb, 40 bytes, Stack size 12 bytes, opctrl.o(i.CheckOpTimeDelay))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = CheckOpTimeDelay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
+<BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmRise
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmDown
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampOpen
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampClose
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresDown
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampOpen
@@ -389,12 +396,6 @@ Global Symbols
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmRise
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmDown
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampOpen
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampClose
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
 </UL>
 
 <P><STRONG><a name="[f2]"></a>CheckPackageValid</STRONG> (Thumb, 334 bytes, Stack size 24 bytes, communicate.o(i.CheckPackageValid))
@@ -491,24 +492,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
 <P><STRONG><a name="[8b]"></a>DealResult</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, opctrl.o(i.DealResult))
-<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClamp
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupOpen
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupClose
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresDown
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_OpeningPressure
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_OpenGasSwitch
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampOpen
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampClose
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_GotoLoadingPlatform
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClosingPressure
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CloseGasSwitch
+<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CloseGasSwitch
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampOpen
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampClose
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampCardCarMove
@@ -527,6 +511,23 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetModule
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClamp
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupOpen
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupClose
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresDown
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_OpeningPressure
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_OpenGasSwitch
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampOpen
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampClose
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_GotoLoadingPlatform
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClosingPressure
 </UL>
 
 <P><STRONG><a name="[7]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.DebugMon_Handler))
@@ -741,7 +742,7 @@ Global Symbols
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeMachine
 </UL>
 
-<P><STRONG><a name="[7c]"></a>InitializeMachine</STRONG> (Thumb, 692 bytes, Stack size 8 bytes, process.o(i.InitializeMachine))
+<P><STRONG><a name="[7c]"></a>InitializeMachine</STRONG> (Thumb, 728 bytes, Stack size 8 bytes, process.o(i.InitializeMachine))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = InitializeMachine
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitOpStruct
@@ -750,12 +751,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[87]"></a>IsChildOpOK</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, opctrl.o(i.IsChildOpOK))
-<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClamp
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_GotoLoadingPlatform
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampOpen
+<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampOpen
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampClose
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampCardCarMove
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageDown
@@ -765,12 +761,15 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetModule
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClamp
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_GotoLoadingPlatform
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
 </UL>
 
 <P><STRONG><a name="[89]"></a>IsSmRunFinish</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stepmotor.o(i.IsSmRunFinish))
-<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampCardCarMove
+<BR><BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampCardCarMove
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageReset
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageDown
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_SuckReset
@@ -778,6 +777,8 @@ Global Symbols
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_SuckCardCarMove
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
 </UL>
 
 <P><STRONG><a name="[7e]"></a>JumpToAddress</STRONG> (Thumb, 78 bytes, Stack size 88 bytes, bsp_command.o(i.JumpToAddress))
@@ -841,7 +842,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessSystemCmd
 </UL>
 
-<P><STRONG><a name="[85]"></a>Op_ClampCardCarMove</STRONG> (Thumb, 438 bytes, Stack size 8 bytes, process.o(i.Op_ClampCardCarMove))
+<P><STRONG><a name="[85]"></a>Op_ClampCardCarMove</STRONG> (Thumb, 440 bytes, Stack size 8 bytes, process.o(i.Op_ClampCardCarMove))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = Op_ClampCardCarMove &rArr; sm_run_abs &rArr; sm_run &rArr; sm_set_enable
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_run_abs
@@ -962,7 +963,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StepCtrlMachine
 </UL>
 
-<P><STRONG><a name="[9a]"></a>Op_MakeCard</STRONG> (Thumb, 500 bytes, Stack size 8 bytes, process.o(i.Op_MakeCard))
+<P><STRONG><a name="[9a]"></a>Op_MakeCard</STRONG> (Thumb, 504 bytes, Stack size 8 bytes, process.o(i.Op_MakeCard))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = Op_MakeCard &rArr; CheckOpTimeDelay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartChildOp
@@ -1028,7 +1029,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StepCtrlMachine
 </UL>
 
-<P><STRONG><a name="[a1]"></a>Op_PretargetingUp</STRONG> (Thumb, 150 bytes, Stack size 8 bytes, process.o(i.Op_PretargetingUp))
+<P><STRONG><a name="[a1]"></a>Op_PretargetingUp</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, process.o(i.Op_PretargetingUp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Op_PretargetingUp &rArr; sm_run &rArr; sm_set_enable
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsSmRunFinish
@@ -1147,7 +1148,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StepCtrlMachine
 </UL>
 
-<P><STRONG><a name="[ac]"></a>Op_SuckCardCarMove</STRONG> (Thumb, 298 bytes, Stack size 8 bytes, process.o(i.Op_SuckCardCarMove))
+<P><STRONG><a name="[ac]"></a>Op_SuckCardCarMove</STRONG> (Thumb, 300 bytes, Stack size 8 bytes, process.o(i.Op_SuckCardCarMove))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = Op_SuckCardCarMove &rArr; sm_run_abs &rArr; sm_run &rArr; sm_set_enable
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_run_abs
@@ -1160,7 +1161,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StepCtrlMachine
 </UL>
 
-<P><STRONG><a name="[ad]"></a>Op_SuckMove</STRONG> (Thumb, 266 bytes, Stack size 8 bytes, process.o(i.Op_SuckMove))
+<P><STRONG><a name="[ad]"></a>Op_SuckMove</STRONG> (Thumb, 268 bytes, Stack size 8 bytes, process.o(i.Op_SuckMove))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = Op_SuckMove &rArr; sm_run_abs &rArr; sm_run &rArr; sm_set_enable
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_run_abs
@@ -1209,7 +1210,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StepCtrlMachine
 </UL>
 
-<P><STRONG><a name="[b1]"></a>Op_WasteStorageDown</STRONG> (Thumb, 150 bytes, Stack size 8 bytes, process.o(i.Op_WasteStorageDown))
+<P><STRONG><a name="[b1]"></a>Op_WasteStorageDown</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, process.o(i.Op_WasteStorageDown))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Op_WasteStorageDown &rArr; sm_run &rArr; sm_set_enable
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsSmRunFinish
@@ -1429,7 +1430,13 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[93]"></a>SetOpTimeDelay</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, opctrl.o(i.SetOpTimeDelay))
-<BR><BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
+<BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmRise
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmDown
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampOpen
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampClose
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresDown
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampOpen
@@ -1437,12 +1444,6 @@ Global Symbols
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmRise
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmDown
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampOpen
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampClose
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
 </UL>
 
 <P><STRONG><a name="[c1]"></a>Set_Default_Value</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, eeprom_par.o(i.Set_Default_Value))
@@ -1450,12 +1451,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[86]"></a>StartChildOp</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, opctrl.o(i.StartChildOp))
-<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClamp
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_GotoLoadingPlatform
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampOpen
+<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampOpen
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampClose
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampCardCarMove
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageDown
@@ -1465,6 +1461,11 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetModule
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClamp
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_GotoLoadingPlatform
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
 </UL>
 
 <P><STRONG><a name="[b7]"></a>StartOp</STRONG> (Thumb, 14 bytes, Stack size 4 bytes, opctrl.o(i.StartOp))
@@ -1483,24 +1484,7 @@ Global Symbols
 <P><STRONG><a name="[d4]"></a>StepCtrlMachine</STRONG> (Thumb, 148 bytes, Stack size 8 bytes, process.o(i.StepCtrlMachine))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = StepCtrlMachine &rArr; Op_ClampCardCarMove &rArr; sm_run_abs &rArr; sm_run &rArr; sm_set_enable
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClamp
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupOpen
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupClose
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresDown
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_OpeningPressure
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_OpenGasSwitch
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampOpen
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampClose
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_GotoLoadingPlatform
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClosingPressure
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CloseGasSwitch
+<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CloseGasSwitch
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampOpen
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampClose
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampCardCarMove
@@ -1519,6 +1503,23 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetModule
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClamp
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupOpen
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupClose
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresDown
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_OpeningPressure
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_OpenGasSwitch
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_MakeCard
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampOpen
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampClose
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_GotoLoadingPlatform
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CuttingPlatformWork
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClosingPressure
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1891,6 +1892,14 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = dm_ctrl_one
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessSystemCmd
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CloseGasSwitch
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetAllSignal
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageVacuumCupOpen
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageVacuumCupClose
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmRise
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmDown
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampOpen
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampClose
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupOpen
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingVacuumCupClose
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
@@ -1902,14 +1911,6 @@ Global Symbols
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClosingPressure
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CloseGasSwitch
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetAllSignal
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageVacuumCupOpen
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageVacuumCupClose
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmRise
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmDown
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampOpen
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampClose
 </UL>
 
 <P><STRONG><a name="[f6]"></a>enc28j60Init</STRONG> (Thumb, 330 bytes, Stack size 8 bytes, enc28j60.o(i.enc28j60Init))
@@ -2167,7 +2168,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_tcp
 </UL>
 
-<P><STRONG><a name="[116]"></a>init_parameter</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, eeprom_par.o(i.init_parameter))
+<P><STRONG><a name="[116]"></a>init_parameter</STRONG> (Thumb, 244 bytes, Stack size 24 bytes, eeprom_par.o(i.init_parameter))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = init_parameter &rArr; EE_WriteVariable &rArr; EE_PageTransfer &rArr; EE_VerifyPageFullWriteVariable &rArr; FLASH_ProgramHalfWord &rArr; FLASH_WaitForLastOperation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_Unlock
@@ -2177,6 +2178,7 @@ Global Symbols
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EE_Init
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessUpdateParameter
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DefaultParameter
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2235,14 +2237,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;input_get_all
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresDown
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampOpen
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampClose
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageReset
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageReset
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmRise
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WarmDown
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_SuckReset
@@ -2250,6 +2245,13 @@ Global Symbols
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_RightClampClose
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresRise
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PresDown
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampOpen
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_LeftClampClose
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolRise
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_CoolDown
 </UL>
 
 <P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, main.o(i.main))
@@ -2466,13 +2468,13 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_run_abs
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_step_motor
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageReset
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageDown
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_SuckReset
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingUp
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
 </UL>
 
 <P><STRONG><a name="[88]"></a>sm_run_abs</STRONG> (Thumb, 86 bytes, Stack size 32 bytes, stepmotor.o(i.sm_run_abs))
@@ -2521,7 +2523,6 @@ Global Symbols
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sm_set_pul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_step_motor
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ClampCardCarMove
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ResetAllSignal
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_WasteStorageReset
@@ -2531,6 +2532,7 @@ Global Symbols
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ScramProcess
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetSuckCardCar
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_ResetClampCardCar
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Op_PretargetingReset
 </UL>
 
 <P><STRONG><a name="[bb]"></a>test_step_motor</STRONG> (Thumb, 180 bytes, Stack size 16 bytes, bsp_command.o(i.test_step_motor))

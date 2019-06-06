@@ -18,7 +18,7 @@ enum ENUM_PARAMETER
     PAR_WASTE,                              //3 到废料工位
     PAR_PRETARGETING,                       //4 到预定位
     PAR_CUT_CARD_POSITION,                  //5 裁剪卡位置
-    PAR_BACK_STEP,							//6 预留
+    PAR_BLANK_CARD_BOX_UP,					//6 白卡箱上升步数
     PAR_SM_CHANNAL_SPEED,                   //7 小车速度
     PAR_PRETARGET_UP_POSITION,              //8 预定位电机上升步数
     PAR_WASTESTORAGE_DN_POSTION,            //9 废料场电机下降步数
@@ -67,7 +67,7 @@ enum ENUM_PARAMETER
     MAX_PARAMETER_NUM,
 };
 
-extern int parameter[];
+extern short parameter[];
 extern unsigned int txlen;
 extern unsigned char comm_send_buf[];
 extern unsigned char comm_recv_buf[];

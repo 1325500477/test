@@ -14,12 +14,12 @@
 
 typedef enum
 {
-	ERROR_CHANNAL_LEAVE_ORG_FAIL  = 10001,  		//10001抓卡小车离开原点失败
-	ERROR_CHANNAL_RETURN_ORG_FAIL,  				//10002抓卡小车返回原点失败
-	ERROR_WARMING_DOWN_FAIL,      					//10003加热下降失败
-	ERROR_WARMING_RISE_FAIL,     		    		//10004加热升起失败
-	ERROR_COOLING_DOWN_FAIL,      					//10005冷却下降失败
-	ERROR_COOLING_RISE_FAIL,      					//10006冷却升起失败
+	ERROR_CHANNAL_LEAVE_ORG_FAIL  = 10001,  		//10001 抓卡小车离开原点失败
+	ERROR_CHANNAL_RETURN_ORG_FAIL,  				//10002 抓卡小车返回原点失败
+	ERROR_WARMING_DOWN_FAIL,      					//10003 加热下降失败
+	ERROR_WARMING_RISE_FAIL,     		    		//10004 加热升起失败
+	ERROR_COOLING_DOWN_FAIL,      					//10005 冷却下降失败
+	ERROR_COOLING_RISE_FAIL,      					//10006 冷却升起失败
 	ERROR_PRESS_DOWN_FAIL,      					//10007 冲压下降失败
 	ERROR_PRESS_RISE_FAIL,      					//10008 冲压升起失败
 	ERROR_RIGHT_CLAMP_CLOSE_FAIL,    				//10009 右边夹子关闭失败
@@ -38,8 +38,11 @@ typedef enum
 	ERROR_SUCK_RETURN_ORIGIN_FAIL,         			//10021 吸盘返回原点失败
 	ERROR_SUCK_LEAVE_ORIGIN_FAIL,         			//10022 吸盘离开原点失败
 	//吸盘
-	ERROR_SUCK_POSITION_PARA_MAX,					//10023 吸卡盘上层传输的数据超出接收最大值
-
+	ERROR_SUCK_POSITION_PARA_MAX,					//10023 吸盘上层传输的数据超出接收最大值
+	//白卡箱
+	ERROR_BLANK_CARD_BOX_RESET_FAIL,				//10024 白卡箱复位失败
+	ERROR_BLANK_CARD_BOX_LEAVE_ORIGIN_FAIL,			//10025 白卡箱离开原点失败
+	ERROR_BLANK_CARD_BOX_EMPTY,						//10026 白卡箱空
 
 }ModulesErrorCode;
 

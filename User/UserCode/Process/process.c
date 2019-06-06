@@ -48,12 +48,19 @@ stOpCtrl OpResetSuckCardCar;							//吸卡小车复位
 stOpCtrl OpSuckReset;									//吸盘复位
 //吸盘
 stOpCtrl OpSuckMove;									//吸盘下降
+//白卡箱
+stOpCtrl OpBlankCardBoxReset;							//白卡箱复位
+stOpCtrl OpBlankCardBoxUp;								//白卡箱升起
+
+
 
 
 unsigned char nStatusClipOpen 	  = STATUS_UNKNOW;		//机械手开合状态
 unsigned char nStatusPretarget 	  = STATUS_UNKNOW;		//预定位位置状态
 unsigned char nStatusWastestorage = STATUS_UNKNOW;  	//废料位置状态
 unsigned char nStatusSuck		  = STATUS_UNKNOW;  	//吸盘的位置状态
+unsigned char nStatusBlankCardBox = STATUS_UNKNOW;      //空白卡箱位置状态
+
 unsigned char bFlagReset = FALSE;        				//复位标志位
 /******** 其它定义*********************************/
 
@@ -120,7 +127,7 @@ void ProcessUpdateParameter(void)
 	
 	// iAbsPosTrolleyCarMov[ENUM_INSIDE_WARE] 	       = parameter[PAR_WARM_STEP];		   //1 到热压工位
 	// iAbsPosTrolleyCarMov[ENUM_INSIDE_COOL]         = parameter[PAR_COOL_STEP];		   //2 到冷压工位
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_WASTE]    = parameter[PAR_TEAR_FILM];		   //3 到撕膜工位
+	// iAbsPosTrolleyCarMov[ENUM_INSIDE_WASTE]    = parameter[PAR_WASTE];		   		   //3 到撕膜工位
 	// iAbsPosTrolleyCarMov[ENUM_INSIDE_PRETARGETING] = parameter[PAR_PRETARGETING];	   //4 到预定位
 	// iAbsPosTrolleyCarMov[ENUM_INSIDE_CUT_CARD] 	   = parameter[PAR_CUT_CARD_POSITION]; //5 到剪卡位
 }
@@ -185,8 +192,11 @@ void InitializeMachine(void)
 	gMachineOperation[gnOperationNo++] = &OpResetSuckCardCar;			//34 吸卡小车复位
 	gMachineOperation[gnOperationNo++] = &OpSuckReset;					//35 吸盘复位
 	gMachineOperation[gnOperationNo++] = &OpSuckMove;					//36 吸盘下降
+	gMachineOperation[gnOperationNo++] = &OpBlankCardBoxReset;			//37 白卡箱复位
+	gMachineOperation[gnOperationNo++] = &OpBlankCardBoxUp;				//38 白卡箱上升	
 
-	
+
+
 	for (i = 1; i < gnOperationNo; i++)
 	{
 		InitOpStruct(gMachineOperation[i], i, 0xFFFE);
@@ -260,7 +270,6 @@ void Op_ResetClampCardCar(void)
 	{
 		return;
 	}
-
 	switch (CurrentOp->nStep)
 	{
 		case START:
@@ -2759,6 +2768,147 @@ void Op_SuckMove(void)
 	}
 	DealResult(CurrentOp);			
 }
+/****************************************************
+Function Name: Op_SuckMove
+*****************************************************
+Descriptions: 白卡箱复位
+*****************************************************
+Calls:         
+*****************************************************
+Input  parameter: 
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_BlankCardBoxReset(void)
+{
+	stOpCtrl *CurrentOp = &OpBlankCardBoxReset;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;	
+	}	
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			if(	nStatusBlankCardBox == STATUS_ORG) //标志位在原点
+			{
+				CurrentOp->nResult = 0xffff;
+			}
+			else if (input_get_one(SN_BLANK_CARD_BOX_ORG) == SENSOR_TYPE_BEAM_ON)  //传感器检测到在原点
+			{
+				nStatusBlankCardBox = STATUS_UNKNOW;
+				CurrentOp->nStep = STEP20;
+			} 
+			else
+			{
+				nStatusBlankCardBox = STATUS_UNKNOW;
+				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_DOWN,10,2000);	 //回原点
+				CurrentOp->nStep = STEP1;
+			}
+		break;
+		case STEP1:
+			if (input_get_one(SN_BLANK_CARD_BOX_ORG) == SENSOR_TYPE_BEAM_ON)
+			{
+				sm_stop(SM_BLANK_CARD_BOX); //停止电机
+				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_DOWN,10,5);	 //多走一点
+				CurrentOp->nStep = STEP2;
+			} 
+			else if(IsSmRunFinish(SM_BLANK_CARD_BOX) == true)
+			{
+				CurrentOp->nResult = ERROR_BLANK_CARD_BOX_RESET_FAIL;  //10024 白卡箱复位失败
+			}
+		break;
+		case STEP2:
+			if(IsSmRunFinish(SM_WASTESTORAGE) == true)
+			{
+				nStatusBlankCardBox = STATUS_ORG;  //在原点
+				CurrentOp->nResult = 0xffff;
+			}
+		break;
+		case STEP20:
+			sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_UP,10,100);	 //离开原点
+			CurrentOp->nStep = STEP21;
+		break;
+		case STEP21:
+			if(IsSmRunFinish(SM_BLANK_CARD_BOX) == true)
+			{
+				if (input_get_one(SN_BLANK_CARD_BOX_ORG) == SENSOR_TYPE_BEAM_OFF)	//离开原点
+				{
+					CurrentOp->nStep = START;
+				}
+				else
+				{
+					CurrentOp->nResult = ERROR_BLANK_CARD_BOX_LEAVE_ORIGIN_FAIL; //10025 白卡箱离开原点失败
+				}
+			}
+		break;
+		default:
+		break;
+	}	
+	DealResult(CurrentOp);
+}
+/****************************************************
+Function Name: Op_BlankCardBoxUp
+*****************************************************
+Descriptions:  白卡箱升起
+*****************************************************
+Calls:         
+*****************************************************
+Input  parameter: 
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_BlankCardBoxUp(void)
+{
+	stOpCtrl *CurrentOp = &OpBlankCardBoxUp;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;	
+	}	
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			if(input_get_one(SN_BLANK_CARD_BOX_CHECK) == SENSOR_TYPE_REFLECT_ON) //有卡
+			{
+				CurrentOp->nResult = 0xffff;
+			}
+			else //其它状态
+			{
+				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_UP,50,parameter[PAR_BLANK_CARD_BOX_UP]); //升起一定步
+				CurrentOp->nStep = STEP1;
+			}
+				
+		break;
+		case STEP1:
+			if(input_get_one(SN_BLANK_CARD_BOX_UP) == SENSOR_TYPE_BEAM_ON) //到达顶部
+			{
+				sm_stop(SM_BLANK_CARD_BOX); //停止电机
+				CurrentOp->nResult = ERROR_BLANK_CARD_BOX_EMPTY;  //10026 白卡箱空
+			}
+			else if(input_get_one(SN_BLANK_CARD_BOX_CHECK) == SENSOR_TYPE_REFLECT_ON) //有卡
+			{
+
+				sm_stop(SM_BLANK_CARD_BOX); //停止电机
+				CurrentOp->nStep = STEP_SUCCESS;	
+			}
+
+		break;
+		case STEP_SUCCESS:
+			CurrentOp->nResult = 0xffff;
+		break;
+		default:
+		break;
+	}	
+	DealResult(CurrentOp);
+}
+
 
 /****************************************************
 Function Name: StepCtrlMachine
@@ -2777,42 +2927,42 @@ Author:Jim Wong
 *****************************************************/
 void StepCtrlMachine(void)
 {
-	Op_ResetModule();						   	//1 复位
-	Op_ResetClampCardCar(); 					//2 复位夹卡小车通道
-	Op_ClampCardCarMove(); 						//3 夹卡小车移动
-	Op_ResetClamp();							//4 爪子复位
-	Op_ClampOpen();								//5 爪子张开
-	Op_ClampClose();							//6 爪子闭合
-	Op_RightClampClose();			     	 	//7 右侧夹子关闭 			
-  	Op_RightClampOpen();				   		//8 右侧夹子打开          
-	Op_LeftClampClose();					   	//9 左侧夹子关闭
-	Op_LeftClampOpen();					   		//10 左侧夹子打开
-	Op_OpeningPressure();				   	 	//11 压力开
-	Op_ClosingPressure();				   	 	//12 压力关
-	Op_WarmRise();						   	   	//13 加热下降
-	Op_WarmDown();						   	   	//14 加热升起
-	Op_CoolRise();						   	    //15 冷却下降
-	Op_CoolDown();						   	    //16 冷却升起
-	Op_PresRise();						   	    //17 冲压下降
-	Op_PresDown();						   	    //18 冲压升起
-	Op_PretargetingReset();						//19 预定位复位
-	Op_PretargetingUp();						//20 预定位上升
-	Op_WasteStorageReset();		 				//21 废料场复位
-	Op_WasteStorageDown();	   					//22 废料场下降
-	Op_PretargetingVacuumCupOpen();				//23 预定位真空吸打开
-	Op_PretargetingVacuumCupClose();			//24 预定位真空吸关闭
-	Op_WasteStorageVacuumCupOpen();				//25 废料场真空吸打开
-	Op_WasteStorageVacuumCupClose();			//26 废料场真空吸关闭
-	Op_OpenGasSwitch();			  				//27 打开总气开关
-	Op_CloseGasSwitch();				  		//28 关闭总气开关
-	Op_MakeCard();								//29 制卡
-	Op_GotoLoadingPlatform();					//30 去装料平台	
-	Op_CuttingPlatformWork();					//31 裁剪平台工作
-	Op_ScramProcess();							//32 紧急停止制剪卡流程
-	Op_SuckCardCarMove();						//33 吸卡小车移动位置
-	Op_ResetSuckCardCar();						//34 吸卡小车复位
-	Op_SuckReset();								//35 吸盘复位
-	Op_SuckMove();								//36 吸盘下降
+	Op_ResetModule();						//1 复位
+	Op_ResetClampCardCar(); 				//2 复位夹卡小车通道
+	Op_ClampCardCarMove(); 					//3 夹卡小车移动
+	Op_ResetClamp();						//4 爪子复位
+	Op_ClampOpen();							//5 爪子张开
+	Op_ClampClose();						//6 爪子闭合
+	Op_RightClampClose();			     	//7 右侧夹子关闭 			
+  	Op_RightClampOpen();				   	//8 右侧夹子打开          
+	Op_LeftClampClose();					//9 左侧夹子关闭
+	Op_LeftClampOpen();					   	//10 左侧夹子打开
+	Op_OpeningPressure();				   	//11 压力开
+	Op_ClosingPressure();				   	//12 压力关
+	Op_WarmRise();						    //13 加热下降
+	Op_WarmDown();						   	//14 加热升起
+	Op_CoolRise();						   	//15 冷却下降
+	Op_CoolDown();						   	//16 冷却升起
+	Op_PresRise();						   	//17 冲压下降
+	Op_PresDown();						   	//18 冲压升起
+	Op_PretargetingReset();					//19 预定位复位
+	Op_PretargetingUp();					//20 预定位上升
+	Op_WasteStorageReset();		 			//21 废料场复位
+	Op_WasteStorageDown();	   				//22 废料场下降
+	Op_PretargetingVacuumCupOpen();			//23 预定位真空吸打
+	Op_PretargetingVacuumCupClose();		//24 预定位真空吸关闭
+	Op_WasteStorageVacuumCupOpen();			//25 废料场真空吸打开
+	Op_WasteStorageVacuumCupClose();		//26 废料场真空吸关闭
+	Op_OpenGasSwitch();			  			//27 打开总气开关
+	Op_CloseGasSwitch();				  	//28 关闭总气开关
+	Op_MakeCard();							//29 制卡
+	Op_GotoLoadingPlatform();				//30 去装料平台	
+	Op_CuttingPlatformWork();				//31 裁剪平台工作
+	Op_ScramProcess();						//32 紧急停止制剪卡流程
+	Op_SuckCardCarMove();					//33 吸卡小车移动位置
+	Op_ResetSuckCardCar();					//34 吸卡小车复位
+	Op_SuckReset();							//35 吸盘复位
+	Op_SuckMove();							//36 吸盘下降
 
 
 }

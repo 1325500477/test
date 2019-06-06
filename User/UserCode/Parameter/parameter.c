@@ -1,22 +1,22 @@
 #include "parameter.h"
 #include "process.h"
 
-signed int parameter[MAX_PARAMETER_NUM];
+signed short parameter[MAX_PARAMETER_NUM];
 
 //第一次使用控制板，自动初始化相关参数，由底层人员根据调试经验设置
 void DefaultParameter(void)
 {
-    parameter[PAR_WARM_STEP] 		           = 140;    //1到热压工位补偿
-    parameter[PAR_COOL_STEP] 		           = 1830;   //2到冷压工位补偿  
-    parameter[PAR_WASTE]                       = 3500;   //3到废料位
-    parameter[PAR_PRETARGETING]                = 4800;   //4到预定位
-    parameter[PAR_CUT_CARD_POSITION]           = 6200;   //5到剪卡位
-    parameter[PAR_BACK_STEP] 		           = 25;     //6预留
-    parameter[PAR_SM_CHANNAL_SPEED]            = 150;    //7小车速度
-    parameter[PAR_PRETARGET_UP_POSITION]       = 600;    //8预定位上升步数
-    parameter[PAR_WASTESTORAGE_DN_POSTION] 	   = 1100;   //9废料场下降步数
-    parameter[PAR_WARM_TIME]                   = 100; 	 //10加热时间s
-    parameter[PAR_COOL_TIME]                   = 40;     //11冷却时间s
+    parameter[PAR_WARM_STEP] 		           = 140;    //1 到热压工位补偿
+    parameter[PAR_COOL_STEP] 		           = 1830;   //2 到冷压工位补偿  
+    parameter[PAR_WASTE]                       = 3500;   //3 到废料位
+    parameter[PAR_PRETARGETING]                = 4800;   //4 到预定位
+    parameter[PAR_CUT_CARD_POSITION]           = 6200;   //5 到剪卡位
+    parameter[PAR_BLANK_CARD_BOX_UP] 		   = 25;     //6 白卡箱上升步数
+    parameter[PAR_SM_CHANNAL_SPEED]            = 150;    //7 小车速度
+    parameter[PAR_PRETARGET_UP_POSITION]       = 600;    //8 预定位上升步数
+    parameter[PAR_WASTESTORAGE_DN_POSTION] 	   = 1100;   //9 废料场下降步数
+    parameter[PAR_WARM_TIME]                   = 100; 	 //10 加热时间s
+    parameter[PAR_COOL_TIME]                   = 40;     //11 冷却时间s
     parameter[PAR_SUCK_CARD_CAR_ACCESSORY]     = 12;     //12 吸卡小车辅料位
     parameter[PAR_SUCK_CARD_CAR_PRETARGETING]  = 13;     //13 吸卡小车预定位
     parameter[PAR_SUCK_CARD_CAR_TEMPORARY]     = 14;     //14 吸卡小车暂放卡位

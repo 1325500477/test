@@ -56,6 +56,7 @@ typedef signed long			int32;
 #define SENSOR_TYPE_BEAM_OFF	0		//无物体（板子灯亮）
 //反射式感应器，检测到物体，则sensor被反射而受光，此时CPU检测到为低电平（有物体为低，无物体为高)
 #define SENSOR_TYPE_REFLECT_ON  0		//检测到有物体（板子灯亮）
+
 #define SENSOR_TYPE_REFLECT_OFF 1		//无物体
 // 微动式开关检测传感器
 #define SENSOR_TYPE_MICRO_ON    0		// 检测到双卡
