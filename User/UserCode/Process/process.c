@@ -183,6 +183,7 @@ void InitializeMachine(void)
 	gMachineOperation[gnOperationNo++] = &OpWasteStorageVacuumCupClose;	//26 废料真空关闭
 	gMachineOperation[gnOperationNo++] = &OpOpenGasSwitch;				//27 总气打开	
 	gMachineOperation[gnOperationNo++] = &OpCloseGasSwitch;				//28 总气关闭
+	//组合动作
 	gMachineOperation[gnOperationNo++] = &OpMakeCard;					//29 制卡	
 	gMachineOperation[gnOperationNo++] = &OpGotoLoadingPlatform;		//30 到预定位+预定位上升+打开夹子
 	gMachineOperation[gnOperationNo++] = &OpCuttingPlatformWork;		//31 剪卡+废料				 
@@ -192,6 +193,7 @@ void InitializeMachine(void)
 	gMachineOperation[gnOperationNo++] = &OpResetSuckCardCar;			//34 吸卡小车复位
 	gMachineOperation[gnOperationNo++] = &OpSuckReset;					//35 吸盘复位
 	gMachineOperation[gnOperationNo++] = &OpSuckMove;					//36 吸盘下降
+	//白卡箱
 	gMachineOperation[gnOperationNo++] = &OpBlankCardBoxReset;			//37 白卡箱复位
 	gMachineOperation[gnOperationNo++] = &OpBlankCardBoxUp;				//38 白卡箱上升	
 
@@ -2881,7 +2883,7 @@ void Op_BlankCardBoxUp(void)
 			}
 			else //其它状态
 			{
-				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_UP,50,parameter[PAR_BLANK_CARD_BOX_UP]); //升起一定步
+				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_UP,50,parameter[PAR_BLANK_CARD_BOX_UP]); //升起一定步数
 				CurrentOp->nStep = STEP1;
 			}
 				

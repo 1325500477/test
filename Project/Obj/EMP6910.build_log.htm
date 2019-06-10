@@ -47,42 +47,6 @@ compiling command.c...
 compiling parameter.c...
 compiling process.c...
 linking...
-Program Size: Code=33400 RO-data=548 RW-data=9820 ZI-data=16748  
+Program Size: Code=33444 RO-data=548 RW-data=9820 ZI-data=16756  
 FromELF: creating hex file...
 "..\Obj\EMP6910.axf" - 0 Error(s), 0 Warning(s).
-scope
-        ENUM_UNKNOW,              //位置未知               //0
-..\..\User\UserCode\Parameter\parameter.c: 0 warnings, 1 error
-compiling process.c...
-..\..\User\UserCode\Process\process.h(56): error:  #101: "ENUM_UNKNOW" has already been declared in the current scope
-        ENUM_UNKNOW,              //位置未知               //0
-..\..\User\UserCode\Process\process.c(2401): error:  #20: identifier "ENUM_SUCK_UNKNOW" is undefined
-                        if (gSuckCardCarPosition == ENUM_SUCK_UNKNOW) //位置未知
-..\..\User\UserCode\Process\process.c(2480): error:  #20: identifier "ENUM_SUCK_UNKNOW" is undefined
-                        gSuckCardCarPosition = ENUM_SUCK_UNKNOW;
-..\..\User\UserCode\Process\process.c: 0 warnings, 3 errors
-"..\Obj\EMP6910.axf" - 8 Error(s), 0 Warning(s).
-Target not created
-de\./Process/process.h(56): error:  #101: "ENUM_UNKNOW" has already been declared in the current scope
-        ENUM_UNKNOW,              //位置未知               //0
-..\..\User\main.c: 0 warnings, 2 errors
-compiling command.c...
-..\..\User\UserCode\Command\../Process/process.h(54): error:  #101: "ENUM_CLAMPCARDCAR_LOCATION" has already been declared in the current scope
-  enum ENUM_CLAMPCARDCAR_LOCATION //吸卡小车位置
-..\..\User\UserCode\Command\../Process/process.h(56): error:  #101: "ENUM_UNKNOW" has already been declared in the current scope
-        ENUM_UNKNOW,              //位置未知               //0
-..\..\User\UserCode\Command\command.c: 0 warnings, 2 errors
-compiling parameter.c...
-..\..\User\UserCode\Process\process.h(54): error:  #101: "ENUM_CLAMPCARDCAR_LOCATION" has already been declared in the current scope
-  enum ENUM_CLAMPCARDCAR_LOCATION //吸卡小车位置
-..\..\User\UserCode\Process\process.h(56): error:  #101: "ENUM_UNKNOW" has already been declared in the current scope
-        ENUM_UNKNOW,              //位置未知               //0
-..\..\User\UserCode\Parameter\parameter.c: 0 warnings, 2 errors
-compiling process.c...
-..\..\User\UserCode\Process\process.h(54): error:  #101: "ENUM_CLAMPCARDCAR_LOCATION" has already been declared in the current scope
-  enum ENUM_CLAMPCARDCAR_LOCATION //吸卡小车位置
-..\..\User\UserCode\Process\process.h(56): error:  #101: "ENUM_UNKNOW" has already been declared in the current scope
-        ENUM_UNKNOW,              //位置未知               //0
-..\..\User\UserCode\Process\process.c: 0 warnings, 2 errors
-"..\Obj\EMP6910.axf" - 12 Error(s), 0 Warning(s).
-Target not created
