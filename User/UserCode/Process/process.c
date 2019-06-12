@@ -53,8 +53,6 @@ stOpCtrl OpBlankCardBoxReset;							//白卡箱复位
 stOpCtrl OpBlankCardBoxUp;								//白卡箱升起
 
 
-
-
 unsigned char nStatusClipOpen 	  = STATUS_UNKNOW;		//机械手开合状态
 unsigned char nStatusPretarget 	  = STATUS_UNKNOW;		//预定位位置状态
 unsigned char nStatusWastestorage = STATUS_UNKNOW;  	//废料位置状态
@@ -83,13 +81,13 @@ unsigned char gSuckPosition   		 = ENUM_UNKNOW; //吸盘位置
 unsigned char gSuckMoveCount  		 = 0;           //吸盘移动次数,达到一定次数复位消除累积误差
 
 unsigned int iAbsPosTrolleyCarMov[7] = { 			//小车移动各个工位的绝对步数初始值
-   0, 	//空余
-   140, //热压位 
-   1830,//冷压位
-   3500,//撕膜位
-   4800,//预定位
-   6200,//剪卡位
-   0 	//空余
+	0, 	//空余
+	140, //热压位 
+	1830,//冷压位
+	3500,//撕膜位
+	4800,//预定位
+	6200,//剪卡位
+	0 	//空余
  };		
 unsigned int iAbsSuckCardCarMov[8] = { //吸卡小车移动各个工位的绝对步数初始值
 	0,	//空余
@@ -126,9 +124,9 @@ void ProcessUpdateParameter(void)
 	}
 	
 	// iAbsPosTrolleyCarMov[ENUM_INSIDE_WARE] 	       = parameter[PAR_WARM_STEP];		   //1 到热压工位
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_COOL]         = parameter[PAR_COOL_STEP];		   //2 到冷压工位
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_WASTE]    = parameter[PAR_WASTE];		   		   //3 到撕膜工位
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_PRETARGETING] = parameter[PAR_PRETARGETING];	   //4 到预定位
+	// iAbsPosTrolleyCarMov[ENUM_INSIDE_COOL]          = parameter[PAR_COOL_STEP];		   //2 到冷压工位
+	// iAbsPosTrolleyCarMov[ENUM_INSIDE_WASTE]    	   = parameter[PAR_WASTE];	   		   //3 到撕膜工位
+	// iAbsPosTrolleyCarMov[ENUM_INSIDE_PRETARGETING]  = parameter[PAR_PRETARGETING];	   //4 到预定位
 	// iAbsPosTrolleyCarMov[ENUM_INSIDE_CUT_CARD] 	   = parameter[PAR_CUT_CARD_POSITION]; //5 到剪卡位
 }
 
@@ -154,7 +152,6 @@ Author:Jim Wong
 void InitializeMachine(void)
 {
 	unsigned char i;
-
 	gMachineOperation[gnOperationNo++] = &OpResetModule;				//1 复位
 	gMachineOperation[gnOperationNo++] = &OpResetClampCardCar; 			//2 复位夹卡小车
 	gMachineOperation[gnOperationNo++] = &OpClampCardCarMove;   		//3 夹卡小车移动位置
@@ -1715,7 +1712,7 @@ void Op_WasteStorageVacuumCupClose(void)
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			dm_ctrl_one(DM_WASTESTORAGE_VACUUMCUP, RELAY_OFF); //肥料场真空吸关闭
+			dm_ctrl_one(DM_WASTESTORAGE_VACUUMCUP, RELAY_OFF); //废料场真空吸关闭
 			CurrentOp->nStep = STEP2;
 		break;
 
@@ -2161,7 +2158,7 @@ Author:Jim Wong
 *****************************************************/
 void Op_CuttingPlatformWork(void)
 {
-	stOpCtrl *CurrentOp = &OpCuttingPlatformWork;
+	stOpCtrl *CurrentOp = &OpCuttingPlatformWork; 
 
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
@@ -2910,7 +2907,41 @@ void Op_BlankCardBoxUp(void)
 	}	
 	DealResult(CurrentOp);
 }
+/****************************************************
+Function Name: AutoSuckCard
+*****************************************************
+Descriptions:  自动吸卡流程
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_AutoSuckCard(void)
+{
+	stOpCtrl *CurrentOp = &OpAutoSuckCard;
+	if((CurrentOp->bEn == false) || (CurrentOp->bFlagPause) == true)
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:
+		
+		break;
+		case STEP1:
 
+		break;
+
+		default:
+		break;
+	}
+}
 
 /****************************************************
 Function Name: StepCtrlMachine
