@@ -4,7 +4,6 @@
 #include "process.h"
 
 uint16_t  eeprom_parameter[MAX_PARAMETER_NUM+2];
-
 FLASH_Status FlashStatus;
 uint16_t VarValue = 0;
 uint16_t VirtAddVarTab[MAX_PARAMATER_NUM_FINAL];	// = {0x5555, 0x6666, 0x7777};

@@ -43,6 +43,19 @@ typedef enum
 	ERROR_BLANK_CARD_BOX_RESET_FAIL,				//10024 白卡箱复位失败
 	ERROR_BLANK_CARD_BOX_LEAVE_ORIGIN_FAIL,			//10025 白卡箱离开原点失败
 	ERROR_BLANK_CARD_BOX_EMPTY,						//10026 白卡箱空
+	ERROR_SUCK_VACUUM_CARD_FAIL,					//10027 吸盘真空吸卡失败
+
+	ERROR_PRETARGETING_NONE_CARD, 					//10028 预定位无卡
+	ERROR_PRETARGETING_FROM_COOL_NONE_CARD, 		//10029 预定位到冷压位无卡
+	ERROR_WARM_FROM_COOL_NONE_CARD, 				//10030 热压位到冷压位无卡
+	ERROR_COOL_FROM_PRETARGETING_NONE_CARD, 		//10031 冷压位到预定位无卡
+	ERROR_PRETARGETING_FROM_WASTE_NONE_CARD, 		//10032 预定位到废料位无卡
+	ERROR_WASTE_FROM_PRESS_NONE_CARD, 				//10033 废料位到剪卡位无卡
+	ERROR_SUCK_FREE_CARD_FAIL, 						//10034 吸盘释放卡失败
+	ERROR_PRETARGETING_SUCK_VACUUM_CARD_FAIL,		//10035 预定位吸卡失败
+	ERROR_ACCESSORY_SUCK_FREE_CARD_FAIL,			//10036 辅料位吸盘释放卡失败
+	ERROR_RETURN_CARD_SUCK_CARD_FAIL,				//10037 吸盘还卡吸卡失败
+	ERROR_RETURN_CARD_SUCK_FREE_CARD_FAIL,			//10038 吸盘还卡释放卡失败
 
 }ModulesErrorCode;
 
@@ -58,14 +71,14 @@ enum ENUM_CLAMPCARDCAR_LOCATION //抓卡小车位置
 };
 enum ENUM_SUCK_CARD_CAR_LOCATION //吸卡小车位置
 {
-	ENUM_SUCK_UNKNOW,	      //位置未知		   //0
-    ENUM_ACCESSORY,	  		  //小车在辅料工位	    //1
-	ENUM_PRETARGETING, 		  //小车在预定位工位    //2	
-    ENUM_TEMPORARY,	          //小车在临时放卡工位  //3
-	ENUM_NEW_ACCESSORY,	      //小车在新辅料工位	//4
-	ENUM_PRINT,     		  //小车在打印工位 	    //5
-	ENUM_BLANK,     		  //小车在空白卡工位    //7
-    ENUM_SUCK_ORIGIN,		  //小车在原点		   //8	
+	ENUM_SUCK_UNKNOW,	      //位置未知		   		   //0
+    ENUM_ACCESSORY,	  		  //小车或者吸盘在辅料工位	    //1
+	ENUM_PRETARGETING, 		  //小车或者吸盘在预定位工位    //2	
+    ENUM_TEMPORARY,	          //小车或者吸盘在临时放卡工位  //3
+	ENUM_NEW_ACCESSORY,	      //小车或者吸盘在新辅料工位	//4
+	ENUM_PRINT,     		  //小车或者吸盘在打印工位 	    //5
+	ENUM_BLANK,     		  //小车或者吸盘在空白卡工位    //7
+    ENUM_SUCK_ORIGIN,		  //小车或者吸盘在原点		   //8	
 };
 
 

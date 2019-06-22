@@ -508,7 +508,7 @@ void sm_run(unsigned char sm_id, unsigned char dir, unsigned int max_speed, unsi
 		//debug_info(cBuf);
 		return;
 	}
-	
+ 
 //	memset(cBuf, 0, sizeof(cBuf));
 //	sprintf(cBuf, "SM[%d] Start!\n", sm_id);
 // 	debug_info(cBuf);
@@ -655,11 +655,6 @@ void sm_stop(uchar sm_id)
 		nID = sm_id - 1;
 	else
 		return;
-
-   	//StepMotorCtr[nID].bPulseToggleFlag = false;
-	StepMotorCtr[nID].bMotorRunStatus = STOP;
-	StepMotorCtr[nID].bRunNoStop = FALSE;
-
 //	memset(cBuf, 0, sizeof(cBuf));
 //	sprintf(cBuf, "SM[%d] Stop!\n", sm_id);
 // 	debug_info(cBuf);
@@ -733,6 +728,9 @@ void sm_stop(uchar sm_id)
 		default:
 			break;
 	}
+	//StepMotorCtr[nID].bPulseToggleFlag = false;
+	StepMotorCtr[nID].bMotorRunStatus = STOP;
+	StepMotorCtr[nID].bRunNoStop = FALSE;
 	sm_set_pul(sm_id, 1);
 }
 

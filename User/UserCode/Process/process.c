@@ -34,23 +34,28 @@ stOpCtrl OpWasteStorageReset;  							//·ÏÁÏ³¡µç»ú¸´Î»
 stOpCtrl OpWasteStorageDown;	 						//·ÏÁÏ³¡µç»úÏÂ½µ
 stOpCtrl OpPretargetingVacuumCupOpen;					//Ô¤¶¨Î»Õæ¿ÕÎü´ò¿ª
 stOpCtrl OpPretargetingVacuumCupClose;					//Ô¤¶¨Î»Õæ¿ÕÎü¹Ø±Õ
-stOpCtrl OpWasteStorageVacuumCupOpen;					//·ÏÁÏ³¡Õæ¿ÕÎü´ò¿ª
-stOpCtrl OpWasteStorageVacuumCupClose;					//·ÏÁÏ³¡Õæ¿ÕÎü¹Ø±Õ
+stOpCtrl OpSuckVacuumCupOpen;							//ÎüÅÌÕæ¿ÕÎü´ò¿ª
+stOpCtrl OpSuckVacuumCupClose;							//ÎüÅÌÕæ¿ÕÎü¹Ø±Õ
 stOpCtrl OpOpenGasSwitch;			 				    //ÆøÂ·¿ªÆô
 stOpCtrl OpCloseGasSwitch;								//ÆøÂ·¹Ø±Õ
-stOpCtrl OpMakeCard;									//ÖÆ¿¨
+stOpCtrl OpWarmCoolMakeCard;							//ÈÈÀäÑ¹ÖÆ¿¨
 stOpCtrl OpGotoLoadingPlatform;			   				//È¥Ô¤¶¨Î»Æ½Ì¨
 stOpCtrl OpCuttingPlatformWork;		 					//²Ã¼ôÆ½Ì¨¹¤×÷
 stOpCtrl OpScramProcess;								//½ô¼±Í£Ö¹¼ô¿¨ºÍÖÆ¿¨Á÷³Ì
 //Îü¿¨Ğ¡³µ
 stOpCtrl OpSuckCardCarMove;								//Îü¿¨Ğ¡³µÒÆ¶¯Î»ÖÃ
 stOpCtrl OpResetSuckCardCar;							//Îü¿¨Ğ¡³µ¸´Î»
-stOpCtrl OpSuckReset;									//ÎüÅÌ¸´Î»
+stOpCtrl OpResetSuck;									//ÎüÅÌ¸´Î»
 //ÎüÅÌ
 stOpCtrl OpSuckMove;									//ÎüÅÌÏÂ½µ
 //°×¿¨Ïä
-stOpCtrl OpBlankCardBoxReset;							//°×¿¨Ïä¸´Î»
+stOpCtrl OpResetBlankCardBox;							//°×¿¨Ïä¸´Î»
 stOpCtrl OpBlankCardBoxUp;								//°×¿¨ÏäÉıÆğ
+stOpCtrl OpSendCardToPretargeting;						//ËÍ¿¨µ½Ô¤¶¨Î»
+stOpCtrl OpAutoMakeCard;								//×Ô¶¯ÖÆ¿¨
+stOpCtrl OpReturnCard;									//»¹¿¨
+stOpCtrl OpPretargetingToAccessory;						//Ô¤¶¨Î»µ½¸¨ÁÏÎ»
+
 
 
 unsigned char nStatusClipOpen 	  = STATUS_UNKNOW;		//»úĞµÊÖ¿ªºÏ×´Ì¬
@@ -78,56 +83,85 @@ unsigned char gSuckCardCarMoveCount  = 0;           //Îü¿¨Ğ¡³µÒÆ¶¯´ÎÊı,´ïµ½Ò»¶¨´
 //ÎüÅÌ
 unsigned char gSuckMove_Flag  		 = false;       //ÎüÅÌÔËĞĞ±êÖ¾
 unsigned char gSuckPosition   		 = ENUM_UNKNOW; //ÎüÅÌÎ»ÖÃ
-unsigned char gSuckMoveCount  		 = 0;           //ÎüÅÌÒÆ¶¯´ÎÊı,´ïµ½Ò»¶¨´ÎÊı¸´Î»Ïû³ıÀÛ»ıÎó²î
 
 unsigned int iAbsPosTrolleyCarMov[7] = { 			//Ğ¡³µÒÆ¶¯¸÷¸ö¹¤Î»µÄ¾ø¶Ô²½Êı³õÊ¼Öµ
 	0, 	//¿ÕÓà
 	140, //ÈÈÑ¹Î» 
-	1830,//ÀäÑ¹Î»
-	3500,//ËºÄ¤Î»
-	4800,//Ô¤¶¨Î»
-	6200,//¼ô¿¨Î»
+	1960,//ÀäÑ¹Î»
+	3720,//Ô¤¶¨Î»
+	5050,//·ÏÁÏÎ»
+	6590,//¼ô¿¨Î»
 	0 	//¿ÕÓà
  };		
 unsigned int iAbsSuckCardCarMov[8] = { //Îü¿¨Ğ¡³µÒÆ¶¯¸÷¸ö¹¤Î»µÄ¾ø¶Ô²½Êı³õÊ¼Öµ
 	0,	//¿ÕÓà
-	100,//¸¨ÁÏÎ»
-	110,//Ô¤¶¨Î»
-	120,//ÁÙÊ±·Å¿¨Î»
-	130,//ĞÂ¸¨ÁÏÎ»
-	140,//´òÓ¡Î»
-	150,//°×¿¨Î»
+	23300,//¸¨ÁÏÎ»
+	21000,//Ô¤¶¨Î»
+	18800,//ÁÙÊ±·Å¿¨Î»
+	9500,//ĞÂ¸¨ÁÏÎ»
+	5000,//´òÓ¡Î»
+	300,//°×¿¨Î»
 	0 	//¿ÕÓà
 }; 
 unsigned int iAbsSuckMove[8] = { //ÎüÅÌµç»úÔÚ¸÷¸ö¹¤Î»ÏÂ½µµÄ¾ø¶Ô²½Êı³õÊ¼Öµ
 	0,	//¿ÕÓà
-	100,//¸¨ÁÏÎ»
-	110,//Ô¤¶¨Î»
-	120,//ÁÙÊ±·Å¿¨Î»
-	130,//ĞÂ¸¨ÁÏÎ»
-	140,//´òÓ¡Î»
-	150,//°×¿¨Î»
+	600,//¸¨ÁÏÎ»
+	1450,//Ô¤¶¨Î»
+	600,//ÁÙÊ±·Å¿¨Î»
+	200,//ĞÂ¸¨ÁÏÎ»
+	1500,//´òÓ¡Î»
+	270,//°×¿¨Î»
 	0 	//¿ÕÓà
 }; 
 void ProcessUpdateParameter(void)
 {	
 	unsigned char i;
-	for (i = 0; i < 6; i++)
+ 	for (i = 0; i < 5; i++)
 	{
+//1 µ½ÈÈÑ¹¹¤Î»
+//2 µ½ÀäÑ¹¹¤Î»
+//3 µ½·ÏÁÏ¹¤Î»
+//4 µ½Ô¤¶¨Î»
+//5 ²Ã¼ô¿¨Î»ÖÃ		
 		iAbsPosTrolleyCarMov[i+1] = parameter[i];
-//1 µ½ÈÈÑ¹¹¤Î»//2 µ½ÀäÑ¹¹¤Î»//3 µ½·ÏÁÏ¹¤Î»//4 µ½Ô¤¶¨Î»//5 ²Ã¼ô¿¨Î»ÖÃ
+//12 Îü¿¨Ğ¡³µ¸¨ÁÏÎ»
+//13 Îü¿¨Ğ¡³µÔ¤¶¨Î»
+//14 Îü¿¨Ğ¡³µÔİ·Å¿¨Î»
+//15 Îü¿¨Ğ¡³µĞÂ¸¨ÁÏÎ»
+//16 Îü¿¨Ğ¡³µ´òÓ¡Î»
+//17 Îü¿¨Ğ¡³µ¿Õ°×¿¨Î»	
 		iAbsSuckCardCarMov[i+1]   = parameter[i+11];
-//12 Îü¿¨Ğ¡³µ¸¨ÁÏÎ»//13 Îü¿¨Ğ¡³µÔ¤¶¨Î»//14 Îü¿¨Ğ¡³µÔİ·Å¿¨Î»//15 Îü¿¨Ğ¡³µĞÂ¸¨ÁÏÎ»
-//16 Îü¿¨Ğ¡³µ´òÓ¡Î»//17 Îü¿¨Ğ¡³µ¿Õ°×¿¨Î»		
+//18 ÎüÅÌ¸¨ÁÏÎ» 
+//19 ÎüÅÌÔ¤¶¨Î»
+//20 ÎüÅÌÔİ·Å¿¨Î»
+//21 ÎüÅÌĞÂ¸¨ÁÏÎ»
+//22 ÎüÅÌ´òÓ¡Î»
+//23 ÎüÅÌ¿Õ°×¿¨Î»	
 		iAbsSuckMove[i+1]  		  = parameter[i+17];
-//18 ÎüÅÌ¸¨ÁÏÎ» //19 ÎüÅÌÔ¤¶¨Î»//20 ÎüÅÌÔİ·Å¿¨Î»//21 ÎüÅÌĞÂ¸¨ÁÏÎ»//22 ÎüÅÌ´òÓ¡Î»//23 ÎüÅÌ¿Õ°×¿¨Î»
-	}
+	} 
 	
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_WARE] 	       = parameter[PAR_WARM_STEP];		   //1 µ½ÈÈÑ¹¹¤Î»
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_COOL]          = parameter[PAR_COOL_STEP];		   //2 µ½ÀäÑ¹¹¤Î»
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_WASTE]    	   = parameter[PAR_WASTE];	   		   //3 µ½ËºÄ¤¹¤Î»
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_PRETARGETING]  = parameter[PAR_PRETARGETING];	   //4 µ½Ô¤¶¨Î»
-	// iAbsPosTrolleyCarMov[ENUM_INSIDE_CUT_CARD] 	   = parameter[PAR_CUT_CARD_POSITION]; //5 µ½¼ô¿¨Î»
+/* 	iAbsPosTrolleyCarMov[ENUM_INSIDE_WARE] 	       = parameter[PAR_WARM_STEP];		   //1 µ½ÈÈÑ¹¹¤Î»
+	iAbsPosTrolleyCarMov[ENUM_INSIDE_COOL]         = parameter[PAR_COOL_STEP];		   //2 µ½ÀäÑ¹¹¤Î»
+	iAbsPosTrolleyCarMov[ENUM_INSIDE_WASTE]    	   = parameter[PAR_WASTE];	   		   //3 µ½ËºÄ¤¹¤Î»
+	iAbsPosTrolleyCarMov[ENUM_INSIDE_PRETARGETING] = parameter[PAR_PRETARGETING];	   //4 µ½Ô¤¶¨Î»
+	iAbsPosTrolleyCarMov[ENUM_INSIDE_CUT_CARD] 	   = parameter[PAR_CUT_CARD_POSITION]; //5 µ½¼ô¿¨Î»
+
+	iAbsSuckCardCarMov[ENUM_ACCESSORY]     = parameter[PAR_SUCK_CARD_CAR_ACCESSORY]; //Ğ¡³µÔÚ¸¨ÁÏ¹¤Î»	    //1
+	iAbsSuckCardCarMov[ENUM_PRETARGETING]  = parameter[PAR_SUCK_CARD_CAR_PRETARGETING]; //Ğ¡³µÔÚÔ¤¶¨Î»¹¤Î»    //2	
+	iAbsSuckCardCarMov[ENUM_TEMPORARY]     = parameter[PAR_SUCK_CARD_CAR_TEMPORARY]; //Ğ¡³µÔÚÁÙÊ±·Å¿¨¹¤Î»  //3
+	iAbsSuckCardCarMov[ENUM_NEW_ACCESSORY] = parameter[PAR_SUCK_CARD_CAR_NEW_ACCESSORY]; //Ğ¡³µÔÚĞÂ¸¨ÁÏ¹¤Î»	//4
+	iAbsSuckCardCarMov[ENUM_PRINT]		   = parameter[PAR_SUCK_CARD_CAR_PRINT]; //Ğ¡³µÔÚ´òÓ¡¹¤Î» 	    //5
+	iAbsSuckCardCarMov[ENUM_BLANK] 		   = parameter[PAR_SUCK_CARD_CAR_BLANK]; //Ğ¡³µÔÚ¿Õ°×¿¨¹¤Î»    //7
+
+ 	iAbsSuckMove[ENUM_ACCESSORY]     = parameter[PAR_SUCK_ACCESSORY]; //18 ÎüÅÌ¸¨ÁÏÎ»
+	iAbsSuckMove[ENUM_PRETARGETING]  = parameter[PAR_SUCK_PRETARGETING]; //19 ÎüÅÌÔ¤¶¨Î»	
+	iAbsSuckMove[ENUM_TEMPORARY]     = parameter[PAR_SUCK_TEMPORARY]; //20 ÎüÅÌÔİ·Å¿¨Î»
+	iAbsSuckMove[ENUM_NEW_ACCESSORY] = parameter[PAR_SUCK_NEW_ACCESSORY]; //21 ÎüÅÌĞÂ¸¨ÁÏÎ»
+	iAbsSuckMove[ENUM_PRINT]		 = parameter[PAR_SUCK_PRINT];//22 ÎüÅÌ´òÓ¡Î»
+	iAbsSuckMove[ENUM_BLANK] 		 = parameter[PAR_SUCK_BLANK]; //23 ÎüÅÌ¿Õ°×¿¨Î»
+ */
+		            
+
 }
 
 /****************************************************
@@ -176,25 +210,27 @@ void InitializeMachine(void)
 	gMachineOperation[gnOperationNo++] = &OpWasteStorageDown;	  		//22 ·ÏÁÏ³¡µç»úÏÂ½µ
 	gMachineOperation[gnOperationNo++] = &OpPretargetingVacuumCupOpen;	//23 Ô¤¶¨Î»Õæ¿Õ´ò¿ª
  	gMachineOperation[gnOperationNo++] = &OpPretargetingVacuumCupClose;	//24 Ô¤¶¨Î»Õæ¿Õ¹Ø±Õ
-	gMachineOperation[gnOperationNo++] = &OpWasteStorageVacuumCupOpen;	//25 ·ÏÁÏÕæ¿Õ´ò¿ª
-	gMachineOperation[gnOperationNo++] = &OpWasteStorageVacuumCupClose;	//26 ·ÏÁÏÕæ¿Õ¹Ø±Õ
+	gMachineOperation[gnOperationNo++] = &OpSuckVacuumCupOpen;			//25 ÎüÅÌÕæ¿Õ´ò¿ª
+	gMachineOperation[gnOperationNo++] = &OpSuckVacuumCupClose;			//26 ÎüÅÌÁÏÕæ¿Õ¹Ø±Õ
 	gMachineOperation[gnOperationNo++] = &OpOpenGasSwitch;				//27 ×ÜÆø´ò¿ª	
 	gMachineOperation[gnOperationNo++] = &OpCloseGasSwitch;				//28 ×ÜÆø¹Ø±Õ
 	//×éºÏ¶¯×÷
-	gMachineOperation[gnOperationNo++] = &OpMakeCard;					//29 ÖÆ¿¨	
+	gMachineOperation[gnOperationNo++] = &OpWarmCoolMakeCard;			//29 ÈÈÀäÑ¹ÖÆ¿¨	
 	gMachineOperation[gnOperationNo++] = &OpGotoLoadingPlatform;		//30 µ½Ô¤¶¨Î»+Ô¤¶¨Î»ÉÏÉı+´ò¿ª¼Ğ×Ó
 	gMachineOperation[gnOperationNo++] = &OpCuttingPlatformWork;		//31 ¼ô¿¨+·ÏÁÏ				 
 	gMachineOperation[gnOperationNo++] = &OpScramProcess;				//32 ½ô¼±Í£Ö¹¼ô¿¨ºÍÖÆ¿¨Á÷³Ì
 	//Îü¿¨Ğ¡³µ
 	gMachineOperation[gnOperationNo++] = &OpSuckCardCarMove;            //33 Îü¿¨Ğ¡³µÒÆ¶¯Î»ÖÃ
 	gMachineOperation[gnOperationNo++] = &OpResetSuckCardCar;			//34 Îü¿¨Ğ¡³µ¸´Î»
-	gMachineOperation[gnOperationNo++] = &OpSuckReset;					//35 ÎüÅÌ¸´Î»
+	gMachineOperation[gnOperationNo++] = &OpResetSuck;					//35 ÎüÅÌ¸´Î»
 	gMachineOperation[gnOperationNo++] = &OpSuckMove;					//36 ÎüÅÌÏÂ½µ
 	//°×¿¨Ïä
-	gMachineOperation[gnOperationNo++] = &OpBlankCardBoxReset;			//37 °×¿¨Ïä¸´Î»
+	gMachineOperation[gnOperationNo++] = &OpResetBlankCardBox;			//37 °×¿¨Ïä¸´Î»
 	gMachineOperation[gnOperationNo++] = &OpBlankCardBoxUp;				//38 °×¿¨ÏäÉÏÉı	
-
-
+	gMachineOperation[gnOperationNo++] = &OpSendCardToPretargeting;		//39 ËÍ¿¨µ½Ô¤¶¨Î»
+	gMachineOperation[gnOperationNo++] = &OpAutoMakeCard;				//40 ×Ô¶¯ÖÆ¿¨
+	gMachineOperation[gnOperationNo++] = &OpReturnCard;					//41 »¹¿¨
+	gMachineOperation[gnOperationNo++] = &OpPretargetingToAccessory;	//42 //Ô¤¶¨Î»µ½¸¨ÁÏÎ»
 
 	for (i = 1; i < gnOperationNo; i++)
 	{
@@ -793,7 +829,6 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-
 void Op_RightClampClose(void)
 {
 	stOpCtrl *CurrentOp = &OpRightClampClose;
@@ -1644,9 +1679,9 @@ void Op_PretargetingVacuumCupClose(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_WasteStorageVacuumCupOpen
+Function Name: Op_SuckVacuumCupOpen
 *****************************************************
-Descriptions: ·ÏÁÏ³¡Õæ¿ÕÎü´ò¿ª
+Descriptions: ÎüÅÌÕæ¿ÕÎü´ò¿ª
 *****************************************************
 Calls:         
 *****************************************************
@@ -1658,9 +1693,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/	
-void Op_WasteStorageVacuumCupOpen(void)
+void Op_SuckVacuumCupOpen(void)
 {
- 	stOpCtrl *CurrentOp = &OpWasteStorageVacuumCupOpen;
+ 	stOpCtrl *CurrentOp = &OpSuckVacuumCupOpen;
 
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
@@ -1673,7 +1708,7 @@ void Op_WasteStorageVacuumCupOpen(void)
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			dm_ctrl_one(DM_WASTESTORAGE_VACUUMCUP, RELAY_ON);  //·ÏÁÏ³¡Õæ¿ÕÎü´ò¿ª
+			dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_ON);  //ÎüÅÌÕæ¿ÕÎü´ò¿ª
 			CurrentOp->nStep = STEP2;
 		break;
 		case STEP2:
@@ -1685,9 +1720,9 @@ void Op_WasteStorageVacuumCupOpen(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_WasteStorageVacuumCupClose
+Function Name: Op_SuckVacuumCupClose
 *****************************************************
-Descriptions: ·ÏÁÏ³¡Õæ¿ÕÎü¹Ø±Õ
+Descriptions: ÎüÅÌÕæ¿ÕÎü¹Ø±Õ
 *****************************************************
 Calls:         
 *****************************************************
@@ -1699,9 +1734,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_WasteStorageVacuumCupClose(void)
+void Op_SuckVacuumCupClose(void)
 {
-	stOpCtrl *CurrentOp = &OpWasteStorageVacuumCupClose;
+	stOpCtrl *CurrentOp = &OpSuckVacuumCupClose;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;
@@ -1712,7 +1747,7 @@ void Op_WasteStorageVacuumCupClose(void)
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			dm_ctrl_one(DM_WASTESTORAGE_VACUUMCUP, RELAY_OFF); //·ÏÁÏ³¡Õæ¿ÕÎü¹Ø±Õ
+			dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_OFF); //ÎüÅÌÕæ¿ÕÎü¹Ø±Õ
 			CurrentOp->nStep = STEP2;
 		break;
 
@@ -1886,26 +1921,48 @@ void Op_ResetModule(void)
 		case STEP9:
 			if(IsChildOpOK(CurrentOp, &OpResetClamp) == true)
 			{
-				StartChildOp(CurrentOp, &OpResetClampCardCar);  		//Ğ¡³µ¸´Î»
+				StartChildOp(CurrentOp, &OpResetClampCardCar);  //Ğ¡³µ¸´Î»
 				CurrentOp->nStep = STEP10;
 			}
 		break;	
 		case STEP10:
 			if(IsChildOpOK(CurrentOp, &OpResetClampCardCar) == true)
 			{
-				bFlagReset = TRUE;  //¸´Î»±êÖ¾
-				CurrentOp->nResult = 0xFFFF;
+				StartChildOp(CurrentOp, &OpResetSuckCardCar);  	//Îü¿¨Ğ¡³µ¸´Î»
+				CurrentOp->nStep = STEP11;	
 			}
 		break;
+		case STEP11:
+			if (IsChildOpOK(CurrentOp,&OpResetSuckCardCar) == true)
+			{
+				StartChildOp(CurrentOp,&OpResetSuck);  //ÎüÅÌ¸´Î»
+				CurrentOp->nStep = STEP12;
+			}	
+		break;
+		case STEP12:
+			if(IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				StartChildOp(CurrentOp,&OpResetBlankCardBox);  //°×¿¨Ïä¸´Î»
+				CurrentOp->nStep = STEP13;		
+			}
+		break;
+		case STEP13:
+			if(IsChildOpOK(CurrentOp,&OpResetBlankCardBox) == true)
+			{
+				bFlagReset = TRUE;  //¸´Î»±êÖ¾
+				CurrentOp->nResult = 0xffff;				
+			}
+		break;
+
 		default:
 		break;
 	}
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_MakeCard
+Function Name:Op_WarmCoolMakeCardd
 *****************************************************
-Descriptions: ÖÆ¿¨Ä£¿é
+Descriptions: ÈÈÀäÑ¹ÖÆ¿¨Ä£¿é
 *****************************************************
 Calls:         
 *****************************************************
@@ -1917,9 +1974,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_MakeCard(void)
+void Op_WarmCoolMakeCard(void)
 {
-	stOpCtrl *CurrentOp = &OpMakeCard;
+	stOpCtrl *CurrentOp = &OpWarmCoolMakeCard;
 
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
@@ -1928,7 +1985,14 @@ void Op_MakeCard(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
-			CurrentOp->nStep = STEP1;	
+			if (input_get_one(SN_PRETARGETING_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON) //Ô¤¶¨Î»¼ì²âµ½ÓĞ¿¨
+			{
+				CurrentOp->nStep = STEP1;					
+			}
+			else
+			{
+				CurrentOp->nResult = ERROR_PRETARGETING_NONE_CARD;	//10028 Ô¤¶¨Î»ÎŞ¿¨
+			}
 		break;
 	   	case STEP1:
 			StartChildOp(CurrentOp, &OpClampClose);		//Æô¶¯×¦×Ó±ÕºÏ
@@ -1965,86 +2029,127 @@ void Op_MakeCard(void)
 			gTrolleyCarMove_Flag = true;
 			gTrolleyCarPosition = ENUM_INSIDE_WARE;
 			StartChildOp(CurrentOp, &OpClampCardCarMove); //È¥ÈÈÑ¹¹¤Î»
+			SetOpTimeDelay(CurrentOp,500); //¼ì²â¿¨´«¸ĞÆ÷ÑÓÊ±
 			CurrentOp->nStep = STEP14;
 		break;
 		case STEP14:
+			if(CheckOpTimeDelay(CurrentOp) == true)
+			{
+				if (input_get_one(SN_COOL_CHECK_CARD) == SENSOR_TYPE_BEAM_ON) //¼ì²âµ½ÓĞ¿¨
+				{
+					CurrentOp->nStep = STEP15;	
+				}
+				else
+				{
+					sm_stop(SM_CHANNEL);
+					CurrentOp->nResult = ERROR_PRETARGETING_FROM_COOL_NONE_CARD; //10029 Ô¤¶¨Î»µ½ÀäÑ¹Î»ÎŞ¿¨
+				}
+			}
+		break;
+		case STEP15:	
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove) == true)
 			{
 				StartChildOp(CurrentOp, &OpWarmDown);	//È¥ÈÈÑ¹ÏÂ½µ
-				CurrentOp->nStep = STEP15;		
-			}
-	   	break;
-		case STEP15:
-			if(IsChildOpOK(CurrentOp, &OpWarmDown) == true)
-			{
-				SetOpTimeDelay(CurrentOp, parameter[PAR_WARM_TIME]*1000);	//ÈÈÑ¹±£Ñ¹ÑÓÊ±
 				CurrentOp->nStep = STEP16;		
 			}
 	   	break;
 		case STEP16:
+			if(IsChildOpOK(CurrentOp, &OpWarmDown) == true)
+			{
+				SetOpTimeDelay(CurrentOp, parameter[PAR_WARM_TIME]*1000);	//ÈÈÑ¹±£Ñ¹ÑÓÊ±
+				CurrentOp->nStep = STEP17;		
+			}
+	   	break;
+		case STEP17:
 			if (CheckOpTimeDelay(CurrentOp) == true)
 			{
 				StartChildOp(CurrentOp, &OpWarmRise);	//È¥ÈÈÑ¹ÉÏÉı
-				CurrentOp->nStep = STEP17;		
+				CurrentOp->nStep = STEP18;		
 			}
 		break;
-		case STEP17:
+		case STEP18:
 			if(IsChildOpOK(CurrentOp, &OpWarmRise) == true)
 			{
 				gTrolleyCarMove_Flag = true;
 				gTrolleyCarPosition = ENUM_INSIDE_COOL;
 				StartChildOp(CurrentOp, &OpClampCardCarMove);	//È¥ÀäÑ¹¹¤Î»
-				CurrentOp->nStep = STEP18;		
+				SetOpTimeDelay(CurrentOp,500);
+				CurrentOp->nStep = STEP19;		
 			}
 		break;
-		case STEP18:
+		case STEP19:
+			if(CheckOpTimeDelay(CurrentOp) == true)
+			{
+				if (input_get_one(SN_WARM_CHECK_CARD) == SENSOR_TYPE_BEAM_ON) //¼ì²âµ½ÓĞ¿¨
+				{
+					CurrentOp->nStep = STEP20;	
+				}
+				else
+				{
+					sm_stop(SM_CHANNEL);
+					CurrentOp->nResult = ERROR_WARM_FROM_COOL_NONE_CARD; //10030 ÈÈÑ¹Î»µ½ÀäÑ¹Î»ÎŞ¿¨
+				}
+			}			
+		break;
+		case STEP20:
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove) == true)
 			{
 				StartChildOp(CurrentOp, &OpCoolDown);//È¥ÀäÑ¹ÏÂ½µ
-				CurrentOp->nStep = STEP19;		
+				CurrentOp->nStep = STEP21;		
 			}
 	   	break;
-		case STEP19:
+		case STEP21:
 			if(IsChildOpOK(CurrentOp, &OpCoolDown) == true)
 			{
 				SetOpTimeDelay(CurrentOp, parameter[PAR_COOL_TIME]*1000);//ÀäÑ¹±£Ñ¹ÑÓÊ±
-				CurrentOp->nStep = STEP20;		
+				CurrentOp->nStep = STEP22;		
 			}
 	   	break;
-		case STEP20:
+		case STEP22:
 			if (CheckOpTimeDelay(CurrentOp))
 			{
 				StartChildOp(CurrentOp, &OpCoolRise); //È¥ÀäÑ¹ÉÏÉı
-				CurrentOp->nStep = STEP21;		
+				CurrentOp->nStep = STEP23;		
 			}
 		break;
-		case STEP21:
+		case STEP23:
 			if(IsChildOpOK(CurrentOp, &OpCoolRise) == true)
 			{
 				gTrolleyCarMove_Flag = true;
 				gTrolleyCarPosition = ENUM_INSIDE_PRETARGETING;
 				StartChildOp(CurrentOp, &OpClampCardCarMove); //»ØÔ¤¶¨Î»¹¤Î»
-				CurrentOp->nStep = STEP22;		
-			}
-		break;
-		case STEP22:
-			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove) == true)
-			{
-				StartChildOp(CurrentOp, &OpPretargetingUp);	//Æô¶¯Ô¤¶¨Î»ÉÏÉı
-				CurrentOp->nStep = STEP23;		 
-			}
-	   	break;
-		case STEP23:
-			if(IsChildOpOK(CurrentOp, &OpPretargetingUp) == true)
-			{
-				StartChildOp(CurrentOp, &OpClampOpen);	//Æô¶¯×¦×ÓÕÅ¿ª
-				CurrentOp->nStep = STEP24;	
+				CurrentOp->nStep = STEP24;		
 			}
 		break;
 		case STEP24:
+			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove) == true)
+			{
+				StartChildOp(CurrentOp, &OpPretargetingUp);	//Æô¶¯Ô¤¶¨Î»ÉÏÉı
+				CurrentOp->nStep = STEP25;		 
+			}
+	   	break;
+		case STEP25:
+			if(IsChildOpOK(CurrentOp, &OpPretargetingUp) == true)
+			{
+				StartChildOp(CurrentOp, &OpClampOpen);	//Æô¶¯×¦×ÓÕÅ¿ª
+				CurrentOp->nStep = STEP26;	
+			}
+		break;
+		case STEP26:
+			if (input_get_one(SN_PRETARGETING_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON) //Ô¤¶¨Î»¼ì²âµ½ÓĞ¿¨
+			{
+				CurrentOp->nStep = STEP27;					
+			}
+			else
+			{
+				CurrentOp->nResult = ERROR_COOL_FROM_PRETARGETING_NONE_CARD;//10031 ÀäÑ¹Î»µ½Ô¤¶¨Î»ÎŞ¿¨
+			}	
+		break;
+
+		case STEP27:
 			if(IsChildOpOK(CurrentOp, &OpClampOpen) == true)
 			{
-				CurrentOp->nResult = 0xFFFF;
+				CurrentOp->nResult = 0xffff;
 			}
 		break;	
 		default:
@@ -2167,7 +2272,14 @@ void Op_CuttingPlatformWork(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
-			CurrentOp->nStep = STEP1;
+			if (input_get_one(SN_PRETARGETING_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON) //Ô¤¶¨Î»¼ì²âµ½ÓĞ¿¨
+			{
+				CurrentOp->nStep = STEP1;					
+			}
+			else
+			{
+				CurrentOp->nResult = ERROR_PRETARGETING_FROM_WASTE_NONE_CARD;//10032 Ô¤¶¨Î»µ½·ÏÁÏÎ»ÎŞ¿¨
+			}
 		break;
 		case STEP1:
 			StartChildOp(CurrentOp, &OpClampClose);	//Æô¶¯×¦×Ó±ÕºÏ
@@ -2193,7 +2305,7 @@ void Op_CuttingPlatformWork(void)
 			}
 			else
 			{
-			StartChildOp(CurrentOp, &OpWasteStorageReset);//Æô¶¯·ÏÁÏÆ½Ì¨¸´Î»			
+				StartChildOp(CurrentOp, &OpWasteStorageReset);//Æô¶¯·ÏÁÏÆ½Ì¨¸´Î»			
 				CurrentOp->nStep = STEP5;
 			}
 		break;
@@ -2217,96 +2329,103 @@ void Op_CuttingPlatformWork(void)
 			gTrolleyCarMove_Flag = true;  //×¦¿¨Ğ¡³µÔËĞĞ±êÖ¾
 			gTrolleyCarPosition = ENUM_INSIDE_CUT_CARD; //ÔËĞĞÎ»ÖÃ
 			StartChildOp(CurrentOp, &OpClampCardCarMove);	//µ½²Ã¼ô¹¤Î»
+			SetOpTimeDelay(CurrentOp,1000); //¼ì¿¨ÑÓÊ±
 			CurrentOp->nStep = STEP9;	
 		break;
 		case STEP9:
+			if(CheckOpTimeDelay(CurrentOp) == true)
+			{
+				if (input_get_one(SN_WASTER_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON) //·ÏÁÏÎ»¼ì²âµ½ÓĞ¿¨
+				{
+					CurrentOp->nStep = STEP10;					
+				}
+				else
+				{
+					CurrentOp->nResult = ERROR_WASTE_FROM_PRESS_NONE_CARD;//10033 ·ÏÁÏÎ»µ½¼ô¿¨Î»ÎŞ¿¨
+				}
+			}		
+		break;
+		case STEP10:
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove) == true)
 			{
 				SetOpTimeDelay(CurrentOp, 1000);
-				CurrentOp->nStep = STEP10;		 
+				CurrentOp->nStep = STEP11;		 
 			}
 	   	break;
-		case STEP10:
+		case STEP11:
 			if (CheckOpTimeDelay(CurrentOp))
 			{
 				StartChildOp(CurrentOp, &OpPresDown);	//²Ã¼ôÏÂ½µ
-				CurrentOp->nStep = STEP11;		
-			}
-		break;
-		case STEP11:
-			if(IsChildOpOK(CurrentOp, &OpPresDown) == true)
-			{					
-				SetOpTimeDelay(CurrentOp, 1000);
-				CurrentOp->nStep = STEP12;	
+				CurrentOp->nStep = STEP12;		
 			}
 		break;
 		case STEP12:
-			if (CheckOpTimeDelay(CurrentOp))
-			{
-				StartChildOp(CurrentOp, &OpPresRise);	//²Ã¼ôÉÏÉı
-				CurrentOp->nStep = STEP13;		
+			if(IsChildOpOK(CurrentOp, &OpPresDown) == true)
+			{					
+				SetOpTimeDelay(CurrentOp, 1000);
+				CurrentOp->nStep = STEP13;	
 			}
 		break;
 		case STEP13:
-			if(IsChildOpOK(CurrentOp, &OpPresRise) == true)
+			if (CheckOpTimeDelay(CurrentOp))
 			{
+				StartChildOp(CurrentOp, &OpPresRise);	//²Ã¼ôÉÏÉı
 				CurrentOp->nStep = STEP14;		
 			}
 		break;
 		case STEP14:
+			if(IsChildOpOK(CurrentOp, &OpPresRise) == true)
+			{
+				CurrentOp->nStep = STEP15;		
+			}
+		break;
+		case STEP15:
 			gTrolleyCarMove_Flag = true; 
 			gTrolleyCarPosition = ENUM_INSIDE_WASTE;
 			StartChildOp(CurrentOp, &OpClampCardCarMove);//µ½·ÏÁÏ³¡¹¤Î»
-			CurrentOp->nStep = STEP15;	
+			CurrentOp->nStep = STEP16;	
 		break;
-		case STEP15:
+		case STEP16:
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove) == true)
 			{
 				SetOpTimeDelay(CurrentOp, 1000);			
-				CurrentOp->nStep = STEP16;		 
+				CurrentOp->nStep = STEP17;		 
 			}
 	   	break;
 ///////////////////////////////ÏÈ´ò¿ª¼Ğ×ÓÈ»ºóÍùÏÂÑ¹°Ñ·ÏÁÏÑ¹µôÏÂÈ¥/////////////////////////////
-		case STEP16:
+		case STEP17:
 			if (CheckOpTimeDelay(CurrentOp))
 			{
 				StartChildOp(CurrentOp, &OpClampOpen);//´ò¿ª¼Ğ×Ó
-				CurrentOp->nStep = STEP17;
+				CurrentOp->nStep = STEP18;
 			}
 		break;
-		case STEP17:
+		case STEP18:
 			if (IsChildOpOK(CurrentOp,&OpClampOpen) == true)
 			{
 				StartChildOp(CurrentOp, &OpWasteStorageDown);	//Æô¶¯·ÏÁÏÆ½Ì¨ÏÂ½µ			
-				CurrentOp->nStep = STEP18;			
+				CurrentOp->nStep = STEP19;			
 			}
 			
 		break;
-		case STEP18:
+		case STEP19:
 			if(IsChildOpOK(CurrentOp, &OpWasteStorageDown) == true)
 			{
 				SetOpTimeDelay(CurrentOp, 1000);
-				CurrentOp->nStep = STEP19;
-			}
-		break;
-		case STEP19:
-			if (CheckOpTimeDelay(CurrentOp))
-			{
-				StartChildOp(CurrentOp,&OpWasteStorageReset); //·ÏÁÏÆ½Ì¨ÉıÆğ
-				CurrentOp->nStep = STEP20;		
+				CurrentOp->nStep = STEP20;
 			}
 		break;
 		case STEP20:
-			if(IsChildOpOK(CurrentOp, &OpWasteStorageReset) == true)
+			if (CheckOpTimeDelay(CurrentOp))
 			{
-				StartChildOp(CurrentOp,&OpClampClose); //¹Ø±Õ¼Ğ×Ó
-				CurrentOp->nStep = STEP21;
+				StartChildOp(CurrentOp,&OpWasteStorageReset); //·ÏÁÏÆ½Ì¨ÉıÆğ
+				CurrentOp->nStep = STEP21;		
 			}
 		break;
 		case STEP21:
-			if(IsChildOpOK(CurrentOp, &OpClampClose) == true)
+			if(IsChildOpOK(CurrentOp, &OpWasteStorageReset) == true)
 			{
-				CurrentOp->nStep =STEP22;
+				CurrentOp->nStep = STEP22;
 			}
 		break;
 		case STEP22:
@@ -2318,7 +2437,21 @@ void Op_CuttingPlatformWork(void)
 		case STEP23:
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove) == true)
 			{
-				CurrentOp->nResult = 0xFFFF;	 
+				StartChildOp(CurrentOp, &OpPretargetingUp);//Æô¶¯Ô¤¶¨Î»ÉÏÉı
+				CurrentOp->nStep = STEP24;
+			}
+		break;
+		case STEP24:
+			if(IsChildOpOK(CurrentOp, &OpPretargetingUp) == true)
+			{
+				StartChildOp(CurrentOp, &OpClampOpen); //´ò¿ª¼Ğ×Ó
+				CurrentOp->nStep = STEP25;
+			}
+		break;
+		case STEP25:
+			if(IsChildOpOK(CurrentOp, &OpClampOpen) == true)
+			{
+				CurrentOp->nResult = 0xffff;	 
 			}
 		break;
 		default:
@@ -2352,7 +2485,7 @@ void Op_ScramProcess(void)
 	{
 		case START:
 			OpCuttingPlatformWork.bEn = false; 	 //Ê§ÄÜ¼ô¿¨Á÷³Ì
-			OpMakeCard.bEn = false;			   	 //Ê§ÄÜÈÈÑ¹Á÷³Ì
+			OpWarmCoolMakeCard.bEn = false;			   	 //Ê§ÄÜÈÈÑ¹Á÷³Ì
 			sm_stop(SM_CHANNEL);			     //Í£Ö¹µç»ú
 			StartChildOp(CurrentOp,&OpWarmRise); //ÉıÆğÈÈÑ¹
 			CurrentOp->nStep = STEP1;
@@ -2418,18 +2551,18 @@ void Op_SuckCardCarMove(void)
 			{
 				SuckCardCarPos = cParamBuf[10]; //Êı¾İÎ»
 			}
-			if(SuckCardCarPos>6)
+			if(SuckCardCarPos > 6)
 			{
 				CurrentOp->nResult = ERROR_SUCK_CARD_CAR_POSITION_PARA_MAX;   //10018 Îü¿¨Ğ¡³µÉÏ²ã´«ÊäµÄÊı¾İ³¬³ö½ÓÊÕ×î´óÖµ
 			}		
 			CurrentOp->nStep = STEP20;					
 		break;	
  		case STEP20: //±£»¤,Îü¿¨Ğ¡³µÒÆ¶¯Ç°½«ÎüÅÌ¸´Î»,±ÜÃâ×²µ½
-			StartChildOp(CurrentOp, &OpSuckReset);  //ÎüÅÌ¸´Î» 
+			StartChildOp(CurrentOp, &OpResetSuck);  //ÎüÅÌ¸´Î» 
 			CurrentOp->nStep = STEP21;
 		break;
 		case STEP21:
-			if(IsChildOpOK(CurrentOp, &OpSuckReset) == true)
+			if(IsChildOpOK(CurrentOp, &OpResetSuck) == true)
 			{
 				CurrentOp->nStep = STEP1;
 			}
@@ -2451,11 +2584,11 @@ void Op_SuckCardCarMove(void)
 		case STEP3:
 			if (IsChildOpOK(CurrentOp,&OpResetSuckCardCar) == true) //Íê³É
 			{
-					CurrentOp->nStep = STEP4;	
+				CurrentOp->nStep = STEP4;	
 			}
 		break;
 		case STEP4:
-			if(gSuckCardCarMoveCount<100) //ÔËĞĞµ½Ò»¶¨´ÎÊıºó¸´Î»Çå³ıÀÛ»ıÎó²î
+			if(gSuckCardCarMoveCount < 100) //ÔËĞĞµ½Ò»¶¨´ÎÊıºó¸´Î»Çå³ıÀÛ»ıÎó²î
 			{
 				gSuckCardCarMoveCount++;
 				CurrentOp->nStep = STEP5;
@@ -2467,7 +2600,7 @@ void Op_SuckCardCarMove(void)
 			}
 		break;
 		case STEP5:   //¸ù¾İ´«ÏÂÀ´µÄÎ»ÖÃ×ß¾ø¶Ô²½Êı
-			sm_run_abs(SM_SUCK_CARD_CAR,parameter[PAR_SM_CHANNAL_SPEED],iAbsSuckCardCarMov[SuckCardCarPos]);	
+			sm_run_abs(SM_SUCK_CARD_CAR,parameter[PAR_SUCK_CARD_CAR_SPEED],iAbsSuckCardCarMov[SuckCardCarPos]);	
 			CurrentOp->nStep= STEP6;
 		break;
 		case STEP6:
@@ -2479,7 +2612,7 @@ void Op_SuckCardCarMove(void)
 		break;
 
 		case STEP_SUCCESS:
-			gTrolleyCarPosition = SuckCardCarPos; //Í¬²½ÉÏ²ã´«ÏÂÀ´µÄÎ»ÖÃ
+			gSuckCardCarPosition = SuckCardCarPos; //Í¬²½ÉÏ²ã´«ÏÂÀ´µÄÎ»ÖÃ
 			CurrentOp->nResult = 0xffff;
 		break;
 		default:
@@ -2518,25 +2651,26 @@ void Op_ResetSuckCardCar(void)
 			CurrentOp->nStep = STEP20;
 		break;
 		case STEP20:
-			StartChildOp(CurrentOp, &OpSuckReset); //ÎüÅÌ¸´Î»
+			StartChildOp(CurrentOp, &OpResetSuck); //ÎüÅÌ¸´Î»
 			CurrentOp->nStep = STEP21;
 	   	break;
 	
 		case STEP21:
-			if(IsChildOpOK(CurrentOp, &OpSuckReset) == true)
+			if(IsChildOpOK(CurrentOp, &OpResetSuck) == true)
 			{
 				CurrentOp->nStep = STEP1;
 			}
 		break;
 		case STEP1:
+
 			if (input_get_one(SN_SUCK_CARD_CAR_ORG) == SENSOR_TYPE_BEAM_OFF) 	//²»ÔÚÔ­µã	
 			{
-				sm_run(SM_SUCK_CARD_CAR, DIR_SM_SUCK_CARD_CAR_BACKWARD, 80, 50000); //ÏòºóÔËĞĞÒ»¶Î¾àÀë
+				sm_run(SM_SUCK_CARD_CAR, DIR_SM_SUCK_CARD_CAR_BACKWARD,parameter[PAR_SUCK_CARD_CAR_SPEED], 50000); //ÏòºóÔËĞĞÒ»¶Î¾àÀë
 				CurrentOp->nStep = STEP5;
 			}
 			else if (input_get_one(SN_SUCK_CARD_CAR_ORG) == SENSOR_TYPE_BEAM_ON) //ÔÚÔ­µã
 			{
-				sm_run(SM_SUCK_CARD_CAR, DIR_SM_SUCK_CARD_CAR_FORWARD, 80, 1000); //ÏòÇ°ÔËĞĞÒ»¶Î¾àÀë
+				sm_run(SM_SUCK_CARD_CAR, DIR_SM_SUCK_CARD_CAR_FORWARD,parameter[PAR_SUCK_CARD_CAR_SPEED], 1000); //ÏòÇ°ÔËĞĞÒ»¶Î¾àÀë
 				CurrentOp->nStep = STEP2;
 			}			
 		break;
@@ -2566,13 +2700,13 @@ void Op_ResetSuckCardCar(void)
 				sm_stop(SM_SUCK_CARD_CAR); 			//Í£Ö¹µç»ú
 				CurrentOp->nStep = STEP6;
 			}	
-			else if (IsSmRunFinish(SM_CHANNEL) == true) //µç»ú¶¯×÷Íê³É
+			else if (IsSmRunFinish(SM_SUCK_CARD_CAR) == true) //µç»ú¶¯×÷Íê³É
 			{
 				CurrentOp->nResult = ERROR_SUCK_CARD_CAR_RETURN_ORIGIN_FAIL; //10020 Îü¿¨Ğ¡³µÀë¿ªÔ­µãÊ§°Ü			
 			}		
 		break;
 		case STEP6:
-			sm_run(SM_SUCK_CARD_CAR, DIR_SM_SUCK_CARD_CAR_BACKWARD, 10, 5);  //¼ÌĞøÍù»Ø×ßÒ»¶Î¾àÀë
+			sm_run(SM_SUCK_CARD_CAR, DIR_SM_SUCK_CARD_CAR_BACKWARD, parameter[PAR_SUCK_CARD_CAR_SPEED], 1);  //¼ÌĞøÍù»Ø×ßÒ»¶Î¾àÀë
 			CurrentOp->nStep = STEP7;
 		break;
 		case STEP7:
@@ -2583,7 +2717,7 @@ void Op_ResetSuckCardCar(void)
 		break;
 		case STEP_SUCCESS:
 			sm_set_abs_zero(SM_SUCK_CARD_CAR); //ÇåÁã²½½øµç»úµÄ²½Êı
-			gTrolleyCarPosition = ENUM_SUCK_ORIGIN; //Îü¿¨Ğ¡³µÔÚÔ­µã
+			gSuckCardCarPosition = ENUM_SUCK_ORIGIN; //Îü¿¨Ğ¡³µÔÚÔ­µã
 			CurrentOp->nResult = 0xffff;
 		break;
 		default:
@@ -2592,7 +2726,7 @@ void Op_ResetSuckCardCar(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_SuckReset
+Function Name: Op_ResetSuck
 *****************************************************
 Descriptions:  ÎüÅÌ¸´Î»
 *****************************************************
@@ -2606,9 +2740,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_SuckReset(void)
+void Op_ResetSuck(void)
 {
-	stOpCtrl *CurrentOp = &OpSuckReset;
+	stOpCtrl *CurrentOp = &OpResetSuck;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;	
@@ -2616,7 +2750,8 @@ void Op_SuckReset(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
-			if(	nStatusSuck == ENUM_SUCK_ORIGIN) //±êÖ¾Î»ÔÚÔ­µã
+			if(	(nStatusSuck == ENUM_SUCK_ORIGIN) 
+				&& (input_get_one(SN_SUCK_ORG) == SENSOR_TYPE_BEAM_ON)) //±êÖ¾Î»ÔÚÔ­µã,´«¸ĞÆ÷²»ÔÚÔ­µã
 			{
 				CurrentOp->nResult = 0xffff;
 			}
@@ -2628,7 +2763,7 @@ void Op_SuckReset(void)
 			else
 			{
 				nStatusSuck = ENUM_SUCK_UNKNOW;
-				sm_run(SM_SUCK,DIR_SM_SUCK_UP,50,2000);	 //»ØÔ­µã
+				sm_run(SM_SUCK,DIR_SM_SUCK_UP,parameter[PAR_SUCK_SPEED],35000);	 //»ØÔ­µã
 				CurrentOp->nStep = STEP1;
 			}
 		break;
@@ -2636,7 +2771,7 @@ void Op_SuckReset(void)
 			if (input_get_one(SN_SUCK_ORG) == SENSOR_TYPE_BEAM_ON) //´«¸ĞÆ÷¼ì²âµ½ÔÚÔ­µã
 			{
 				sm_stop(SM_SUCK); //Í£Ö¹µç»ú
-				sm_run(SM_SUCK,DIR_SM_SUCK_UP,10,100);	 //¶à×ßÒ»µã
+				sm_run(SM_SUCK,DIR_SM_SUCK_UP,parameter[PAR_SUCK_SPEED],10);	 //¶à×ßÒ»µã
 				CurrentOp->nStep = STEP2;
 			} 
 			else if(IsSmRunFinish(SM_SUCK) == true)
@@ -2648,6 +2783,7 @@ void Op_SuckReset(void)
 			if(IsSmRunFinish(SM_SUCK) == true)
 			{
 				nStatusSuck = ENUM_SUCK_ORIGIN;  //ÔÚÔ­µã
+				sm_set_abs_zero(SM_SUCK); //ÇåÁã²½½øµç»úµÄ²½Êı
 				CurrentOp->nResult = 0xffff;
 			}
 		break;
@@ -2698,7 +2834,7 @@ void Op_SuckMove(void)
 	}	
 	switch (CurrentOp->nStep)
 	{
-		case START:				
+		case START:	
 			if (gSuckMove_Flag == true) //µ×²ãµ÷ÓÃ
 			{
 				gSuckMove_Flag= false;
@@ -2708,7 +2844,7 @@ void Op_SuckMove(void)
 			{
 				SuckPos = cParamBuf[10]; //Êı¾İÎ»
 			}
-			if(SuckPos>6)
+			if(SuckPos > 6)
 			{
 				CurrentOp->nResult = ERROR_SUCK_POSITION_PARA_MAX;//10023 Îü¿¨ÅÌÉÏ²ã´«ÊäµÄÊı¾İ³¬³ö½ÓÊÕ×î´óÖµ
 			}		
@@ -2725,32 +2861,39 @@ void Op_SuckMove(void)
 			}             	
 		break;
 		case STEP2:
-			StartChildOp(CurrentOp,&OpSuckReset); //¸´Î»ÎüÅÌ		
+			StartChildOp(CurrentOp,&OpResetSuck); //¸´Î»ÎüÅÌ		
 			CurrentOp->nStep = STEP3;	
 		break;
 		case STEP3:
-			if (IsChildOpOK(CurrentOp,&OpSuckReset) == true) //Íê³É
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true) //Íê³É
 			{
 				CurrentOp->nStep = STEP4;	
 			}
 		break;
 		case STEP4:
-			if(gSuckMoveCount<100) //ÔËĞĞµ½Ò»¶¨´ÎÊıºó¸´Î»Çå³ıÀÛ»ıÎó²î
+			if (SuckPos == gSuckCardCarPosition) //ÎüÅÌºÍÎü¿¨Ğ¡³µÎ»ÖÃ¶ÔÓ¦
 			{
-				gSuckMoveCount++;
-				CurrentOp->nStep = STEP5;
+				CurrentOp->nStep = STEP6;				
 			}
 			else
 			{
-				CurrentOp->nStep = STEP2;
-				gSuckMoveCount = 0;
+				gSuckCardCarMove_Flag = true;
+				gSuckCardCarPosition  = SuckPos; //ÔËĞĞµ½ºÍÎüÅÌÏà¶ÔÓ¦µÄÎ»ÖÃ
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯ÁÙÊ±·Å¿¨Î»
+				CurrentOp->nStep = STEP5;	
 			}
 		break;
-		case STEP5:   //¸ù¾İ´«ÏÂÀ´µÄÎ»ÖÃ×ß¾ø¶Ô²½Êı
-			sm_run_abs(SM_SUCK,parameter[PAR_SM_CHANNAL_SPEED],iAbsSuckMove[SuckPos]);	
-			CurrentOp->nStep= STEP6;
+		case STEP5:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{		
+				CurrentOp->nStep = STEP6;	
+			}
 		break;
-		case STEP6:
+		case STEP6:   //¸ù¾İ´«ÏÂÀ´µÄÎ»ÖÃ×ß¾ø¶Ô²½Êı
+			sm_run_abs(SM_SUCK,parameter[PAR_SUCK_SPEED],iAbsSuckMove[SuckPos]*24);	
+			CurrentOp->nStep= STEP7;
+		break;
+		case STEP7:
 			if(IsSmRunFinish(SM_SUCK) == true)	//Ğ¡³µÍê³ÉÔË¶¯
 			{
 				sm_stop(SM_SUCK); //Í£Ö¹µç»ú
@@ -2759,7 +2902,8 @@ void Op_SuckMove(void)
 		break;
 
 		case STEP_SUCCESS:
-			gTrolleyCarPosition = SuckPos; //Í¬²½ÉÏ²ã´«ÏÂÀ´µÄÎ»ÖÃ
+			nStatusSuck = STATUS_POSITION;	
+			gSuckPosition = SuckPos; //Í¬²½ÉÏ²ã´«ÏÂÀ´µÄÎ»ÖÃ
 			CurrentOp->nResult = 0xffff;
 		break;
 		default:
@@ -2782,9 +2926,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_BlankCardBoxReset(void)
+void Op_ResetBlankCardBox(void)
 {
-	stOpCtrl *CurrentOp = &OpBlankCardBoxReset;
+	stOpCtrl *CurrentOp = &OpResetBlankCardBox;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;	
@@ -2804,7 +2948,7 @@ void Op_BlankCardBoxReset(void)
 			else
 			{
 				nStatusBlankCardBox = STATUS_UNKNOW;
-				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_DOWN,10,2000);	 //»ØÔ­µã
+				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_DOWN,parameter[PAR_SUCK_SPEED],80000);	 //»ØÔ­µã
 				CurrentOp->nStep = STEP1;
 			}
 		break;
@@ -2812,7 +2956,7 @@ void Op_BlankCardBoxReset(void)
 			if (input_get_one(SN_BLANK_CARD_BOX_ORG) == SENSOR_TYPE_BEAM_ON)
 			{
 				sm_stop(SM_BLANK_CARD_BOX); //Í£Ö¹µç»ú
-				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_DOWN,10,5);	 //¶à×ßÒ»µã
+				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_DOWN,parameter[PAR_SUCK_SPEED],5);	 //¶à×ßÒ»µã
 				CurrentOp->nStep = STEP2;
 			} 
 			else if(IsSmRunFinish(SM_BLANK_CARD_BOX) == true)
@@ -2828,7 +2972,7 @@ void Op_BlankCardBoxReset(void)
 			}
 		break;
 		case STEP20:
-			sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_UP,10,100);	 //Àë¿ªÔ­µã
+			sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_UP,parameter[PAR_SUCK_SPEED],500);	 //Àë¿ªÔ­µã
 			CurrentOp->nStep = STEP21;
 		break;
 		case STEP21:
@@ -2874,21 +3018,39 @@ void Op_BlankCardBoxUp(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
+			if(nStatusBlankCardBox == STATUS_UNKNOW)
+			{
+				StartChildOp(CurrentOp,&OpResetBlankCardBox);
+				CurrentOp->nStep = STEP1;
+			}
+			else
+			{
+				CurrentOp->nStep = STEP2;
+			}
+		break;
+		case STEP1:
+			if (IsChildOpOK(CurrentOp,&OpResetBlankCardBox) == true)
+			{
+				CurrentOp->nStep = STEP2;
+			}
+			
+		break;
+		case STEP2:
 			if(input_get_one(SN_BLANK_CARD_BOX_CHECK) == SENSOR_TYPE_REFLECT_ON) //ÓĞ¿¨
 			{
 				CurrentOp->nResult = 0xffff;
 			}
 			else //ÆäËü×´Ì¬
 			{
-				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_UP,50,parameter[PAR_BLANK_CARD_BOX_UP]); //ÉıÆğÒ»¶¨²½Êı
-				CurrentOp->nStep = STEP1;
-			}
-				
+				sm_run(SM_BLANK_CARD_BOX,DIR_SM_BLANK_CARD_BOX_UP,parameter[PAR_SUCK_SPEED],parameter[PAR_BLANK_CARD_BOX_UP]*20); //ÉıÆğÒ»¶¨²½Êı
+				CurrentOp->nStep = STEP3;
+			}	
 		break;
-		case STEP1:
+		case STEP3:
 			if(input_get_one(SN_BLANK_CARD_BOX_UP) == SENSOR_TYPE_BEAM_ON) //µ½´ï¶¥²¿
 			{
 				sm_stop(SM_BLANK_CARD_BOX); //Í£Ö¹µç»ú
+				nStatusBlankCardBox = STATUS_POSITION;  //ÔÚÔ­µã
 				CurrentOp->nResult = ERROR_BLANK_CARD_BOX_EMPTY;  //10026 °×¿¨Ïä¿Õ
 			}
 			else if(input_get_one(SN_BLANK_CARD_BOX_CHECK) == SENSOR_TYPE_REFLECT_ON) //ÓĞ¿¨
@@ -2897,9 +3059,9 @@ void Op_BlankCardBoxUp(void)
 				sm_stop(SM_BLANK_CARD_BOX); //Í£Ö¹µç»ú
 				CurrentOp->nStep = STEP_SUCCESS;	
 			}
-
 		break;
 		case STEP_SUCCESS:
+			nStatusBlankCardBox = STATUS_POSITION;  //ÔÚÔ­µã
 			CurrentOp->nResult = 0xffff;
 		break;
 		default:
@@ -2908,9 +3070,9 @@ void Op_BlankCardBoxUp(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: AutoSuckCard
+Function Name: Op_SendCardToPretargeting
 *****************************************************
-Descriptions:  ×Ô¶¯Îü¿¨Á÷³Ì
+Descriptions:  ËÍ¿¨µ½Ô¤¶¨Î»
 *****************************************************
 Calls:
 *****************************************************
@@ -2922,9 +3084,10 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_AutoSuckCard(void)
+void Op_SendCardToPretargeting(void)
 {
-	stOpCtrl *CurrentOp = &OpAutoSuckCard;
+	stOpCtrl *CurrentOp = &OpSendCardToPretargeting;
+	static unsigned char count = 0; //Îü¿¨´ÎÊı
 	if((CurrentOp->bEn == false) || (CurrentOp->bFlagPause) == true)
 	{
 		return;
@@ -2932,16 +3095,653 @@ void Op_AutoSuckCard(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
-		
+			StartChildOp(CurrentOp,&OpBlankCardBoxUp); //°×¿¨ÏäÉıÆğ
+			CurrentOp->nStep = STEP1;				
 		break;
 		case STEP1:
-
+			if (IsChildOpOK(CurrentOp,&OpBlankCardBoxUp) == true)
+			{
+				gSuckCardCarMove_Flag = true;
+				gSuckCardCarPosition   = ENUM_BLANK; //¿Õ°×¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯µ½°×¿¨Î»
+				CurrentOp->nStep = STEP2;					
+			}
+		break;
+		case STEP2:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_BLANK; //¿Õ°×¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½°×¿¨Î»
+				CurrentOp->nStep = STEP3;
+			}
+		break;
+		case STEP3:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupOpen);	//´ò¿ªÎüÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ıÎüÎÈ
+				CurrentOp->nStep = STEP4;
+			}	
+		break;
+		case STEP4:
+			if ((IsChildOpOK(CurrentOp,&OpSuckVacuumCupOpen) == true)
+				 && (CheckOpTimeDelay(CurrentOp) == true))
+			{
+				StartChildOp(CurrentOp,&OpResetSuck); //ÎüÅÌ¸´Î»ÉıÆğ
+				CurrentOp->nStep = STEP5;
+			}
+		break;
+		case STEP5:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				if ((input_get_one(SN_SUCK_BAROMETER) == SENSOR_TYPE_VACUUM_ON) 
+					&& (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON))//Îüµ½¿¨Æ¬
+				{
+					CurrentOp->nStep = STEP6;						
+				}
+				else
+				{
+					if(count < 3) //ÖØÊÔ3´Î
+					{
+						count++;
+						CurrentOp->nStep = STEP2; //ÖØĞÂÏÂ½µµ½°×¿¨Î»Îü¿¨
+					}
+					else
+					{
+						count = 0;
+						dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_OFF); //ÎüÅÌÕæ¿ÕÎü¹Ø±Õ
+						CurrentOp->nResult = ERROR_SUCK_VACUUM_CARD_FAIL;//10027 ÎüÅÌÕæ¿ÕÎü¿¨Ê§°Ü
+					}
+				}
+			}
+		break;	
+		case STEP6:
+			count = 0;
+			gSuckCardCarMove_Flag = true;
+			gSuckCardCarPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»
+			StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯µ½Ô¤¶¨Î»
+			CurrentOp->nStep = STEP7;	
+		break;		
+		case STEP7:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½Ô¤¶¨Î»
+				CurrentOp->nStep = STEP8;
+			}
+		break;
+		case STEP8:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupClose);	//¹Ø±ÕÏÂÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ı¿¨Æ¬µôÂä
+				CurrentOp->nStep = STEP9;
+			}			
+		break;
+		case STEP9:
+			if (CheckOpTimeDelay(CurrentOp) == true)
+			{			
+				StartChildOp(CurrentOp,&OpResetSuck); //¸´Î»ÎüÅÌ
+				SetOpTimeDelay(CurrentOp,2000); //ÑÓÊ±1S
+				CurrentOp->nStep = STEP10;				
+			}	
+		break;
+		case STEP10:
+			if (CheckOpTimeDelay(CurrentOp) == true)
+			{	
+				if (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON)
+				{
+					sm_stop(SM_SUCK);
+					CurrentOp->nResult = ERROR_SUCK_FREE_CARD_FAIL;//10034 ÎüÅÌÊÍ·Å¿¨Ê§°Ü
+				}
+				else
+				{
+					CurrentOp->nStep = STEP11;
+				}
+			}			
+		break;
+		case STEP11:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				CurrentOp->nResult = 0xffff;
+			}		
+		break;
+		default:
+		break;
+	}
+	DealResult(CurrentOp);
+}
+/****************************************************
+Function Name: Op_PretargetingToTemporary
+*****************************************************
+Descriptions:  Ô¤¶¨Î»µ½¸¨ÁÏÎ»
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+ void Op_PretargetingToAccessory(void)
+{
+	stOpCtrl *CurrentOp = &OpPretargetingToAccessory;
+	static unsigned char count = 0; //Îü¿¨´ÎÊı
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}	
+	switch (CurrentOp->nStep)
+	{
+		case START:	
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½Ô¤¶¨Î»
+				CurrentOp->nStep = STEP1;	
+		break;
+		case STEP1:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupOpen);	//´ò¿ªÏÂÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ıÎüÎÈ
+				CurrentOp->nStep = STEP2;
+			}	
+		break;
+		case STEP2:
+			if ((IsChildOpOK(CurrentOp,&OpSuckVacuumCupOpen) == true)
+				 && (CheckOpTimeDelay(CurrentOp) == true))
+			{
+				StartChildOp(CurrentOp,&OpResetSuck); //ÎüÅÌ¸´Î»ÉıÆğ
+				CurrentOp->nStep = STEP3;
+			}
+		break;
+		case STEP3:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				if ((input_get_one(SN_SUCK_BAROMETER) == SENSOR_TYPE_VACUUM_ON) //Õæ¿Õ±í¼ì²âºÍ·´Éä´«¸ĞÆ÷¼ì²â
+					&& (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON))//Îüµ½¿¨Æ¬
+				{
+					CurrentOp->nStep = STEP4;						
+				}
+				else
+				{
+					if(count < 3) //ÖØÊÔ3´Î
+					{
+						count++;
+						CurrentOp->nStep = START; //ÖØĞÂÏÂ½µµ½°×¿¨Î»Îü¿¨
+					}
+					else
+					{
+						count = 0;
+						CurrentOp->nResult = ERROR_PRETARGETING_SUCK_VACUUM_CARD_FAIL;//10035 Ô¤¶¨Î»Îü¿¨Ê§°Ü
+					}
+				}
+			}
+		break;	
+		case STEP4:
+			gSuckCardCarMove_Flag = true;
+			gSuckCardCarPosition   = ENUM_ACCESSORY; //¸¨ÁÏÎ»
+			StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯µ½¸¨ÁÏÎ»
+			CurrentOp->nStep = STEP5;	
+		break;
+		case STEP5:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_ACCESSORY;    //¸¨ÁÏÎ»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½¸¨ÁÏÎ»
+				CurrentOp->nStep = STEP6;	
+			}
+		break;
+		case STEP6:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupClose);	//¹Ø±ÕÎüÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ı¿¨Æ¬µôÂä
+				CurrentOp->nStep = STEP7;
+			}	
+		break;				
+		case STEP7:
+			if ((IsChildOpOK(CurrentOp,&OpSuckVacuumCupClose) == true)
+				 && (CheckOpTimeDelay(CurrentOp) == true))
+			{
+				StartChildOp(CurrentOp,&OpResetSuck); //ÎüÅÌ¸´Î»ÉıÆğ
+				SetOpTimeDelay(CurrentOp,1000); //ÑÓÊ±¼ì²â¿¨Æ¬ÊÇ·ñµôÂä
+				CurrentOp->nStep = STEP8;
+			}
+		break;
+		case STEP8:
+			if (CheckOpTimeDelay(CurrentOp) == true)
+			{	
+				if (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON) //ÎüÅÌ·´Éä´«¸ĞÆ÷¼ì²âµ½¿¨Æ¬
+				{
+					sm_stop(SM_SUCK); //Í£Ö¹ÎüÅÌµç»ú
+					CurrentOp->nResult = ERROR_ACCESSORY_SUCK_FREE_CARD_FAIL;//10036 ¸¨ÁÏÎ»ÎüÅÌÊÍ·Å¿¨Ê§°Ü
+				}
+				else
+				{
+					CurrentOp->nStep = STEP9;
+				}
+			}			
+		break;
+		case STEP9:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				gSuckCardCarMove_Flag = true;
+				gSuckCardCarPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯µ½Ô¤¶¨Î»
+				CurrentOp->nStep = STEP10;	
+			}	
+		break;	
+		case STEP10:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				CurrentOp->nResult = 0xffff;	
+			}
+		break;
+	}
+	DealResult(CurrentOp);
+} 
+/****************************************************
+Function Name: Op_AutoMakeCard
+*****************************************************
+Descriptions:  ×Ô¶¯ÖÆ¿¨
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_AutoMakeCard(void)
+{
+	stOpCtrl *CurrentOp = &OpAutoMakeCard;
+	static unsigned char count = 0; //Îü¿¨´ÎÊı
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:	
+			count = 0;
+			StartChildOp(CurrentOp,&OpGotoLoadingPlatform); //µ½Ô¤¶¨Î»²¢ÉıÆğÔ¤¶¨Î»Æ½Ì¨ºÍ´ò¿ª¼Ğ×Ó
+			CurrentOp->nStep = STEP1;
+		break;
+		case STEP1: 
+			if (IsChildOpOK(CurrentOp,&OpGotoLoadingPlatform) == true)
+			{
+				StartChildOp(CurrentOp,&OpSendCardToPretargeting); //×Ô¶¯Îü¿¨
+				CurrentOp->nStep = STEP2;
+			}
+		break;
+		case STEP2: 
+			if (IsChildOpOK(CurrentOp,&OpSendCardToPretargeting) == true)
+			{
+				count++;
+				CurrentOp->nStep = STEP3;
+			}
+		break;
+		case STEP3: 
+			if (count > 6)
+			{
+				count = 0;
+				CurrentOp->nStep = STEP4;
+			}
+			else
+			{
+				CurrentOp->nStep = STEP1;
+			}
+		break; 
+		case STEP4:
+			gSuckMove_Flag = true;
+			gSuckPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»¿¨Î»
+			StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½Ô¤¶¨Î»
+			CurrentOp->nStep = STEP5;				
+		break;
+		case STEP5:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpClampClose); //¹Ø±Õ¼Ğ×Ó
+				CurrentOp->nStep = STEP6;
+			}
+		break;
+		case STEP6:
+			if (IsChildOpOK(CurrentOp,&OpClampClose) == true)
+			{
+				StartChildOp(CurrentOp,&OpResetSuck); //¸´Î»ÎüÅÌ
+				CurrentOp->nStep = STEP7;
+			}
+		break;
+		case STEP7:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				StartChildOp(CurrentOp,&OpWarmCoolMakeCard); //ÈÈÀäÑ¹ÖÆ¿¨
+				CurrentOp->nStep = STEP8;
+			}
+		break;
+		case STEP8:
+			if (IsChildOpOK(CurrentOp,&OpWarmCoolMakeCard) == true)
+			{
+				StartChildOp(CurrentOp,&OpPretargetingToAccessory); //Ô¤¶¨Î»µ½¸¨ÁÏÎ»
+				CurrentOp->nStep = STEP9;
+			}	
+		break;	
+		case STEP9:
+			if (IsChildOpOK(CurrentOp,&OpPretargetingToAccessory) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½Ô¤¶¨Î»
+				CurrentOp->nStep = STEP10;	
+			}
+		break;
+		case STEP10:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupOpen);	//´ò¿ªÏÂÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ıÎüÎÈ
+				CurrentOp->nStep = STEP11;
+			}	
+		break;
+		case STEP11:
+			if ((IsChildOpOK(CurrentOp,&OpSuckVacuumCupOpen) == true)
+				 && (CheckOpTimeDelay(CurrentOp) == true))
+			{
+				StartChildOp(CurrentOp,&OpResetSuck); //ÎüÅÌ¸´Î»ÉıÆğ
+				CurrentOp->nStep = STEP12;
+			}
+		break;
+	case STEP12:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				gSuckCardCarMove_Flag = true;
+				gSuckCardCarPosition   = ENUM_TEMPORARY; //ÁÙÊ±·Å¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯ÁÙÊ±·Å¿¨Î»
+				CurrentOp->nStep = STEP13;	
+			}
+		break;
+		case STEP13:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_TEMPORARY;    //ÁÙÊ±·Å¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½ÁÙÊ±·Å¿¨Î»
+				CurrentOp->nStep = STEP14;	
+			}
+		break;
+		case STEP14:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupClose);	//¹Ø±ÕÎüÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ı¿¨Æ¬µôÂä
+				CurrentOp->nStep = STEP15;
+			}	
+		break;				
+		case STEP15:
+			if ((IsChildOpOK(CurrentOp,&OpSuckVacuumCupClose) == true)
+				 && (CheckOpTimeDelay(CurrentOp) == true))
+			{
+				StartChildOp(CurrentOp,&OpResetSuck); //ÎüÅÌ¸´Î»ÉıÆğ
+				CurrentOp->nStep = STEP16;
+			}
+		break;
+		case STEP16:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				gSuckCardCarMove_Flag = true;
+				gSuckCardCarPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯µ½Ô¤¶¨Î»
+				CurrentOp->nStep = STEP17;	
+			}	
+		break;					
+		case STEP17:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpPretargetingToAccessory); //Ô¤¶¨Î»µ½¸¨ÁÏÎ»
+				CurrentOp->nStep = STEP18;
+			}
+		break;
+	case STEP18:
+			if (IsChildOpOK(CurrentOp,&OpPretargetingToAccessory) == true)
+			{
+				gSuckCardCarMove_Flag = true;
+				gSuckCardCarPosition   = ENUM_TEMPORARY; //ÁÙÊ±·Å¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯ÁÙÊ±·Å¿¨Î»
+				CurrentOp->nStep = STEP19;	
+			}
+		break;
+		case STEP19:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_TEMPORARY;    //ÁÙÊ±·Å¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½ÁÙÊ±·Å¿¨Î»
+				CurrentOp->nStep = STEP20;	
+			}
+		break;
+		case STEP20:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupOpen);	//´ò¿ªÎüÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ı¿¨Æ¬Îü×¡
+				CurrentOp->nStep = STEP21;
+			}	
+		break;				
+		case STEP21:
+			if ((IsChildOpOK(CurrentOp,&OpSuckVacuumCupOpen) == true)
+				 && (CheckOpTimeDelay(CurrentOp) == true))
+			{
+				StartChildOp(CurrentOp,&OpResetSuck); //ÎüÅÌ¸´Î»ÉıÆğ
+				CurrentOp->nStep = STEP22;
+			}
+		break;
+		case STEP22:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				gSuckCardCarMove_Flag = true;
+				gSuckCardCarPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯µ½Ô¤¶¨Î»
+				CurrentOp->nStep = STEP23;	
+			}	
+		break;	
+		case STEP23:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½Ô¤¶¨Î»
+				CurrentOp->nStep = STEP24;	
+			}
+		break;
+		case STEP24:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupClose);	//¹Ø±ÕÎüÅÌÕæ¿ÕÎü
+				CurrentOp->nStep = STEP25;
+			}	
+		break;
+		case STEP25:
+			if (IsChildOpOK(CurrentOp,&OpSuckVacuumCupClose) == true)
+			{
+				StartChildOp(CurrentOp,&OpClampClose);	//¼Ğ×Ó±ÕºÏ
+				CurrentOp->nStep = STEP26;
+			}	
+		break;
+		case STEP26:
+			if (IsChildOpOK(CurrentOp,&OpClampClose) == true)
+			{
+				StartChildOp(CurrentOp,&OpResetSuck);	//¸´Î»ÎüÅÌ
+				CurrentOp->nStep = STEP27;
+			}	
+		break;
+		case STEP27:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				StartChildOp(CurrentOp,&OpCuttingPlatformWork);	//¼ô¿¨Á÷³Ì
+				CurrentOp->nStep = STEP28;
+			}	
+		break;
+		case STEP28:
+			if (IsChildOpOK(CurrentOp,&OpCuttingPlatformWork) == true)
+			{
+				CurrentOp->nResult = 0xffff;
+			}	
 		break;
 
 		default:
 		break;
 	}
+	DealResult(CurrentOp);
 }
+/****************************************************
+Function Name: Op_AutoMakeCard
+*****************************************************
+Descriptions:  ×Ô¶¯ÖÆ¿¨
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_ReturnCard(void)
+{
+	stOpCtrl *CurrentOp = &OpReturnCard;
+	static unsigned char count = 0; //Îü¿¨´ÎÊı
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:	
+			gSuckCardCarMove_Flag = true;
+			gSuckCardCarPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»
+			StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯µ½Ô¤¶¨Î»
+			CurrentOp->nStep = STEP1;	
+		break;		
+		case STEP1:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_PRETARGETING; //Ô¤¶¨Î»¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½Ô¤¶¨Î»
+				CurrentOp->nStep = STEP2;
+			}
+		break;
+		case STEP2:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupOpen);	//´ò¿ªÎüÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ı¿¨Æ¬Îü×¡
+				CurrentOp->nStep = STEP3;
+			}			
+		break;
+		case STEP3:
+			if ((CheckOpTimeDelay(CurrentOp) == true) 
+				&& (IsChildOpOK(CurrentOp,&OpSuckVacuumCupOpen) == true))
+			{			
+				StartChildOp(CurrentOp,&OpResetSuck); //¸´Î»ÎüÅÌ
+				CurrentOp->nStep = STEP4;				
+			}	
+		break;
+		case STEP4:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				if ((input_get_one(SN_SUCK_BAROMETER) == SENSOR_TYPE_VACUUM_ON) 
+					&& (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON))//Îüµ½¿¨Æ¬
+				{
+					CurrentOp->nStep = STEP5;						
+				}
+				else
+				{
+					if(count < 3) //ÖØÊÔ3´Î
+					{
+						count++;
+						CurrentOp->nStep = STEP1; //ÖØĞÂÏÂ½µµ½°×¿¨Î»Îü¿¨
+					}
+					else
+					{
+						count = 0;
+						dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_OFF); //ÎüÅÌÕæ¿ÕÎü¹Ø±Õ
+						CurrentOp->nResult = ERROR_RETURN_CARD_SUCK_CARD_FAIL;//10037 ÎüÅÌ»¹¿¨Îü¿¨Ê§°Ü
+					}
+				}
+			}
+		break;	
+		case STEP5:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				gSuckCardCarMove_Flag = true;
+				gSuckCardCarPosition   = ENUM_BLANK; //¿Õ°×¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); //Îü¿¨Ğ¡³µÒÆ¶¯µ½°×¿¨Î»
+				CurrentOp->nStep = STEP6;					
+			}
+		break;
+		case STEP6:
+			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
+			{
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_BLANK; //¿Õ°×¿¨Î»
+				StartChildOp(CurrentOp,&OpSuckMove); //ÎüÅÌÏÂ½µµ½°×¿¨Î»
+				CurrentOp->nStep = STEP7;
+			}
+		break;
+		case STEP7:
+			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
+			{
+				StartChildOp(CurrentOp,&OpSuckVacuumCupClose);	//¹Ø±ÕÎüÅÌÕæ¿ÕÎü
+				SetOpTimeDelay(CurrentOp,500); //µÈ´ı¿¨Æ¬ÂäÏÂ
+				CurrentOp->nStep = STEP8;
+			}	
+		break;
+		case STEP8:
+			if ((IsChildOpOK(CurrentOp,&OpSuckVacuumCupClose) == true)
+				 && (CheckOpTimeDelay(CurrentOp) == true))
+			{
+				StartChildOp(CurrentOp,&OpResetSuck); //ÎüÅÌ¸´Î»ÉıÆğ
+				SetOpTimeDelay(CurrentOp,1000); //µÈ´ı¿¨Æ¬ÂäÏÂ
+				CurrentOp->nStep = STEP9;
+			}
+		break;
+		case STEP9:
+			if (CheckOpTimeDelay(CurrentOp) == true)
+			{	
+				if (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON)
+				{
+					sm_stop(SM_SUCK);
+					CurrentOp->nResult = ERROR_RETURN_CARD_SUCK_FREE_CARD_FAIL;//10038 ÎüÅÌ»¹¿¨ÊÍ·Å¿¨Ê§°Ü
+				}
+				else
+				{
+					CurrentOp->nStep = STEP10;
+				}
+			}			
+		break;
+		case STEP10:
+			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
+			{
+				CurrentOp->nResult = 0xffff;
+			}	
+		break;
+	}
+	DealResult(CurrentOp);
+}
+
 
 /****************************************************
 Function Name: StepCtrlMachine
@@ -2984,20 +3784,24 @@ void StepCtrlMachine(void)
 	Op_WasteStorageDown();	   				//22 ·ÏÁÏ³¡ÏÂ½µ
 	Op_PretargetingVacuumCupOpen();			//23 Ô¤¶¨Î»Õæ¿ÕÎü´ò
 	Op_PretargetingVacuumCupClose();		//24 Ô¤¶¨Î»Õæ¿ÕÎü¹Ø±Õ
-	Op_WasteStorageVacuumCupOpen();			//25 ·ÏÁÏ³¡Õæ¿ÕÎü´ò¿ª
-	Op_WasteStorageVacuumCupClose();		//26 ·ÏÁÏ³¡Õæ¿ÕÎü¹Ø±Õ
+	Op_SuckVacuumCupOpen();					//25 ÎüÅÌÕæ¿ÕÎü´ò¿ª
+	Op_SuckVacuumCupClose();				//26 ÎüÅÌÕæ¿ÕÎü¹Ø±Õ
 	Op_OpenGasSwitch();			  			//27 ´ò¿ª×ÜÆø¿ª¹Ø
 	Op_CloseGasSwitch();				  	//28 ¹Ø±Õ×ÜÆø¿ª¹Ø
-	Op_MakeCard();							//29 ÖÆ¿¨
+	Op_WarmCoolMakeCard();							//29 ÖÆ¿¨
 	Op_GotoLoadingPlatform();				//30 È¥×°ÁÏÆ½Ì¨	
 	Op_CuttingPlatformWork();				//31 ²Ã¼ôÆ½Ì¨¹¤×÷
 	Op_ScramProcess();						//32 ½ô¼±Í£Ö¹ÖÆ¼ô¿¨Á÷³Ì
 	Op_SuckCardCarMove();					//33 Îü¿¨Ğ¡³µÒÆ¶¯Î»ÖÃ
 	Op_ResetSuckCardCar();					//34 Îü¿¨Ğ¡³µ¸´Î»
-	Op_SuckReset();							//35 ÎüÅÌ¸´Î»
+	Op_ResetSuck();							//35 ÎüÅÌ¸´Î»
 	Op_SuckMove();							//36 ÎüÅÌÏÂ½µ
-
-
+	Op_ResetBlankCardBox();					//37 °×¿¨Ïä¸´Î»
+	Op_BlankCardBoxUp();					//38 °×¿¨ÏäÉıÆğ
+	Op_SendCardToPretargeting();						//39 ×Ô¶¯Îü¿¨
+	Op_AutoMakeCard();						//40 ×Ô¶¯ÖÆ¿¨
+	Op_ReturnCard();						//41 »¹¿¨
+	Op_PretargetingToAccessory();			//42 Ô¤¶¨Î»µ½¸¨ÁÏÎ»
 }
 
 

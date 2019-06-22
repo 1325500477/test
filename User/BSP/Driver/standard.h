@@ -54,17 +54,17 @@ typedef signed long			int32;
 //对射式感应器，检测到物体，则sensor被阻挡不受光，此时CPU检测到为高电平（有物体为高，无物体为低)
 #define SENSOR_TYPE_BEAM_ON		1		//检测到有物体
 #define SENSOR_TYPE_BEAM_OFF	0		//无物体（板子灯亮）
+
 //反射式感应器，检测到物体，则sensor被反射而受光，此时CPU检测到为低电平（有物体为低，无物体为高)
 #define SENSOR_TYPE_REFLECT_ON  0		//检测到有物体（板子灯亮）
-
 #define SENSOR_TYPE_REFLECT_OFF 1		//无物体
 // 微动式开关检测传感器
 #define SENSOR_TYPE_MICRO_ON    0		// 检测到双卡
 #define SENSOR_TYPE_MICRO_OFF   1		// 未检测到双卡
 
 // 真空检测传感器
-#define SENSOR_TYPE_VACUUM_ON   0		// 真空状态（已经吸到卡片）
-#define SENSOR_TYPE_VACUUM_OFF  1		// 非真空状态
+#define SENSOR_TYPE_VACUUM_ON   1		// 真空状态（已经吸到卡片）
+#define SENSOR_TYPE_VACUUM_OFF  0		// 非真空状态
 
 // 按键开关宏定义
 #define BUTTON_TYPE_PRESSED     0		// 按下按键
@@ -177,6 +177,18 @@ enum _opration{
 	STEP37,
 	STEP38,
 	STEP39,
+
+	STEP40,
+	STEP41,
+	STEP42,
+	STEP43,
+	STEP44,
+	STEP45,
+	STEP46,
+	STEP47,
+	STEP48,
+	STEP49,
+	STEP50,
 	STEPEX01,   
 	STEPEX02,
 	STEPEX03,

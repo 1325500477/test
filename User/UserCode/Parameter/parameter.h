@@ -36,8 +36,8 @@ enum ENUM_PARAMETER
     PAR_SUCK_NEW_ACCESSORY,				    //21 吸盘新辅料位
     PAR_SUCK_PRINT,				            //22 吸盘打印位
     PAR_SUCK_BLANK,				            //23 吸盘空白卡位
-    PAR_BAK24,				//24
-    PAR_BAK25,				//25
+    PAR_SUCK_CARD_CAR_SPEED,				//24 吸卡小车运行速度
+    PAR_SUCK_SPEED,				            //25 吸盘运行速度
     PAR_BAK26,				//26
     PAR_BAK27,				//27
     PAR_BAK28,			    //28
