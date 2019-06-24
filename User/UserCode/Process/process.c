@@ -3152,6 +3152,7 @@ void Op_SendCardToPretargeting(void)
 						dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_OFF); //ЮќХЬецПеЮќЙиБе
 						CurrentOp->nResult = ERROR_SUCK_VACUUM_CARD_FAIL;//10027 ЮќХЬецПеЮќПЈЪЇАм
 					}
+					
 				}
 			}
 		break;	
