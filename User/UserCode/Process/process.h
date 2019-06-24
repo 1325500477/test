@@ -56,6 +56,7 @@ typedef enum
 	ERROR_ACCESSORY_SUCK_FREE_CARD_FAIL,			//10036 辅料位吸盘释放卡失败
 	ERROR_RETURN_CARD_SUCK_CARD_FAIL,				//10037 吸盘还卡吸卡失败
 	ERROR_RETURN_CARD_SUCK_FREE_CARD_FAIL,			//10038 吸盘还卡释放卡失败
+	ERROR_SUCK_CARD_DROP_OUT,						//10039 吸盘运行中卡片掉落
 
 }ModulesErrorCode;
 

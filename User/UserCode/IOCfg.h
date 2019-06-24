@@ -23,12 +23,9 @@ extern "C"
 #define SN_PUNCH_DOWN				IN14	    // 冲压部分下降检
 #define SN_PUNCH_UP					IN15	    // 冲压部分上升检测
 #define SN_WASTESTORAGE_ORG			IN16	    // 废卡检测原点
-
 #define SN_PRETARGETING_BAROMETER   IN17        // 预定位压力表
 #define SN_SUCK_BAROMETER           IN18        // 吸盘压力表
-
 #define SN_WASTER_CHECK_CARD        IN19        // 废卡位检测卡传感器
-
 #define SN_SUCK_CARD_CAR_ORG  		IN20		// 吸卡小车原点传感
 #define SN_SUCK_ORG				    IN21		// 吸盘原点传感
 #define SN_BLANK_CARD_BOX_ORG		IN22	    // 空白卡箱原点

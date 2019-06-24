@@ -131,7 +131,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name></Name>
+          <Name>/</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -143,41 +143,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>2782</LineNumber>
+          <LineNumber>509</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134296204</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\EMP6910\PET脡猫卤赂鲁脤脨貌麓煤脗毛\HWW(5.27)\SendingAndCheckingModule\User\UserCode\Process\process.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\EMP6910\../../User/UserCode/Process/process.c\2782</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>2788</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134296246</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\EMP6910\PET脡猫卤赂鲁脤脨貌麓煤脗毛\HWW(5.27)\SendingAndCheckingModule\User\UserCode\Process\process.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\EMP6910\../../User/UserCode/Process/process.c\2788</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>815</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134316314</Address>
+          <Address>134319200</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -186,7 +154,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>E:\EMP6910\PET脡猫卤赂鲁脤脨貌麓煤脗毛\HWW(5.27)\SendingAndCheckingModule\User\BSP\StepMotor\StepMotor.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\EMP6910\../../User/BSP/StepMotor/StepMotor.c\815</Expression>
+          <Expression>\\EMP6910\../../User/BSP/StepMotor/StepMotor.c\509</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -204,6 +172,16 @@
           <count>2</count>
           <WinNumber>1</WinNumber>
           <ItemText>iAbsSuckMove[SuckPos]</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ipaddr[4]</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>board_ip[3],0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -536,7 +514,7 @@
 
   <Group>
     <GroupName>BSP</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -546,10 +524,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>2</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>18</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\BspConfig.c</PathWithFileName>
       <FilenameWithoutPath>BspConfig.c</FilenameWithoutPath>
@@ -564,8 +542,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>508</TopLine>
-      <CurrentLine>398</CurrentLine>
+      <TopLine>20</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Communicate\communicate.c</PathWithFileName>
       <FilenameWithoutPath>communicate.c</FilenameWithoutPath>
@@ -580,8 +558,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>35</TopLine>
+      <CurrentLine>38</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Ethernet\enc28j60.c</PathWithFileName>
       <FilenameWithoutPath>enc28j60.c</FilenameWithoutPath>
@@ -596,8 +574,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>186</TopLine>
+      <CurrentLine>189</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Ethernet\ethernet.c</PathWithFileName>
       <FilenameWithoutPath>ethernet.c</FilenameWithoutPath>
@@ -612,8 +590,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>236</TopLine>
+      <CurrentLine>152</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Ethernet\ip_arp_udp_tcp.c</PathWithFileName>
       <FilenameWithoutPath>ip_arp_udp_tcp.c</FilenameWithoutPath>
@@ -674,10 +652,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>39</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>798</TopLine>
-      <CurrentLine>802</CurrentLine>
+      <TopLine>492</TopLine>
+      <CurrentLine>504</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\StepMotor\StepMotor.c</PathWithFileName>
       <FilenameWithoutPath>StepMotor.c</FilenameWithoutPath>
@@ -692,8 +670,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>267</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Test\Test.c</PathWithFileName>
       <FilenameWithoutPath>Test.c</FilenameWithoutPath>
@@ -708,7 +686,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>32</TopLine>
+      <TopLine>31</TopLine>
       <CurrentLine>52</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Ethernet\spi.c</PathWithFileName>
@@ -770,10 +748,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>13</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>91</TopLine>
+      <CurrentLine>93</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Driver\driver.c</PathWithFileName>
       <FilenameWithoutPath>driver.c</FilenameWithoutPath>
@@ -860,8 +838,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>64</TopLine>
-      <CurrentLine>67</CurrentLine>
+      <TopLine>97</TopLine>
+      <CurrentLine>104</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -908,8 +886,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>1673</TopLine>
+      <CurrentLine>1680</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\UserCode\Process\process.c</PathWithFileName>
       <FilenameWithoutPath>process.c</FilenameWithoutPath>

@@ -2900,7 +2900,6 @@ void Op_SuckMove(void)
 				CurrentOp->nStep= STEP_SUCCESS;
 			}
 		break;
-
 		case STEP_SUCCESS:
 			nStatusSuck = STATUS_POSITION;	
 			gSuckPosition = SuckPos; //同步上层传下来的位置
@@ -3135,10 +3134,10 @@ void Op_SendCardToPretargeting(void)
 		case STEP5:
 			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
 			{
-				if ((input_get_one(SN_SUCK_BAROMETER) == SENSOR_TYPE_VACUUM_ON) 
-					&& (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON))//吸到卡片
+				if ((input_get_one(SN_SUCK_BAROMETER) == SENSOR_TYPE_VACUUM_ON) //真空压力表检测
+					&& (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON)) //反射传感器检测
 				{
-					CurrentOp->nStep = STEP6;						
+					CurrentOp->nStep = STEP6;//吸到卡片						
 				}
 				else
 				{
@@ -3166,16 +3165,26 @@ void Op_SendCardToPretargeting(void)
 		case STEP7:
 			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
 			{
-				gSuckMove_Flag = true;
-				gSuckPosition   = ENUM_PRETARGETING; //预定位卡位
-				StartChildOp(CurrentOp,&OpSuckMove); //吸盘下降到预定位
-				CurrentOp->nStep = STEP8;
+				if ((input_get_one(SN_SUCK_BAROMETER) == SENSOR_TYPE_VACUUM_ON) //真空压力表检测
+					&& (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON)) //反射传感器检测
+				{
+					gSuckMove_Flag = true;
+					gSuckPosition   = ENUM_PRETARGETING; //预定位卡位
+					StartChildOp(CurrentOp,&OpSuckMove); //吸盘下降到预定位
+					CurrentOp->nStep = STEP8;
+				}
+				else
+				{
+					dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_OFF); //吸盘真空吸关闭
+					CurrentOp->nResult = ERROR_SUCK_CARD_DROP_OUT;//10039 吸盘卡片掉落					
+				}
+				
 			}
 		break;
 		case STEP8:
 			if (IsChildOpOK(CurrentOp,&OpSuckMove) == true)
 			{
-				StartChildOp(CurrentOp,&OpSuckVacuumCupClose);	//关闭下盘真空吸
+				StartChildOp(CurrentOp,&OpSuckVacuumCupClose);	//关闭吸盘真空吸
 				SetOpTimeDelay(CurrentOp,500); //等待卡片掉落
 				CurrentOp->nStep = STEP9;
 			}			
