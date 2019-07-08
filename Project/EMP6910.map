@@ -715,6 +715,17 @@ Section Cross References
     process.o(i.Op_PretargetingReset) refers to opctrl.o(i.DealResult) for DealResult
     process.o(i.Op_PretargetingReset) refers to process.o(.bss) for OpPretargetingReset
     process.o(i.Op_PretargetingReset) refers to process.o(.data) for nStatusPretarget
+    process.o(i.Op_PretargetingReturnCard) refers to opctrl.o(i.StartChildOp) for StartChildOp
+    process.o(i.Op_PretargetingReturnCard) refers to opctrl.o(i.IsChildOpOK) for IsChildOpOK
+    process.o(i.Op_PretargetingReturnCard) refers to opctrl.o(i.SetOpTimeDelay) for SetOpTimeDelay
+    process.o(i.Op_PretargetingReturnCard) refers to opctrl.o(i.CheckOpTimeDelay) for CheckOpTimeDelay
+    process.o(i.Op_PretargetingReturnCard) refers to driver.o(i.input_get_one) for input_get_one
+    process.o(i.Op_PretargetingReturnCard) refers to driver.o(i.dm_ctrl_one) for dm_ctrl_one
+    process.o(i.Op_PretargetingReturnCard) refers to stepmotor.o(i.sm_stop) for sm_stop
+    process.o(i.Op_PretargetingReturnCard) refers to opctrl.o(i.DealResult) for DealResult
+    process.o(i.Op_PretargetingReturnCard) refers to process.o(.bss) for OpPretargetingReturnCard
+    process.o(i.Op_PretargetingReturnCard) refers to process.o(.data) for gSuckCardCarMove_Flag
+    process.o(i.Op_PretargetingReturnCard) refers to communicate.o(.bss) for cParamBuf
     process.o(i.Op_PretargetingToAccessory) refers to opctrl.o(i.StartChildOp) for StartChildOp
     process.o(i.Op_PretargetingToAccessory) refers to opctrl.o(i.IsChildOpOK) for IsChildOpOK
     process.o(i.Op_PretargetingToAccessory) refers to opctrl.o(i.SetOpTimeDelay) for SetOpTimeDelay
@@ -789,16 +800,6 @@ Section Cross References
     process.o(i.Op_ResetSuckCardCar) refers to process.o(.bss) for OpResetSuckCardCar
     process.o(i.Op_ResetSuckCardCar) refers to process.o(.data) for gSuckCardCarPosition
     process.o(i.Op_ResetSuckCardCar) refers to parameter.o(.bss) for parameter
-    process.o(i.Op_ReturnCard) refers to opctrl.o(i.StartChildOp) for StartChildOp
-    process.o(i.Op_ReturnCard) refers to opctrl.o(i.IsChildOpOK) for IsChildOpOK
-    process.o(i.Op_ReturnCard) refers to opctrl.o(i.SetOpTimeDelay) for SetOpTimeDelay
-    process.o(i.Op_ReturnCard) refers to opctrl.o(i.CheckOpTimeDelay) for CheckOpTimeDelay
-    process.o(i.Op_ReturnCard) refers to driver.o(i.input_get_one) for input_get_one
-    process.o(i.Op_ReturnCard) refers to driver.o(i.dm_ctrl_one) for dm_ctrl_one
-    process.o(i.Op_ReturnCard) refers to stepmotor.o(i.sm_stop) for sm_stop
-    process.o(i.Op_ReturnCard) refers to opctrl.o(i.DealResult) for DealResult
-    process.o(i.Op_ReturnCard) refers to process.o(.bss) for OpReturnCard
-    process.o(i.Op_ReturnCard) refers to process.o(.data) for gSuckCardCarMove_Flag
     process.o(i.Op_RightClampClose) refers to driver.o(i.input_get_one) for input_get_one
     process.o(i.Op_RightClampClose) refers to driver.o(i.dm_ctrl_one) for dm_ctrl_one
     process.o(i.Op_RightClampClose) refers to opctrl.o(i.SetOpTimeDelay) for SetOpTimeDelay
@@ -816,16 +817,17 @@ Section Cross References
     process.o(i.Op_ScramProcess) refers to opctrl.o(i.IsChildOpOK) for IsChildOpOK
     process.o(i.Op_ScramProcess) refers to opctrl.o(i.DealResult) for DealResult
     process.o(i.Op_ScramProcess) refers to process.o(.bss) for OpScramProcess
+    process.o(i.Op_SendCardToPretargeting) refers to driver.o(i.input_get_one) for input_get_one
+    process.o(i.Op_SendCardToPretargeting) refers to driver.o(i.dm_ctrl_one) for dm_ctrl_one
+    process.o(i.Op_SendCardToPretargeting) refers to stepmotor.o(i.sm_stop) for sm_stop
     process.o(i.Op_SendCardToPretargeting) refers to opctrl.o(i.StartChildOp) for StartChildOp
     process.o(i.Op_SendCardToPretargeting) refers to opctrl.o(i.IsChildOpOK) for IsChildOpOK
     process.o(i.Op_SendCardToPretargeting) refers to opctrl.o(i.SetOpTimeDelay) for SetOpTimeDelay
     process.o(i.Op_SendCardToPretargeting) refers to opctrl.o(i.CheckOpTimeDelay) for CheckOpTimeDelay
-    process.o(i.Op_SendCardToPretargeting) refers to driver.o(i.input_get_one) for input_get_one
-    process.o(i.Op_SendCardToPretargeting) refers to driver.o(i.dm_ctrl_one) for dm_ctrl_one
-    process.o(i.Op_SendCardToPretargeting) refers to stepmotor.o(i.sm_stop) for sm_stop
     process.o(i.Op_SendCardToPretargeting) refers to opctrl.o(i.DealResult) for DealResult
     process.o(i.Op_SendCardToPretargeting) refers to process.o(.bss) for OpSendCardToPretargeting
     process.o(i.Op_SendCardToPretargeting) refers to process.o(.data) for gSuckCardCarMove_Flag
+    process.o(i.Op_SendCardToPretargeting) refers to communicate.o(.bss) for cParamBuf
     process.o(i.Op_SuckCardCarMove) refers to opctrl.o(i.StartChildOp) for StartChildOp
     process.o(i.Op_SuckCardCarMove) refers to opctrl.o(i.IsChildOpOK) for IsChildOpOK
     process.o(i.Op_SuckCardCarMove) refers to stepmotor.o(i.sm_run_abs) for sm_run_abs
@@ -938,7 +940,7 @@ Section Cross References
     process.o(i.StepCtrlMachine) refers to process.o(i.Op_BlankCardBoxUp) for Op_BlankCardBoxUp
     process.o(i.StepCtrlMachine) refers to process.o(i.Op_SendCardToPretargeting) for Op_SendCardToPretargeting
     process.o(i.StepCtrlMachine) refers to process.o(i.Op_AutoMakeCard) for Op_AutoMakeCard
-    process.o(i.StepCtrlMachine) refers to process.o(i.Op_ReturnCard) for Op_ReturnCard
+    process.o(i.StepCtrlMachine) refers to process.o(i.Op_PretargetingReturnCard) for Op_PretargetingReturnCard
     process.o(i.StepCtrlMachine) refers to process.o(i.Op_PretargetingToAccessory) for Op_PretargetingToAccessory
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
@@ -1704,205 +1706,205 @@ Image Symbol Table
     i.Op_AutoMakeCard                        0x08011b10   Section        0  process.o(i.Op_AutoMakeCard)
     i.Op_BlankCardBoxUp                      0x08011f08   Section        0  process.o(i.Op_BlankCardBoxUp)
     i.Op_ClampCardCarMove                    0x08011fe8   Section        0  process.o(i.Op_ClampCardCarMove)
-    i.Op_ClampClose                          0x080121dc   Section        0  process.o(i.Op_ClampClose)
-    i.Op_ClampOpen                           0x0801224c   Section        0  process.o(i.Op_ClampOpen)
-    i.Op_CloseGasSwitch                      0x080122bc   Section        0  process.o(i.Op_CloseGasSwitch)
-    i.Op_ClosingPressure                     0x08012308   Section        0  process.o(i.Op_ClosingPressure)
-    i.Op_CoolDown                            0x08012354   Section        0  process.o(i.Op_CoolDown)
-    i.Op_CoolRise                            0x080123c8   Section        0  process.o(i.Op_CoolRise)
-    i.Op_CuttingPlatformWork                 0x0801243c   Section        0  process.o(i.Op_CuttingPlatformWork)
-    i.Op_GotoLoadingPlatform                 0x08012708   Section        0  process.o(i.Op_GotoLoadingPlatform)
-    i.Op_LeftClampClose                      0x08012814   Section        0  process.o(i.Op_LeftClampClose)
-    i.Op_LeftClampOpen                       0x08012898   Section        0  process.o(i.Op_LeftClampOpen)
-    i.Op_OpenGasSwitch                       0x0801291c   Section        0  process.o(i.Op_OpenGasSwitch)
-    i.Op_OpeningPressure                     0x08012968   Section        0  process.o(i.Op_OpeningPressure)
-    i.Op_PresDown                            0x080129b4   Section        0  process.o(i.Op_PresDown)
-    i.Op_PresRise                            0x08012a28   Section        0  process.o(i.Op_PresRise)
-    i.Op_PretargetingReset                   0x08012a9c   Section        0  process.o(i.Op_PretargetingReset)
-    i.Op_PretargetingToAccessory             0x08012b94   Section        0  process.o(i.Op_PretargetingToAccessory)
-    i.Op_PretargetingUp                      0x08012d7c   Section        0  process.o(i.Op_PretargetingUp)
-    i.Op_PretargetingVacuumCupClose          0x08012e24   Section        0  process.o(i.Op_PretargetingVacuumCupClose)
-    i.Op_PretargetingVacuumCupOpen           0x08012e70   Section        0  process.o(i.Op_PretargetingVacuumCupOpen)
-    i.Op_ResetBlankCardBox                   0x08012ebc   Section        0  process.o(i.Op_ResetBlankCardBox)
-    i.Op_ResetClamp                          0x08012fc4   Section        0  process.o(i.Op_ResetClamp)
-    i.Op_ResetClampCardCar                   0x08013040   Section        0  process.o(i.Op_ResetClampCardCar)
-    i.Op_ResetModule                         0x0801320c   Section        0  process.o(i.Op_ResetModule)
-    i.Op_ResetSuck                           0x080133c8   Section        0  process.o(i.Op_ResetSuck)
-    i.Op_ResetSuckCardCar                    0x080134d8   Section        0  process.o(i.Op_ResetSuckCardCar)
-    i.Op_ReturnCard                          0x08013638   Section        0  process.o(i.Op_ReturnCard)
-    i.Op_RightClampClose                     0x08013834   Section        0  process.o(i.Op_RightClampClose)
-    i.Op_RightClampOpen                      0x080138b8   Section        0  process.o(i.Op_RightClampOpen)
-    i.Op_ScramProcess                        0x0801393c   Section        0  process.o(i.Op_ScramProcess)
-    i.Op_SendCardToPretargeting              0x080139e8   Section        0  process.o(i.Op_SendCardToPretargeting)
-    i.Op_SuckCardCarMove                     0x08013c18   Section        0  process.o(i.Op_SuckCardCarMove)
-    i.Op_SuckMove                            0x08013d6c   Section        0  process.o(i.Op_SuckMove)
-    i.Op_SuckVacuumCupClose                  0x08013ed4   Section        0  process.o(i.Op_SuckVacuumCupClose)
-    i.Op_SuckVacuumCupOpen                   0x08013f20   Section        0  process.o(i.Op_SuckVacuumCupOpen)
-    i.Op_WarmCoolMakeCard                    0x08013f6c   Section        0  process.o(i.Op_WarmCoolMakeCard)
-    i.Op_WarmDown                            0x0801422c   Section        0  process.o(i.Op_WarmDown)
-    i.Op_WarmRise                            0x080142a0   Section        0  process.o(i.Op_WarmRise)
-    i.Op_WasteStorageDown                    0x08014314   Section        0  process.o(i.Op_WasteStorageDown)
-    i.Op_WasteStorageReset                   0x080143bc   Section        0  process.o(i.Op_WasteStorageReset)
-    i.PWR_BackupAccessCmd                    0x080144b0   Section        0  stm32f10x_pwr.o(i.PWR_BackupAccessCmd)
-    i.PackageMsg                             0x080144bc   Section        0  communicate.o(i.PackageMsg)
-    i.PendSV_Handler                         0x08014590   Section        0  stm32f10x_it.o(i.PendSV_Handler)
-    i.ProcessCmd                             0x08014594   Section        0  communicate.o(i.ProcessCmd)
-    i.ProcessSystemCmd                       0x080146d8   Section        0  bsp_command.o(i.ProcessSystemCmd)
-    i.ProcessUpdateParameter                 0x08014994   Section        0  process.o(i.ProcessUpdateParameter)
-    i.ProcessUserCmd                         0x080149e0   Section        0  command.o(i.ProcessUserCmd)
-    i.RCC_AHBPeriphClockCmd                  0x08014afc   Section        0  stm32f10x_rcc.o(i.RCC_AHBPeriphClockCmd)
-    i.RCC_APB1PeriphClockCmd                 0x08014b1c   Section        0  stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd)
-    i.RCC_APB1PeriphResetCmd                 0x08014b3c   Section        0  stm32f10x_rcc.o(i.RCC_APB1PeriphResetCmd)
-    i.RCC_APB2PeriphClockCmd                 0x08014b5c   Section        0  stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd)
-    i.RCC_APB2PeriphResetCmd                 0x08014b7c   Section        0  stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd)
-    i.RCC_GetClocksFreq                      0x08014b9c   Section        0  stm32f10x_rcc.o(i.RCC_GetClocksFreq)
-    i.RCC_LSEConfig                          0x08014c70   Section        0  stm32f10x_rcc.o(i.RCC_LSEConfig)
-    i.ResetAllSignal                         0x08014ca4   Section        0  process.o(i.ResetAllSignal)
-    i.ResumeOp                               0x08014d10   Section        0  opctrl.o(i.ResumeOp)
-    i.SPI1_Init                              0x08014d58   Section        0  spi.o(i.SPI1_Init)
-    i.SPI1_ReadWrite                         0x08014df4   Section        0  spi.o(i.SPI1_ReadWrite)
-    i.SPI_Cmd                                0x08014e2c   Section        0  stm32f10x_spi.o(i.SPI_Cmd)
-    i.SPI_I2S_GetFlagStatus                  0x08014e44   Section        0  stm32f10x_spi.o(i.SPI_I2S_GetFlagStatus)
-    i.SPI_I2S_ReceiveData                    0x08014e56   Section        0  stm32f10x_spi.o(i.SPI_I2S_ReceiveData)
-    i.SPI_I2S_SendData                       0x08014e5c   Section        0  stm32f10x_spi.o(i.SPI_I2S_SendData)
-    i.SPI_Init                               0x08014e60   Section        0  stm32f10x_spi.o(i.SPI_Init)
-    i.SVC_Handler                            0x08014e9c   Section        0  stm32f10x_it.o(i.SVC_Handler)
-    i.SetOpRunMode                           0x08014e9e   Section        0  opctrl.o(i.SetOpRunMode)
-    i.SetOpTimeDelay                         0x08014ea4   Section        0  opctrl.o(i.SetOpTimeDelay)
-    i.SetSysClock                            0x08014eb4   Section        0  system_stm32f10x.o(i.SetSysClock)
-    SetSysClock                              0x08014eb5   Thumb Code     8  system_stm32f10x.o(i.SetSysClock)
-    i.SetSysClockTo72                        0x08014ebc   Section        0  system_stm32f10x.o(i.SetSysClockTo72)
-    SetSysClockTo72                          0x08014ebd   Thumb Code   212  system_stm32f10x.o(i.SetSysClockTo72)
-    i.Set_Default_Value                      0x08014f98   Section        0  eeprom_par.o(i.Set_Default_Value)
-    i.StartChildOp                           0x08014f9c   Section        0  opctrl.o(i.StartChildOp)
-    i.StartOp                                0x08014fdc   Section        0  opctrl.o(i.StartOp)
-    i.StartOpByMode                          0x08014fec   Section        0  opctrl.o(i.StartOpByMode)
-    i.StepCtrlMachine                        0x0801502c   Section        0  process.o(i.StepCtrlMachine)
-    i.SysTick_Handler                        0x080150d8   Section        0  stm32f10x_it.o(i.SysTick_Handler)
-    i.SystemInit                             0x08015134   Section        0  system_stm32f10x.o(i.SystemInit)
-    i.TIM2_IRQHandler                        0x08015194   Section        0  stepmotor.o(i.TIM2_IRQHandler)
-    i.TIM3_IRQHandler                        0x08015650   Section        0  stepmotor.o(i.TIM3_IRQHandler)
-    i.TIM_ClearITPendingBit                  0x08015b10   Section        0  stm32f10x_tim.o(i.TIM_ClearITPendingBit)
-    i.TIM_Cmd                                0x08015b16   Section        0  stm32f10x_tim.o(i.TIM_Cmd)
-    i.TIM_DeInit                             0x08015b30   Section        0  stm32f10x_tim.o(i.TIM_DeInit)
-    i.TIM_GetCapture1                        0x08015d18   Section        0  stm32f10x_tim.o(i.TIM_GetCapture1)
-    i.TIM_GetCapture2                        0x08015d1e   Section        0  stm32f10x_tim.o(i.TIM_GetCapture2)
-    i.TIM_GetCapture3                        0x08015d24   Section        0  stm32f10x_tim.o(i.TIM_GetCapture3)
-    i.TIM_GetCapture4                        0x08015d2a   Section        0  stm32f10x_tim.o(i.TIM_GetCapture4)
-    i.TIM_GetITStatus                        0x08015d32   Section        0  stm32f10x_tim.o(i.TIM_GetITStatus)
-    i.TIM_ITConfig                           0x08015d54   Section        0  stm32f10x_tim.o(i.TIM_ITConfig)
-    i.TIM_OC1Init                            0x08015d68   Section        0  stm32f10x_tim.o(i.TIM_OC1Init)
-    i.TIM_OC1PreloadConfig                   0x08015e00   Section        0  stm32f10x_tim.o(i.TIM_OC1PreloadConfig)
-    i.TIM_OC2Init                            0x08015e14   Section        0  stm32f10x_tim.o(i.TIM_OC2Init)
-    i.TIM_OC2PreloadConfig                   0x08015eb8   Section        0  stm32f10x_tim.o(i.TIM_OC2PreloadConfig)
-    i.TIM_OC3Init                            0x08015ed4   Section        0  stm32f10x_tim.o(i.TIM_OC3Init)
-    i.TIM_OC3PreloadConfig                   0x08015f74   Section        0  stm32f10x_tim.o(i.TIM_OC3PreloadConfig)
-    i.TIM_OC4Init                            0x08015f88   Section        0  stm32f10x_tim.o(i.TIM_OC4Init)
-    i.TIM_OC4PreloadConfig                   0x08016004   Section        0  stm32f10x_tim.o(i.TIM_OC4PreloadConfig)
-    i.TIM_SetCompare1                        0x0801601e   Section        0  stm32f10x_tim.o(i.TIM_SetCompare1)
-    i.TIM_SetCompare2                        0x08016022   Section        0  stm32f10x_tim.o(i.TIM_SetCompare2)
-    i.TIM_SetCompare3                        0x08016026   Section        0  stm32f10x_tim.o(i.TIM_SetCompare3)
-    i.TIM_SetCompare4                        0x0801602a   Section        0  stm32f10x_tim.o(i.TIM_SetCompare4)
-    i.TIM_TimeBaseInit                       0x08016030   Section        0  stm32f10x_tim.o(i.TIM_TimeBaseInit)
-    i.UART4_IRQHandler                       0x080160d4   Section        0  serial.o(i.UART4_IRQHandler)
-    i.USART2_IRQHandler                      0x08016354   Section        0  serial.o(i.USART2_IRQHandler)
-    i.USART_ClearFlag                        0x080165c4   Section        0  stm32f10x_usart.o(i.USART_ClearFlag)
-    i.USART_Cmd                              0x080165d6   Section        0  stm32f10x_usart.o(i.USART_Cmd)
-    i.USART_GetFlagStatus                    0x080165ee   Section        0  stm32f10x_usart.o(i.USART_GetFlagStatus)
-    i.USART_GetITStatus                      0x08016608   Section        0  stm32f10x_usart.o(i.USART_GetITStatus)
-    i.USART_ITConfig                         0x0801665c   Section        0  stm32f10x_usart.o(i.USART_ITConfig)
-    i.USART_Init                             0x080166a8   Section        0  stm32f10x_usart.o(i.USART_Init)
-    i.USART_ReceiveData                      0x08016780   Section        0  stm32f10x_usart.o(i.USART_ReceiveData)
-    i.USART_SendData                         0x0801678a   Section        0  stm32f10x_usart.o(i.USART_SendData)
-    i.USBWakeUp_IRQHandler                   0x08016792   Section        0  stm32f10x_it.o(i.USBWakeUp_IRQHandler)
-    i.USB_LP_CAN1_RX0_IRQHandler             0x0801679e   Section        0  stm32f10x_it.o(i.USB_LP_CAN1_RX0_IRQHandler)
-    i.UsageFault_Handler                     0x080167a0   Section        0  stm32f10x_it.o(i.UsageFault_Handler)
-    i.__0printf$8                            0x080167c4   Section        0  printf8.o(i.__0printf$8)
-    i.__0sprintf$8                           0x080167e4   Section        0  printf8.o(i.__0sprintf$8)
-    i.__scatterload_copy                     0x0801680c   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x0801681a   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x0801681c   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i._printf_core                           0x0801682c   Section        0  printf8.o(i._printf_core)
-    _printf_core                             0x0801682d   Thumb Code   988  printf8.o(i._printf_core)
-    i._printf_post_padding                   0x08016c34   Section        0  printf8.o(i._printf_post_padding)
-    _printf_post_padding                     0x08016c35   Thumb Code    38  printf8.o(i._printf_post_padding)
-    i._printf_pre_padding                    0x08016c5a   Section        0  printf8.o(i._printf_pre_padding)
-    _printf_pre_padding                      0x08016c5b   Thumb Code    48  printf8.o(i._printf_pre_padding)
-    i._sputc                                 0x08016c8a   Section        0  printf8.o(i._sputc)
-    _sputc                                   0x08016c8b   Thumb Code    10  printf8.o(i._sputc)
-    i.check_time_delay                       0x08016c94   Section        0  driver.o(i.check_time_delay)
-    i.checksum                               0x08016cbc   Section        0  ip_arp_udp_tcp.o(i.checksum)
-    i.cmd_get_all_info                       0x08016d10   Section        0  bsp_command.o(i.cmd_get_all_info)
-    i.cmd_get_firmware                       0x08016ddc   Section        0  bsp_command.o(i.cmd_get_firmware)
-    i.cmd_get_mcu_data                       0x08016e5c   Section        0  command.o(i.cmd_get_mcu_data)
-    i.cmd_get_op_info                        0x08016ecc   Section        0  bsp_command.o(i.cmd_get_op_info)
-    i.comm_cmd_execution                     0x08016f6c   Section        0  communicate.o(i.comm_cmd_execution)
-    i.delay_ms                               0x0801727c   Section        0  my_fun.o(i.delay_ms)
-    i.delay_us                               0x08017296   Section        0  my_fun.o(i.delay_us)
-    i.dm_ctrl_one                            0x080172c0   Section        0  driver.o(i.dm_ctrl_one)
-    i.enc28j60Init                           0x080173c4   Section        0  enc28j60.o(i.enc28j60Init)
-    i.enc28j60PacketReceive                  0x0801751c   Section        0  enc28j60.o(i.enc28j60PacketReceive)
-    i.enc28j60PacketSend                     0x08017620   Section        0  enc28j60.o(i.enc28j60PacketSend)
-    i.enc28j60PhyWrite                       0x080176a0   Section        0  enc28j60.o(i.enc28j60PhyWrite)
-    i.enc28j60Read                           0x080176d6   Section        0  enc28j60.o(i.enc28j60Read)
-    i.enc28j60ReadBuffer                     0x080176ec   Section        0  enc28j60.o(i.enc28j60ReadBuffer)
-    i.enc28j60ReadOp                         0x08017724   Section        0  enc28j60.o(i.enc28j60ReadOp)
-    i.enc28j60SetBank                        0x08017768   Section        0  enc28j60.o(i.enc28j60SetBank)
-    i.enc28j60Write                          0x0801779c   Section        0  enc28j60.o(i.enc28j60Write)
-    i.enc28j60WriteBuffer                    0x080177b4   Section        0  enc28j60.o(i.enc28j60WriteBuffer)
-    i.enc28j60WriteOp                        0x080177e8   Section        0  enc28j60.o(i.enc28j60WriteOp)
-    i.eth_type_is_arp_and_my_ip              0x08017824   Section        0  ip_arp_udp_tcp.o(i.eth_type_is_arp_and_my_ip)
-    i.eth_type_is_boardcast                  0x08017868   Section        0  ip_arp_udp_tcp.o(i.eth_type_is_boardcast)
-    i.eth_type_is_my_mac                     0x08017890   Section        0  ip_arp_udp_tcp.o(i.eth_type_is_my_mac)
-    i.ethernet_send_msg                      0x080178c4   Section        0  ethernet.o(i.ethernet_send_msg)
-    i.ethernet_tcp                           0x08017970   Section        0  ethernet.o(i.ethernet_tcp)
-    i.ethernet_udp                           0x08017a64   Section        0  ethernet.o(i.ethernet_udp)
-    i.ethernet_winpcap                       0x08017a98   Section        0  ethernet.o(i.ethernet_winpcap)
-    i.fill_ip_hdr_checksum                   0x08017acc   Section        0  ip_arp_udp_tcp.o(i.fill_ip_hdr_checksum)
-    i.fpga_read                              0x08017af8   Section        0  driver.o(i.fpga_read)
-    i.fputc                                  0x08017b04   Section        0  serial.o(i.fputc)
-    i.get_board_id                           0x08017b28   Section        0  driver.o(i.get_board_id)
-    i.get_parameter                          0x08017bd0   Section        0  eeprom_par.o(i.get_parameter)
-    i.get_tcp_data_pointer                   0x08017c18   Section        0  ip_arp_udp_tcp.o(i.get_tcp_data_pointer)
-    i.init_ethernet                          0x08017c34   Section        0  ethernet.o(i.init_ethernet)
-    i.init_ip_arp_udp_tcp                    0x08017cbc   Section        0  ip_arp_udp_tcp.o(i.init_ip_arp_udp_tcp)
-    i.init_len_info                          0x08017cf8   Section        0  ip_arp_udp_tcp.o(i.init_len_info)
-    i.init_parameter                         0x08017d3c   Section        0  eeprom_par.o(i.init_parameter)
-    i.init_step_motor                        0x08017e3c   Section        0  stepmotor.o(i.init_step_motor)
-    i.init_uart                              0x0801820c   Section        0  serial.o(i.init_uart)
-    i.input_get_all                          0x08018394   Section        0  driver.o(i.input_get_all)
-    i.input_get_one                          0x080183e0   Section        0  driver.o(i.input_get_one)
-    i.main                                   0x08018410   Section        0  main.o(i.main)
-    i.make_arp_answer_from_request           0x080184c8   Section        0  ip_arp_udp_tcp.o(i.make_arp_answer_from_request)
-    i.make_echo_reply_from_request           0x0801852c   Section        0  ip_arp_udp_tcp.o(i.make_echo_reply_from_request)
-    i.make_eth                               0x0801856c   Section        0  ip_arp_udp_tcp.o(i.make_eth)
-    i.make_ip                                0x08018590   Section        0  ip_arp_udp_tcp.o(i.make_ip)
-    i.make_tcp_ack_from_any                  0x080185c0   Section        0  ip_arp_udp_tcp.o(i.make_tcp_ack_from_any)
-    i.make_tcp_ack_with_data                 0x08018628   Section        0  ip_arp_udp_tcp.o(i.make_tcp_ack_with_data)
-    i.make_tcp_synack_from_syn               0x08018674   Section        0  ip_arp_udp_tcp.o(i.make_tcp_synack_from_syn)
-    i.make_tcphead                           0x080186c0   Section        0  ip_arp_udp_tcp.o(i.make_tcphead)
-    i.make_udp_reply_from_request            0x08018788   Section        0  ip_arp_udp_tcp.o(i.make_udp_reply_from_request)
-    i.make_winpcap_ack_with_data             0x0801881c   Section        0  ip_arp_udp_tcp.o(i.make_winpcap_ack_with_data)
-    i.print_message                          0x08018834   Section        0  driver.o(i.print_message)
-    i.process_all_cmd                        0x08018994   Section        0  communicate.o(i.process_all_cmd)
-    i.process_computer                       0x0801899c   Section        0  communicate.o(i.process_computer)
-    i.process_ethernet                       0x080189a0   Section        0  ethernet.o(i.process_ethernet)
-    i.process_serial                         0x08018a6c   Section        0  serial.o(i.process_serial)
-    i.save_parameter                         0x08018a9c   Section        0  eeprom_par.o(i.save_parameter)
-    i.serial_send_msg                        0x08018b0c   Section        0  serial.o(i.serial_send_msg)
-    i.set_parameter                          0x08018b34   Section        0  eeprom_par.o(i.set_parameter)
-    i.sm_get_abs                             0x08018b78   Section        0  stepmotor.o(i.sm_get_abs)
-    i.sm_run                                 0x08018ba4   Section        0  stepmotor.o(i.sm_run)
-    i.sm_run_abs                             0x08018e54   Section        0  stepmotor.o(i.sm_run_abs)
-    i.sm_set_abs_zero                        0x08018eb4   Section        0  stepmotor.o(i.sm_set_abs_zero)
-    i.sm_set_dir                             0x08018ecc   Section        0  stepmotor.o(i.sm_set_dir)
-    i.sm_set_enable                          0x08018f38   Section        0  stepmotor.o(i.sm_set_enable)
-    i.sm_set_pul                             0x08018fd0   Section        0  stepmotor.o(i.sm_set_pul)
-    i.sm_stop                                0x0801902c   Section        0  stepmotor.o(i.sm_stop)
-    i.test_step_motor                        0x08019120   Section        0  bsp_command.o(i.test_step_motor)
-    .constdata                               0x080191dc   Section      143  driver.o(.constdata)
-    .conststring                             0x0801926b   Section       29  driver.o(.conststring)
-    .conststring                             0x08019288   Section       38  main.o(.conststring)
+    i.Op_ClampClose                          0x080121bc   Section        0  process.o(i.Op_ClampClose)
+    i.Op_ClampOpen                           0x0801222c   Section        0  process.o(i.Op_ClampOpen)
+    i.Op_CloseGasSwitch                      0x0801229c   Section        0  process.o(i.Op_CloseGasSwitch)
+    i.Op_ClosingPressure                     0x080122e8   Section        0  process.o(i.Op_ClosingPressure)
+    i.Op_CoolDown                            0x08012334   Section        0  process.o(i.Op_CoolDown)
+    i.Op_CoolRise                            0x080123a8   Section        0  process.o(i.Op_CoolRise)
+    i.Op_CuttingPlatformWork                 0x0801241c   Section        0  process.o(i.Op_CuttingPlatformWork)
+    i.Op_GotoLoadingPlatform                 0x080126e8   Section        0  process.o(i.Op_GotoLoadingPlatform)
+    i.Op_LeftClampClose                      0x080127f4   Section        0  process.o(i.Op_LeftClampClose)
+    i.Op_LeftClampOpen                       0x08012878   Section        0  process.o(i.Op_LeftClampOpen)
+    i.Op_OpenGasSwitch                       0x080128fc   Section        0  process.o(i.Op_OpenGasSwitch)
+    i.Op_OpeningPressure                     0x08012948   Section        0  process.o(i.Op_OpeningPressure)
+    i.Op_PresDown                            0x08012994   Section        0  process.o(i.Op_PresDown)
+    i.Op_PresRise                            0x08012a08   Section        0  process.o(i.Op_PresRise)
+    i.Op_PretargetingReset                   0x08012a7c   Section        0  process.o(i.Op_PretargetingReset)
+    i.Op_PretargetingReturnCard              0x08012b74   Section        0  process.o(i.Op_PretargetingReturnCard)
+    i.Op_PretargetingToAccessory             0x08012d78   Section        0  process.o(i.Op_PretargetingToAccessory)
+    i.Op_PretargetingUp                      0x08012f60   Section        0  process.o(i.Op_PretargetingUp)
+    i.Op_PretargetingVacuumCupClose          0x08013008   Section        0  process.o(i.Op_PretargetingVacuumCupClose)
+    i.Op_PretargetingVacuumCupOpen           0x08013054   Section        0  process.o(i.Op_PretargetingVacuumCupOpen)
+    i.Op_ResetBlankCardBox                   0x080130a0   Section        0  process.o(i.Op_ResetBlankCardBox)
+    i.Op_ResetClamp                          0x080131a8   Section        0  process.o(i.Op_ResetClamp)
+    i.Op_ResetClampCardCar                   0x08013224   Section        0  process.o(i.Op_ResetClampCardCar)
+    i.Op_ResetModule                         0x080133f0   Section        0  process.o(i.Op_ResetModule)
+    i.Op_ResetSuck                           0x080135ac   Section        0  process.o(i.Op_ResetSuck)
+    i.Op_ResetSuckCardCar                    0x080136bc   Section        0  process.o(i.Op_ResetSuckCardCar)
+    i.Op_RightClampClose                     0x0801381c   Section        0  process.o(i.Op_RightClampClose)
+    i.Op_RightClampOpen                      0x080138a0   Section        0  process.o(i.Op_RightClampOpen)
+    i.Op_ScramProcess                        0x08013924   Section        0  process.o(i.Op_ScramProcess)
+    i.Op_SendCardToPretargeting              0x080139d0   Section        0  process.o(i.Op_SendCardToPretargeting)
+    i.Op_SuckCardCarMove                     0x08013c48   Section        0  process.o(i.Op_SuckCardCarMove)
+    i.Op_SuckMove                            0x08013d9c   Section        0  process.o(i.Op_SuckMove)
+    i.Op_SuckVacuumCupClose                  0x08013f04   Section        0  process.o(i.Op_SuckVacuumCupClose)
+    i.Op_SuckVacuumCupOpen                   0x08013f50   Section        0  process.o(i.Op_SuckVacuumCupOpen)
+    i.Op_WarmCoolMakeCard                    0x08013f9c   Section        0  process.o(i.Op_WarmCoolMakeCard)
+    i.Op_WarmDown                            0x0801425c   Section        0  process.o(i.Op_WarmDown)
+    i.Op_WarmRise                            0x080142d0   Section        0  process.o(i.Op_WarmRise)
+    i.Op_WasteStorageDown                    0x08014344   Section        0  process.o(i.Op_WasteStorageDown)
+    i.Op_WasteStorageReset                   0x080143ec   Section        0  process.o(i.Op_WasteStorageReset)
+    i.PWR_BackupAccessCmd                    0x080144e0   Section        0  stm32f10x_pwr.o(i.PWR_BackupAccessCmd)
+    i.PackageMsg                             0x080144ec   Section        0  communicate.o(i.PackageMsg)
+    i.PendSV_Handler                         0x080145c0   Section        0  stm32f10x_it.o(i.PendSV_Handler)
+    i.ProcessCmd                             0x080145c4   Section        0  communicate.o(i.ProcessCmd)
+    i.ProcessSystemCmd                       0x08014708   Section        0  bsp_command.o(i.ProcessSystemCmd)
+    i.ProcessUpdateParameter                 0x080149c4   Section        0  process.o(i.ProcessUpdateParameter)
+    i.ProcessUserCmd                         0x08014a10   Section        0  command.o(i.ProcessUserCmd)
+    i.RCC_AHBPeriphClockCmd                  0x08014b2c   Section        0  stm32f10x_rcc.o(i.RCC_AHBPeriphClockCmd)
+    i.RCC_APB1PeriphClockCmd                 0x08014b4c   Section        0  stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd)
+    i.RCC_APB1PeriphResetCmd                 0x08014b6c   Section        0  stm32f10x_rcc.o(i.RCC_APB1PeriphResetCmd)
+    i.RCC_APB2PeriphClockCmd                 0x08014b8c   Section        0  stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd)
+    i.RCC_APB2PeriphResetCmd                 0x08014bac   Section        0  stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd)
+    i.RCC_GetClocksFreq                      0x08014bcc   Section        0  stm32f10x_rcc.o(i.RCC_GetClocksFreq)
+    i.RCC_LSEConfig                          0x08014ca0   Section        0  stm32f10x_rcc.o(i.RCC_LSEConfig)
+    i.ResetAllSignal                         0x08014cd4   Section        0  process.o(i.ResetAllSignal)
+    i.ResumeOp                               0x08014d40   Section        0  opctrl.o(i.ResumeOp)
+    i.SPI1_Init                              0x08014d88   Section        0  spi.o(i.SPI1_Init)
+    i.SPI1_ReadWrite                         0x08014e24   Section        0  spi.o(i.SPI1_ReadWrite)
+    i.SPI_Cmd                                0x08014e5c   Section        0  stm32f10x_spi.o(i.SPI_Cmd)
+    i.SPI_I2S_GetFlagStatus                  0x08014e74   Section        0  stm32f10x_spi.o(i.SPI_I2S_GetFlagStatus)
+    i.SPI_I2S_ReceiveData                    0x08014e86   Section        0  stm32f10x_spi.o(i.SPI_I2S_ReceiveData)
+    i.SPI_I2S_SendData                       0x08014e8c   Section        0  stm32f10x_spi.o(i.SPI_I2S_SendData)
+    i.SPI_Init                               0x08014e90   Section        0  stm32f10x_spi.o(i.SPI_Init)
+    i.SVC_Handler                            0x08014ecc   Section        0  stm32f10x_it.o(i.SVC_Handler)
+    i.SetOpRunMode                           0x08014ece   Section        0  opctrl.o(i.SetOpRunMode)
+    i.SetOpTimeDelay                         0x08014ed4   Section        0  opctrl.o(i.SetOpTimeDelay)
+    i.SetSysClock                            0x08014ee4   Section        0  system_stm32f10x.o(i.SetSysClock)
+    SetSysClock                              0x08014ee5   Thumb Code     8  system_stm32f10x.o(i.SetSysClock)
+    i.SetSysClockTo72                        0x08014eec   Section        0  system_stm32f10x.o(i.SetSysClockTo72)
+    SetSysClockTo72                          0x08014eed   Thumb Code   212  system_stm32f10x.o(i.SetSysClockTo72)
+    i.Set_Default_Value                      0x08014fc8   Section        0  eeprom_par.o(i.Set_Default_Value)
+    i.StartChildOp                           0x08014fcc   Section        0  opctrl.o(i.StartChildOp)
+    i.StartOp                                0x0801500c   Section        0  opctrl.o(i.StartOp)
+    i.StartOpByMode                          0x0801501c   Section        0  opctrl.o(i.StartOpByMode)
+    i.StepCtrlMachine                        0x0801505c   Section        0  process.o(i.StepCtrlMachine)
+    i.SysTick_Handler                        0x08015108   Section        0  stm32f10x_it.o(i.SysTick_Handler)
+    i.SystemInit                             0x08015164   Section        0  system_stm32f10x.o(i.SystemInit)
+    i.TIM2_IRQHandler                        0x080151c4   Section        0  stepmotor.o(i.TIM2_IRQHandler)
+    i.TIM3_IRQHandler                        0x08015680   Section        0  stepmotor.o(i.TIM3_IRQHandler)
+    i.TIM_ClearITPendingBit                  0x08015b40   Section        0  stm32f10x_tim.o(i.TIM_ClearITPendingBit)
+    i.TIM_Cmd                                0x08015b46   Section        0  stm32f10x_tim.o(i.TIM_Cmd)
+    i.TIM_DeInit                             0x08015b60   Section        0  stm32f10x_tim.o(i.TIM_DeInit)
+    i.TIM_GetCapture1                        0x08015d48   Section        0  stm32f10x_tim.o(i.TIM_GetCapture1)
+    i.TIM_GetCapture2                        0x08015d4e   Section        0  stm32f10x_tim.o(i.TIM_GetCapture2)
+    i.TIM_GetCapture3                        0x08015d54   Section        0  stm32f10x_tim.o(i.TIM_GetCapture3)
+    i.TIM_GetCapture4                        0x08015d5a   Section        0  stm32f10x_tim.o(i.TIM_GetCapture4)
+    i.TIM_GetITStatus                        0x08015d62   Section        0  stm32f10x_tim.o(i.TIM_GetITStatus)
+    i.TIM_ITConfig                           0x08015d84   Section        0  stm32f10x_tim.o(i.TIM_ITConfig)
+    i.TIM_OC1Init                            0x08015d98   Section        0  stm32f10x_tim.o(i.TIM_OC1Init)
+    i.TIM_OC1PreloadConfig                   0x08015e30   Section        0  stm32f10x_tim.o(i.TIM_OC1PreloadConfig)
+    i.TIM_OC2Init                            0x08015e44   Section        0  stm32f10x_tim.o(i.TIM_OC2Init)
+    i.TIM_OC2PreloadConfig                   0x08015ee8   Section        0  stm32f10x_tim.o(i.TIM_OC2PreloadConfig)
+    i.TIM_OC3Init                            0x08015f04   Section        0  stm32f10x_tim.o(i.TIM_OC3Init)
+    i.TIM_OC3PreloadConfig                   0x08015fa4   Section        0  stm32f10x_tim.o(i.TIM_OC3PreloadConfig)
+    i.TIM_OC4Init                            0x08015fb8   Section        0  stm32f10x_tim.o(i.TIM_OC4Init)
+    i.TIM_OC4PreloadConfig                   0x08016034   Section        0  stm32f10x_tim.o(i.TIM_OC4PreloadConfig)
+    i.TIM_SetCompare1                        0x0801604e   Section        0  stm32f10x_tim.o(i.TIM_SetCompare1)
+    i.TIM_SetCompare2                        0x08016052   Section        0  stm32f10x_tim.o(i.TIM_SetCompare2)
+    i.TIM_SetCompare3                        0x08016056   Section        0  stm32f10x_tim.o(i.TIM_SetCompare3)
+    i.TIM_SetCompare4                        0x0801605a   Section        0  stm32f10x_tim.o(i.TIM_SetCompare4)
+    i.TIM_TimeBaseInit                       0x08016060   Section        0  stm32f10x_tim.o(i.TIM_TimeBaseInit)
+    i.UART4_IRQHandler                       0x08016104   Section        0  serial.o(i.UART4_IRQHandler)
+    i.USART2_IRQHandler                      0x08016384   Section        0  serial.o(i.USART2_IRQHandler)
+    i.USART_ClearFlag                        0x080165f4   Section        0  stm32f10x_usart.o(i.USART_ClearFlag)
+    i.USART_Cmd                              0x08016606   Section        0  stm32f10x_usart.o(i.USART_Cmd)
+    i.USART_GetFlagStatus                    0x0801661e   Section        0  stm32f10x_usart.o(i.USART_GetFlagStatus)
+    i.USART_GetITStatus                      0x08016638   Section        0  stm32f10x_usart.o(i.USART_GetITStatus)
+    i.USART_ITConfig                         0x0801668c   Section        0  stm32f10x_usart.o(i.USART_ITConfig)
+    i.USART_Init                             0x080166d8   Section        0  stm32f10x_usart.o(i.USART_Init)
+    i.USART_ReceiveData                      0x080167b0   Section        0  stm32f10x_usart.o(i.USART_ReceiveData)
+    i.USART_SendData                         0x080167ba   Section        0  stm32f10x_usart.o(i.USART_SendData)
+    i.USBWakeUp_IRQHandler                   0x080167c2   Section        0  stm32f10x_it.o(i.USBWakeUp_IRQHandler)
+    i.USB_LP_CAN1_RX0_IRQHandler             0x080167ce   Section        0  stm32f10x_it.o(i.USB_LP_CAN1_RX0_IRQHandler)
+    i.UsageFault_Handler                     0x080167d0   Section        0  stm32f10x_it.o(i.UsageFault_Handler)
+    i.__0printf$8                            0x080167f4   Section        0  printf8.o(i.__0printf$8)
+    i.__0sprintf$8                           0x08016814   Section        0  printf8.o(i.__0sprintf$8)
+    i.__scatterload_copy                     0x0801683c   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0801684a   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x0801684c   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i._printf_core                           0x0801685c   Section        0  printf8.o(i._printf_core)
+    _printf_core                             0x0801685d   Thumb Code   988  printf8.o(i._printf_core)
+    i._printf_post_padding                   0x08016c64   Section        0  printf8.o(i._printf_post_padding)
+    _printf_post_padding                     0x08016c65   Thumb Code    38  printf8.o(i._printf_post_padding)
+    i._printf_pre_padding                    0x08016c8a   Section        0  printf8.o(i._printf_pre_padding)
+    _printf_pre_padding                      0x08016c8b   Thumb Code    48  printf8.o(i._printf_pre_padding)
+    i._sputc                                 0x08016cba   Section        0  printf8.o(i._sputc)
+    _sputc                                   0x08016cbb   Thumb Code    10  printf8.o(i._sputc)
+    i.check_time_delay                       0x08016cc4   Section        0  driver.o(i.check_time_delay)
+    i.checksum                               0x08016cec   Section        0  ip_arp_udp_tcp.o(i.checksum)
+    i.cmd_get_all_info                       0x08016d40   Section        0  bsp_command.o(i.cmd_get_all_info)
+    i.cmd_get_firmware                       0x08016e0c   Section        0  bsp_command.o(i.cmd_get_firmware)
+    i.cmd_get_mcu_data                       0x08016e8c   Section        0  command.o(i.cmd_get_mcu_data)
+    i.cmd_get_op_info                        0x08016efc   Section        0  bsp_command.o(i.cmd_get_op_info)
+    i.comm_cmd_execution                     0x08016f9c   Section        0  communicate.o(i.comm_cmd_execution)
+    i.delay_ms                               0x080172ac   Section        0  my_fun.o(i.delay_ms)
+    i.delay_us                               0x080172c6   Section        0  my_fun.o(i.delay_us)
+    i.dm_ctrl_one                            0x080172f0   Section        0  driver.o(i.dm_ctrl_one)
+    i.enc28j60Init                           0x080173f4   Section        0  enc28j60.o(i.enc28j60Init)
+    i.enc28j60PacketReceive                  0x0801754c   Section        0  enc28j60.o(i.enc28j60PacketReceive)
+    i.enc28j60PacketSend                     0x08017650   Section        0  enc28j60.o(i.enc28j60PacketSend)
+    i.enc28j60PhyWrite                       0x080176d0   Section        0  enc28j60.o(i.enc28j60PhyWrite)
+    i.enc28j60Read                           0x08017706   Section        0  enc28j60.o(i.enc28j60Read)
+    i.enc28j60ReadBuffer                     0x0801771c   Section        0  enc28j60.o(i.enc28j60ReadBuffer)
+    i.enc28j60ReadOp                         0x08017754   Section        0  enc28j60.o(i.enc28j60ReadOp)
+    i.enc28j60SetBank                        0x08017798   Section        0  enc28j60.o(i.enc28j60SetBank)
+    i.enc28j60Write                          0x080177cc   Section        0  enc28j60.o(i.enc28j60Write)
+    i.enc28j60WriteBuffer                    0x080177e4   Section        0  enc28j60.o(i.enc28j60WriteBuffer)
+    i.enc28j60WriteOp                        0x08017818   Section        0  enc28j60.o(i.enc28j60WriteOp)
+    i.eth_type_is_arp_and_my_ip              0x08017854   Section        0  ip_arp_udp_tcp.o(i.eth_type_is_arp_and_my_ip)
+    i.eth_type_is_boardcast                  0x08017898   Section        0  ip_arp_udp_tcp.o(i.eth_type_is_boardcast)
+    i.eth_type_is_my_mac                     0x080178c0   Section        0  ip_arp_udp_tcp.o(i.eth_type_is_my_mac)
+    i.ethernet_send_msg                      0x080178f4   Section        0  ethernet.o(i.ethernet_send_msg)
+    i.ethernet_tcp                           0x080179a0   Section        0  ethernet.o(i.ethernet_tcp)
+    i.ethernet_udp                           0x08017a94   Section        0  ethernet.o(i.ethernet_udp)
+    i.ethernet_winpcap                       0x08017ac8   Section        0  ethernet.o(i.ethernet_winpcap)
+    i.fill_ip_hdr_checksum                   0x08017afc   Section        0  ip_arp_udp_tcp.o(i.fill_ip_hdr_checksum)
+    i.fpga_read                              0x08017b28   Section        0  driver.o(i.fpga_read)
+    i.fputc                                  0x08017b34   Section        0  serial.o(i.fputc)
+    i.get_board_id                           0x08017b58   Section        0  driver.o(i.get_board_id)
+    i.get_parameter                          0x08017c00   Section        0  eeprom_par.o(i.get_parameter)
+    i.get_tcp_data_pointer                   0x08017c48   Section        0  ip_arp_udp_tcp.o(i.get_tcp_data_pointer)
+    i.init_ethernet                          0x08017c64   Section        0  ethernet.o(i.init_ethernet)
+    i.init_ip_arp_udp_tcp                    0x08017cec   Section        0  ip_arp_udp_tcp.o(i.init_ip_arp_udp_tcp)
+    i.init_len_info                          0x08017d28   Section        0  ip_arp_udp_tcp.o(i.init_len_info)
+    i.init_parameter                         0x08017d6c   Section        0  eeprom_par.o(i.init_parameter)
+    i.init_step_motor                        0x08017e6c   Section        0  stepmotor.o(i.init_step_motor)
+    i.init_uart                              0x0801823c   Section        0  serial.o(i.init_uart)
+    i.input_get_all                          0x080183c4   Section        0  driver.o(i.input_get_all)
+    i.input_get_one                          0x08018410   Section        0  driver.o(i.input_get_one)
+    i.main                                   0x08018440   Section        0  main.o(i.main)
+    i.make_arp_answer_from_request           0x080184f8   Section        0  ip_arp_udp_tcp.o(i.make_arp_answer_from_request)
+    i.make_echo_reply_from_request           0x0801855c   Section        0  ip_arp_udp_tcp.o(i.make_echo_reply_from_request)
+    i.make_eth                               0x0801859c   Section        0  ip_arp_udp_tcp.o(i.make_eth)
+    i.make_ip                                0x080185c0   Section        0  ip_arp_udp_tcp.o(i.make_ip)
+    i.make_tcp_ack_from_any                  0x080185f0   Section        0  ip_arp_udp_tcp.o(i.make_tcp_ack_from_any)
+    i.make_tcp_ack_with_data                 0x08018658   Section        0  ip_arp_udp_tcp.o(i.make_tcp_ack_with_data)
+    i.make_tcp_synack_from_syn               0x080186a4   Section        0  ip_arp_udp_tcp.o(i.make_tcp_synack_from_syn)
+    i.make_tcphead                           0x080186f0   Section        0  ip_arp_udp_tcp.o(i.make_tcphead)
+    i.make_udp_reply_from_request            0x080187b8   Section        0  ip_arp_udp_tcp.o(i.make_udp_reply_from_request)
+    i.make_winpcap_ack_with_data             0x0801884c   Section        0  ip_arp_udp_tcp.o(i.make_winpcap_ack_with_data)
+    i.print_message                          0x08018864   Section        0  driver.o(i.print_message)
+    i.process_all_cmd                        0x080189c4   Section        0  communicate.o(i.process_all_cmd)
+    i.process_computer                       0x080189cc   Section        0  communicate.o(i.process_computer)
+    i.process_ethernet                       0x080189d0   Section        0  ethernet.o(i.process_ethernet)
+    i.process_serial                         0x08018a9c   Section        0  serial.o(i.process_serial)
+    i.save_parameter                         0x08018acc   Section        0  eeprom_par.o(i.save_parameter)
+    i.serial_send_msg                        0x08018b3c   Section        0  serial.o(i.serial_send_msg)
+    i.set_parameter                          0x08018b64   Section        0  eeprom_par.o(i.set_parameter)
+    i.sm_get_abs                             0x08018ba8   Section        0  stepmotor.o(i.sm_get_abs)
+    i.sm_run                                 0x08018bd4   Section        0  stepmotor.o(i.sm_run)
+    i.sm_run_abs                             0x08018e84   Section        0  stepmotor.o(i.sm_run_abs)
+    i.sm_set_abs_zero                        0x08018ee4   Section        0  stepmotor.o(i.sm_set_abs_zero)
+    i.sm_set_dir                             0x08018efc   Section        0  stepmotor.o(i.sm_set_dir)
+    i.sm_set_enable                          0x08018f68   Section        0  stepmotor.o(i.sm_set_enable)
+    i.sm_set_pul                             0x08019000   Section        0  stepmotor.o(i.sm_set_pul)
+    i.sm_stop                                0x0801905c   Section        0  stepmotor.o(i.sm_stop)
+    i.test_step_motor                        0x08019150   Section        0  bsp_command.o(i.test_step_motor)
+    .constdata                               0x0801920c   Section      143  driver.o(.constdata)
+    .conststring                             0x0801929b   Section       29  driver.o(.conststring)
+    .conststring                             0x080192b8   Section       38  main.o(.conststring)
     .data                                    0x20000000   Section       20  stm32f10x_rcc.o(.data)
     APBAHBPrescTable                         0x20000000   Data          16  stm32f10x_rcc.o(.data)
     ADCPrescTable                            0x20000010   Data           4  stm32f10x_rcc.o(.data)
@@ -2182,197 +2184,197 @@ Image Symbol Table
     OpUnplugOneStub                          0x08011b09   Thumb Code     6  opctrl.o(i.OpUnplugOneStub)
     Op_AutoMakeCard                          0x08011b11   Thumb Code   948  process.o(i.Op_AutoMakeCard)
     Op_BlankCardBoxUp                        0x08011f09   Thumb Code   208  process.o(i.Op_BlankCardBoxUp)
-    Op_ClampCardCarMove                      0x08011fe9   Thumb Code   440  process.o(i.Op_ClampCardCarMove)
-    Op_ClampClose                            0x080121dd   Thumb Code   100  process.o(i.Op_ClampClose)
-    Op_ClampOpen                             0x0801224d   Thumb Code   100  process.o(i.Op_ClampOpen)
-    Op_CloseGasSwitch                        0x080122bd   Thumb Code    72  process.o(i.Op_CloseGasSwitch)
-    Op_ClosingPressure                       0x08012309   Thumb Code    72  process.o(i.Op_ClosingPressure)
-    Op_CoolDown                              0x08012355   Thumb Code   112  process.o(i.Op_CoolDown)
-    Op_CoolRise                              0x080123c9   Thumb Code   112  process.o(i.Op_CoolRise)
-    Op_CuttingPlatformWork                   0x0801243d   Thumb Code   664  process.o(i.Op_CuttingPlatformWork)
-    Op_GotoLoadingPlatform                   0x08012709   Thumb Code   226  process.o(i.Op_GotoLoadingPlatform)
-    Op_LeftClampClose                        0x08012815   Thumb Code   128  process.o(i.Op_LeftClampClose)
-    Op_LeftClampOpen                         0x08012899   Thumb Code   128  process.o(i.Op_LeftClampOpen)
-    Op_OpenGasSwitch                         0x0801291d   Thumb Code    72  process.o(i.Op_OpenGasSwitch)
-    Op_OpeningPressure                       0x08012969   Thumb Code    72  process.o(i.Op_OpeningPressure)
-    Op_PresDown                              0x080129b5   Thumb Code   112  process.o(i.Op_PresDown)
-    Op_PresRise                              0x08012a29   Thumb Code   112  process.o(i.Op_PresRise)
-    Op_PretargetingReset                     0x08012a9d   Thumb Code   240  process.o(i.Op_PretargetingReset)
-    Op_PretargetingToAccessory               0x08012b95   Thumb Code   442  process.o(i.Op_PretargetingToAccessory)
-    Op_PretargetingUp                        0x08012d7d   Thumb Code   152  process.o(i.Op_PretargetingUp)
-    Op_PretargetingVacuumCupClose            0x08012e25   Thumb Code    72  process.o(i.Op_PretargetingVacuumCupClose)
-    Op_PretargetingVacuumCupOpen             0x08012e71   Thumb Code    72  process.o(i.Op_PretargetingVacuumCupOpen)
-    Op_ResetBlankCardBox                     0x08012ebd   Thumb Code   248  process.o(i.Op_ResetBlankCardBox)
-    Op_ResetClamp                            0x08012fc5   Thumb Code   110  process.o(i.Op_ResetClamp)
-    Op_ResetClampCardCar                     0x08013041   Thumb Code   430  process.o(i.Op_ResetClampCardCar)
-    Op_ResetModule                           0x0801320d   Thumb Code   378  process.o(i.Op_ResetModule)
-    Op_ResetSuck                             0x080133c9   Thumb Code   258  process.o(i.Op_ResetSuck)
-    Op_ResetSuckCardCar                      0x080134d9   Thumb Code   334  process.o(i.Op_ResetSuckCardCar)
-    Op_ReturnCard                            0x08013639   Thumb Code   464  process.o(i.Op_ReturnCard)
-    Op_RightClampClose                       0x08013835   Thumb Code   128  process.o(i.Op_RightClampClose)
-    Op_RightClampOpen                        0x080138b9   Thumb Code   128  process.o(i.Op_RightClampOpen)
-    Op_ScramProcess                          0x0801393d   Thumb Code   146  process.o(i.Op_ScramProcess)
-    Op_SendCardToPretargeting                0x080139e9   Thumb Code   510  process.o(i.Op_SendCardToPretargeting)
-    Op_SuckCardCarMove                       0x08013c19   Thumb Code   300  process.o(i.Op_SuckCardCarMove)
-    Op_SuckMove                              0x08013d6d   Thumb Code   312  process.o(i.Op_SuckMove)
-    Op_SuckVacuumCupClose                    0x08013ed5   Thumb Code    72  process.o(i.Op_SuckVacuumCupClose)
-    Op_SuckVacuumCupOpen                     0x08013f21   Thumb Code    72  process.o(i.Op_SuckVacuumCupOpen)
-    Op_WarmCoolMakeCard                      0x08013f6d   Thumb Code   650  process.o(i.Op_WarmCoolMakeCard)
-    Op_WarmDown                              0x0801422d   Thumb Code   112  process.o(i.Op_WarmDown)
-    Op_WarmRise                              0x080142a1   Thumb Code   112  process.o(i.Op_WarmRise)
-    Op_WasteStorageDown                      0x08014315   Thumb Code   152  process.o(i.Op_WasteStorageDown)
-    Op_WasteStorageReset                     0x080143bd   Thumb Code   236  process.o(i.Op_WasteStorageReset)
-    PWR_BackupAccessCmd                      0x080144b1   Thumb Code     6  stm32f10x_pwr.o(i.PWR_BackupAccessCmd)
-    PackageMsg                               0x080144bd   Thumb Code   202  communicate.o(i.PackageMsg)
-    PendSV_Handler                           0x08014591   Thumb Code     2  stm32f10x_it.o(i.PendSV_Handler)
-    ProcessCmd                               0x08014595   Thumb Code   286  communicate.o(i.ProcessCmd)
-    ProcessSystemCmd                         0x080146d9   Thumb Code   638  bsp_command.o(i.ProcessSystemCmd)
-    ProcessUpdateParameter                   0x08014995   Thumb Code    58  process.o(i.ProcessUpdateParameter)
-    ProcessUserCmd                           0x080149e1   Thumb Code   258  command.o(i.ProcessUserCmd)
-    RCC_AHBPeriphClockCmd                    0x08014afd   Thumb Code    26  stm32f10x_rcc.o(i.RCC_AHBPeriphClockCmd)
-    RCC_APB1PeriphClockCmd                   0x08014b1d   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd)
-    RCC_APB1PeriphResetCmd                   0x08014b3d   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB1PeriphResetCmd)
-    RCC_APB2PeriphClockCmd                   0x08014b5d   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd)
-    RCC_APB2PeriphResetCmd                   0x08014b7d   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd)
-    RCC_GetClocksFreq                        0x08014b9d   Thumb Code   192  stm32f10x_rcc.o(i.RCC_GetClocksFreq)
-    RCC_LSEConfig                            0x08014c71   Thumb Code    44  stm32f10x_rcc.o(i.RCC_LSEConfig)
-    ResetAllSignal                           0x08014ca5   Thumb Code    96  process.o(i.ResetAllSignal)
-    ResumeOp                                 0x08014d11   Thumb Code    72  opctrl.o(i.ResumeOp)
-    SPI1_Init                                0x08014d59   Thumb Code   148  spi.o(i.SPI1_Init)
-    SPI1_ReadWrite                           0x08014df5   Thumb Code    50  spi.o(i.SPI1_ReadWrite)
-    SPI_Cmd                                  0x08014e2d   Thumb Code    24  stm32f10x_spi.o(i.SPI_Cmd)
-    SPI_I2S_GetFlagStatus                    0x08014e45   Thumb Code    18  stm32f10x_spi.o(i.SPI_I2S_GetFlagStatus)
-    SPI_I2S_ReceiveData                      0x08014e57   Thumb Code     6  stm32f10x_spi.o(i.SPI_I2S_ReceiveData)
-    SPI_I2S_SendData                         0x08014e5d   Thumb Code     4  stm32f10x_spi.o(i.SPI_I2S_SendData)
-    SPI_Init                                 0x08014e61   Thumb Code    60  stm32f10x_spi.o(i.SPI_Init)
-    SVC_Handler                              0x08014e9d   Thumb Code     2  stm32f10x_it.o(i.SVC_Handler)
-    SetOpRunMode                             0x08014e9f   Thumb Code     4  opctrl.o(i.SetOpRunMode)
-    SetOpTimeDelay                           0x08014ea5   Thumb Code    10  opctrl.o(i.SetOpTimeDelay)
-    Set_Default_Value                        0x08014f99   Thumb Code     2  eeprom_par.o(i.Set_Default_Value)
-    StartChildOp                             0x08014f9d   Thumb Code    58  opctrl.o(i.StartChildOp)
-    StartOp                                  0x08014fdd   Thumb Code    14  opctrl.o(i.StartOp)
-    StartOpByMode                            0x08014fed   Thumb Code    58  opctrl.o(i.StartOpByMode)
-    StepCtrlMachine                          0x0801502d   Thumb Code   172  process.o(i.StepCtrlMachine)
-    SysTick_Handler                          0x080150d9   Thumb Code    76  stm32f10x_it.o(i.SysTick_Handler)
-    SystemInit                               0x08015135   Thumb Code    78  system_stm32f10x.o(i.SystemInit)
-    TIM2_IRQHandler                          0x08015195   Thumb Code  1210  stepmotor.o(i.TIM2_IRQHandler)
-    TIM3_IRQHandler                          0x08015651   Thumb Code  1210  stepmotor.o(i.TIM3_IRQHandler)
-    TIM_ClearITPendingBit                    0x08015b11   Thumb Code     6  stm32f10x_tim.o(i.TIM_ClearITPendingBit)
-    TIM_Cmd                                  0x08015b17   Thumb Code    24  stm32f10x_tim.o(i.TIM_Cmd)
-    TIM_DeInit                               0x08015b31   Thumb Code   424  stm32f10x_tim.o(i.TIM_DeInit)
-    TIM_GetCapture1                          0x08015d19   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture1)
-    TIM_GetCapture2                          0x08015d1f   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture2)
-    TIM_GetCapture3                          0x08015d25   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture3)
-    TIM_GetCapture4                          0x08015d2b   Thumb Code     8  stm32f10x_tim.o(i.TIM_GetCapture4)
-    TIM_GetITStatus                          0x08015d33   Thumb Code    34  stm32f10x_tim.o(i.TIM_GetITStatus)
-    TIM_ITConfig                             0x08015d55   Thumb Code    18  stm32f10x_tim.o(i.TIM_ITConfig)
-    TIM_OC1Init                              0x08015d69   Thumb Code   132  stm32f10x_tim.o(i.TIM_OC1Init)
-    TIM_OC1PreloadConfig                     0x08015e01   Thumb Code    18  stm32f10x_tim.o(i.TIM_OC1PreloadConfig)
-    TIM_OC2Init                              0x08015e15   Thumb Code   154  stm32f10x_tim.o(i.TIM_OC2Init)
-    TIM_OC2PreloadConfig                     0x08015eb9   Thumb Code    26  stm32f10x_tim.o(i.TIM_OC2PreloadConfig)
-    TIM_OC3Init                              0x08015ed5   Thumb Code   150  stm32f10x_tim.o(i.TIM_OC3Init)
-    TIM_OC3PreloadConfig                     0x08015f75   Thumb Code    18  stm32f10x_tim.o(i.TIM_OC3PreloadConfig)
-    TIM_OC4Init                              0x08015f89   Thumb Code   114  stm32f10x_tim.o(i.TIM_OC4Init)
-    TIM_OC4PreloadConfig                     0x08016005   Thumb Code    26  stm32f10x_tim.o(i.TIM_OC4PreloadConfig)
-    TIM_SetCompare1                          0x0801601f   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare1)
-    TIM_SetCompare2                          0x08016023   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare2)
-    TIM_SetCompare3                          0x08016027   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare3)
-    TIM_SetCompare4                          0x0801602b   Thumb Code     6  stm32f10x_tim.o(i.TIM_SetCompare4)
-    TIM_TimeBaseInit                         0x08016031   Thumb Code   122  stm32f10x_tim.o(i.TIM_TimeBaseInit)
-    UART4_IRQHandler                         0x080160d5   Thumb Code   580  serial.o(i.UART4_IRQHandler)
-    USART2_IRQHandler                        0x08016355   Thumb Code   568  serial.o(i.USART2_IRQHandler)
-    USART_ClearFlag                          0x080165c5   Thumb Code    18  stm32f10x_usart.o(i.USART_ClearFlag)
-    USART_Cmd                                0x080165d7   Thumb Code    24  stm32f10x_usart.o(i.USART_Cmd)
-    USART_GetFlagStatus                      0x080165ef   Thumb Code    26  stm32f10x_usart.o(i.USART_GetFlagStatus)
-    USART_GetITStatus                        0x08016609   Thumb Code    84  stm32f10x_usart.o(i.USART_GetITStatus)
-    USART_ITConfig                           0x0801665d   Thumb Code    74  stm32f10x_usart.o(i.USART_ITConfig)
-    USART_Init                               0x080166a9   Thumb Code   210  stm32f10x_usart.o(i.USART_Init)
-    USART_ReceiveData                        0x08016781   Thumb Code    10  stm32f10x_usart.o(i.USART_ReceiveData)
-    USART_SendData                           0x0801678b   Thumb Code     8  stm32f10x_usart.o(i.USART_SendData)
-    USBWakeUp_IRQHandler                     0x08016793   Thumb Code    12  stm32f10x_it.o(i.USBWakeUp_IRQHandler)
-    USB_LP_CAN1_RX0_IRQHandler               0x0801679f   Thumb Code     2  stm32f10x_it.o(i.USB_LP_CAN1_RX0_IRQHandler)
-    UsageFault_Handler                       0x080167a1   Thumb Code    10  stm32f10x_it.o(i.UsageFault_Handler)
-    __0printf$8                              0x080167c5   Thumb Code    22  printf8.o(i.__0printf$8)
-    __1printf$8                              0x080167c5   Thumb Code     0  printf8.o(i.__0printf$8)
-    __2printf                                0x080167c5   Thumb Code     0  printf8.o(i.__0printf$8)
-    __0sprintf$8                             0x080167e5   Thumb Code    34  printf8.o(i.__0sprintf$8)
-    __1sprintf$8                             0x080167e5   Thumb Code     0  printf8.o(i.__0sprintf$8)
-    __2sprintf                               0x080167e5   Thumb Code     0  printf8.o(i.__0sprintf$8)
-    __scatterload_copy                       0x0801680d   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x0801681b   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x0801681d   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    check_time_delay                         0x08016c95   Thumb Code    34  driver.o(i.check_time_delay)
-    checksum                                 0x08016cbd   Thumb Code    82  ip_arp_udp_tcp.o(i.checksum)
-    cmd_get_all_info                         0x08016d11   Thumb Code   188  bsp_command.o(i.cmd_get_all_info)
-    cmd_get_firmware                         0x08016ddd   Thumb Code   114  bsp_command.o(i.cmd_get_firmware)
-    cmd_get_mcu_data                         0x08016e5d   Thumb Code    96  command.o(i.cmd_get_mcu_data)
-    cmd_get_op_info                          0x08016ecd   Thumb Code   148  bsp_command.o(i.cmd_get_op_info)
-    comm_cmd_execution                       0x08016f6d   Thumb Code   678  communicate.o(i.comm_cmd_execution)
-    delay_ms                                 0x0801727d   Thumb Code    26  my_fun.o(i.delay_ms)
-    delay_us                                 0x08017297   Thumb Code    40  my_fun.o(i.delay_us)
-    dm_ctrl_one                              0x080172c1   Thumb Code   242  driver.o(i.dm_ctrl_one)
-    enc28j60Init                             0x080173c5   Thumb Code   330  enc28j60.o(i.enc28j60Init)
-    enc28j60PacketReceive                    0x0801751d   Thumb Code   256  enc28j60.o(i.enc28j60PacketReceive)
-    enc28j60PacketSend                       0x08017621   Thumb Code   128  enc28j60.o(i.enc28j60PacketSend)
-    enc28j60PhyWrite                         0x080176a1   Thumb Code    54  enc28j60.o(i.enc28j60PhyWrite)
-    enc28j60Read                             0x080176d7   Thumb Code    20  enc28j60.o(i.enc28j60Read)
-    enc28j60ReadBuffer                       0x080176ed   Thumb Code    52  enc28j60.o(i.enc28j60ReadBuffer)
-    enc28j60ReadOp                           0x08017725   Thumb Code    64  enc28j60.o(i.enc28j60ReadOp)
-    enc28j60SetBank                          0x08017769   Thumb Code    48  enc28j60.o(i.enc28j60SetBank)
-    enc28j60Write                            0x0801779d   Thumb Code    24  enc28j60.o(i.enc28j60Write)
-    enc28j60WriteBuffer                      0x080177b5   Thumb Code    46  enc28j60.o(i.enc28j60WriteBuffer)
-    enc28j60WriteOp                          0x080177e9   Thumb Code    54  enc28j60.o(i.enc28j60WriteOp)
-    eth_type_is_arp_and_my_ip                0x08017825   Thumb Code    64  ip_arp_udp_tcp.o(i.eth_type_is_arp_and_my_ip)
-    eth_type_is_boardcast                    0x08017869   Thumb Code    40  ip_arp_udp_tcp.o(i.eth_type_is_boardcast)
-    eth_type_is_my_mac                       0x08017891   Thumb Code    46  ip_arp_udp_tcp.o(i.eth_type_is_my_mac)
-    ethernet_send_msg                        0x080178c5   Thumb Code   146  ethernet.o(i.ethernet_send_msg)
-    ethernet_tcp                             0x08017971   Thumb Code   220  ethernet.o(i.ethernet_tcp)
-    ethernet_udp                             0x08017a65   Thumb Code    36  ethernet.o(i.ethernet_udp)
-    ethernet_winpcap                         0x08017a99   Thumb Code    36  ethernet.o(i.ethernet_winpcap)
-    fill_ip_hdr_checksum                     0x08017acd   Thumb Code    44  ip_arp_udp_tcp.o(i.fill_ip_hdr_checksum)
-    fpga_read                                0x08017af9   Thumb Code    12  driver.o(i.fpga_read)
-    fputc                                    0x08017b05   Thumb Code    32  serial.o(i.fputc)
-    get_board_id                             0x08017b29   Thumb Code   156  driver.o(i.get_board_id)
-    get_parameter                            0x08017bd1   Thumb Code    62  eeprom_par.o(i.get_parameter)
-    get_tcp_data_pointer                     0x08017c19   Thumb Code    18  ip_arp_udp_tcp.o(i.get_tcp_data_pointer)
-    init_ethernet                            0x08017c35   Thumb Code   106  ethernet.o(i.init_ethernet)
-    init_ip_arp_udp_tcp                      0x08017cbd   Thumb Code    46  ip_arp_udp_tcp.o(i.init_ip_arp_udp_tcp)
-    init_len_info                            0x08017cf9   Thumb Code    58  ip_arp_udp_tcp.o(i.init_len_info)
-    init_parameter                           0x08017d3d   Thumb Code   244  eeprom_par.o(i.init_parameter)
-    init_step_motor                          0x08017e3d   Thumb Code   962  stepmotor.o(i.init_step_motor)
-    init_uart                                0x0801820d   Thumb Code   374  serial.o(i.init_uart)
-    input_get_all                            0x08018395   Thumb Code    68  driver.o(i.input_get_all)
-    input_get_one                            0x080183e1   Thumb Code    44  driver.o(i.input_get_one)
-    main                                     0x08018411   Thumb Code   126  main.o(i.main)
-    make_arp_answer_from_request             0x080184c9   Thumb Code    92  ip_arp_udp_tcp.o(i.make_arp_answer_from_request)
-    make_echo_reply_from_request             0x0801852d   Thumb Code    62  ip_arp_udp_tcp.o(i.make_echo_reply_from_request)
-    make_eth                                 0x0801856d   Thumb Code    30  ip_arp_udp_tcp.o(i.make_eth)
-    make_ip                                  0x08018591   Thumb Code    44  ip_arp_udp_tcp.o(i.make_ip)
-    make_tcp_ack_from_any                    0x080185c1   Thumb Code    98  ip_arp_udp_tcp.o(i.make_tcp_ack_from_any)
-    make_tcp_ack_with_data                   0x08018629   Thumb Code    76  ip_arp_udp_tcp.o(i.make_tcp_ack_with_data)
-    make_tcp_synack_from_syn                 0x08018675   Thumb Code    76  ip_arp_udp_tcp.o(i.make_tcp_synack_from_syn)
-    make_tcphead                             0x080186c1   Thumb Code   190  ip_arp_udp_tcp.o(i.make_tcphead)
-    make_udp_reply_from_request              0x08018789   Thumb Code   148  ip_arp_udp_tcp.o(i.make_udp_reply_from_request)
-    make_winpcap_ack_with_data               0x0801881d   Thumb Code    24  ip_arp_udp_tcp.o(i.make_winpcap_ack_with_data)
-    print_message                            0x08018835   Thumb Code   182  driver.o(i.print_message)
-    process_all_cmd                          0x08018995   Thumb Code     8  communicate.o(i.process_all_cmd)
-    process_computer                         0x0801899d   Thumb Code     2  communicate.o(i.process_computer)
-    process_ethernet                         0x080189a1   Thumb Code   194  ethernet.o(i.process_ethernet)
-    process_serial                           0x08018a6d   Thumb Code    34  serial.o(i.process_serial)
-    save_parameter                           0x08018a9d   Thumb Code   100  eeprom_par.o(i.save_parameter)
-    serial_send_msg                          0x08018b0d   Thumb Code    26  serial.o(i.serial_send_msg)
-    set_parameter                            0x08018b35   Thumb Code    60  eeprom_par.o(i.set_parameter)
-    sm_get_abs                               0x08018b79   Thumb Code    38  stepmotor.o(i.sm_get_abs)
-    sm_run                                   0x08018ba5   Thumb Code   678  stepmotor.o(i.sm_run)
-    sm_run_abs                               0x08018e55   Thumb Code    86  stepmotor.o(i.sm_run_abs)
-    sm_set_abs_zero                          0x08018eb5   Thumb Code    18  stepmotor.o(i.sm_set_abs_zero)
-    sm_set_dir                               0x08018ecd   Thumb Code    96  stepmotor.o(i.sm_set_dir)
-    sm_set_enable                            0x08018f39   Thumb Code   140  stepmotor.o(i.sm_set_enable)
-    sm_set_pul                               0x08018fd1   Thumb Code    84  stepmotor.o(i.sm_set_pul)
-    sm_stop                                  0x0801902d   Thumb Code   236  stepmotor.o(i.sm_stop)
-    test_step_motor                          0x08019121   Thumb Code   180  bsp_command.o(i.test_step_motor)
-    Region$$Table$$Base                      0x080192b0   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080192d0   Number         0  anon$$obj.o(Region$$Table)
+    Op_ClampCardCarMove                      0x08011fe9   Thumb Code   412  process.o(i.Op_ClampCardCarMove)
+    Op_ClampClose                            0x080121bd   Thumb Code   100  process.o(i.Op_ClampClose)
+    Op_ClampOpen                             0x0801222d   Thumb Code   100  process.o(i.Op_ClampOpen)
+    Op_CloseGasSwitch                        0x0801229d   Thumb Code    72  process.o(i.Op_CloseGasSwitch)
+    Op_ClosingPressure                       0x080122e9   Thumb Code    72  process.o(i.Op_ClosingPressure)
+    Op_CoolDown                              0x08012335   Thumb Code   112  process.o(i.Op_CoolDown)
+    Op_CoolRise                              0x080123a9   Thumb Code   112  process.o(i.Op_CoolRise)
+    Op_CuttingPlatformWork                   0x0801241d   Thumb Code   664  process.o(i.Op_CuttingPlatformWork)
+    Op_GotoLoadingPlatform                   0x080126e9   Thumb Code   226  process.o(i.Op_GotoLoadingPlatform)
+    Op_LeftClampClose                        0x080127f5   Thumb Code   128  process.o(i.Op_LeftClampClose)
+    Op_LeftClampOpen                         0x08012879   Thumb Code   128  process.o(i.Op_LeftClampOpen)
+    Op_OpenGasSwitch                         0x080128fd   Thumb Code    72  process.o(i.Op_OpenGasSwitch)
+    Op_OpeningPressure                       0x08012949   Thumb Code    72  process.o(i.Op_OpeningPressure)
+    Op_PresDown                              0x08012995   Thumb Code   112  process.o(i.Op_PresDown)
+    Op_PresRise                              0x08012a09   Thumb Code   112  process.o(i.Op_PresRise)
+    Op_PretargetingReset                     0x08012a7d   Thumb Code   240  process.o(i.Op_PretargetingReset)
+    Op_PretargetingReturnCard                0x08012b75   Thumb Code   468  process.o(i.Op_PretargetingReturnCard)
+    Op_PretargetingToAccessory               0x08012d79   Thumb Code   442  process.o(i.Op_PretargetingToAccessory)
+    Op_PretargetingUp                        0x08012f61   Thumb Code   152  process.o(i.Op_PretargetingUp)
+    Op_PretargetingVacuumCupClose            0x08013009   Thumb Code    72  process.o(i.Op_PretargetingVacuumCupClose)
+    Op_PretargetingVacuumCupOpen             0x08013055   Thumb Code    72  process.o(i.Op_PretargetingVacuumCupOpen)
+    Op_ResetBlankCardBox                     0x080130a1   Thumb Code   248  process.o(i.Op_ResetBlankCardBox)
+    Op_ResetClamp                            0x080131a9   Thumb Code   110  process.o(i.Op_ResetClamp)
+    Op_ResetClampCardCar                     0x08013225   Thumb Code   430  process.o(i.Op_ResetClampCardCar)
+    Op_ResetModule                           0x080133f1   Thumb Code   378  process.o(i.Op_ResetModule)
+    Op_ResetSuck                             0x080135ad   Thumb Code   258  process.o(i.Op_ResetSuck)
+    Op_ResetSuckCardCar                      0x080136bd   Thumb Code   334  process.o(i.Op_ResetSuckCardCar)
+    Op_RightClampClose                       0x0801381d   Thumb Code   128  process.o(i.Op_RightClampClose)
+    Op_RightClampOpen                        0x080138a1   Thumb Code   128  process.o(i.Op_RightClampOpen)
+    Op_ScramProcess                          0x08013925   Thumb Code   146  process.o(i.Op_ScramProcess)
+    Op_SendCardToPretargeting                0x080139d1   Thumb Code   580  process.o(i.Op_SendCardToPretargeting)
+    Op_SuckCardCarMove                       0x08013c49   Thumb Code   300  process.o(i.Op_SuckCardCarMove)
+    Op_SuckMove                              0x08013d9d   Thumb Code   312  process.o(i.Op_SuckMove)
+    Op_SuckVacuumCupClose                    0x08013f05   Thumb Code    72  process.o(i.Op_SuckVacuumCupClose)
+    Op_SuckVacuumCupOpen                     0x08013f51   Thumb Code    72  process.o(i.Op_SuckVacuumCupOpen)
+    Op_WarmCoolMakeCard                      0x08013f9d   Thumb Code   650  process.o(i.Op_WarmCoolMakeCard)
+    Op_WarmDown                              0x0801425d   Thumb Code   112  process.o(i.Op_WarmDown)
+    Op_WarmRise                              0x080142d1   Thumb Code   112  process.o(i.Op_WarmRise)
+    Op_WasteStorageDown                      0x08014345   Thumb Code   152  process.o(i.Op_WasteStorageDown)
+    Op_WasteStorageReset                     0x080143ed   Thumb Code   236  process.o(i.Op_WasteStorageReset)
+    PWR_BackupAccessCmd                      0x080144e1   Thumb Code     6  stm32f10x_pwr.o(i.PWR_BackupAccessCmd)
+    PackageMsg                               0x080144ed   Thumb Code   202  communicate.o(i.PackageMsg)
+    PendSV_Handler                           0x080145c1   Thumb Code     2  stm32f10x_it.o(i.PendSV_Handler)
+    ProcessCmd                               0x080145c5   Thumb Code   286  communicate.o(i.ProcessCmd)
+    ProcessSystemCmd                         0x08014709   Thumb Code   638  bsp_command.o(i.ProcessSystemCmd)
+    ProcessUpdateParameter                   0x080149c5   Thumb Code    58  process.o(i.ProcessUpdateParameter)
+    ProcessUserCmd                           0x08014a11   Thumb Code   258  command.o(i.ProcessUserCmd)
+    RCC_AHBPeriphClockCmd                    0x08014b2d   Thumb Code    26  stm32f10x_rcc.o(i.RCC_AHBPeriphClockCmd)
+    RCC_APB1PeriphClockCmd                   0x08014b4d   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB1PeriphClockCmd)
+    RCC_APB1PeriphResetCmd                   0x08014b6d   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB1PeriphResetCmd)
+    RCC_APB2PeriphClockCmd                   0x08014b8d   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd)
+    RCC_APB2PeriphResetCmd                   0x08014bad   Thumb Code    26  stm32f10x_rcc.o(i.RCC_APB2PeriphResetCmd)
+    RCC_GetClocksFreq                        0x08014bcd   Thumb Code   192  stm32f10x_rcc.o(i.RCC_GetClocksFreq)
+    RCC_LSEConfig                            0x08014ca1   Thumb Code    44  stm32f10x_rcc.o(i.RCC_LSEConfig)
+    ResetAllSignal                           0x08014cd5   Thumb Code    96  process.o(i.ResetAllSignal)
+    ResumeOp                                 0x08014d41   Thumb Code    72  opctrl.o(i.ResumeOp)
+    SPI1_Init                                0x08014d89   Thumb Code   148  spi.o(i.SPI1_Init)
+    SPI1_ReadWrite                           0x08014e25   Thumb Code    50  spi.o(i.SPI1_ReadWrite)
+    SPI_Cmd                                  0x08014e5d   Thumb Code    24  stm32f10x_spi.o(i.SPI_Cmd)
+    SPI_I2S_GetFlagStatus                    0x08014e75   Thumb Code    18  stm32f10x_spi.o(i.SPI_I2S_GetFlagStatus)
+    SPI_I2S_ReceiveData                      0x08014e87   Thumb Code     6  stm32f10x_spi.o(i.SPI_I2S_ReceiveData)
+    SPI_I2S_SendData                         0x08014e8d   Thumb Code     4  stm32f10x_spi.o(i.SPI_I2S_SendData)
+    SPI_Init                                 0x08014e91   Thumb Code    60  stm32f10x_spi.o(i.SPI_Init)
+    SVC_Handler                              0x08014ecd   Thumb Code     2  stm32f10x_it.o(i.SVC_Handler)
+    SetOpRunMode                             0x08014ecf   Thumb Code     4  opctrl.o(i.SetOpRunMode)
+    SetOpTimeDelay                           0x08014ed5   Thumb Code    10  opctrl.o(i.SetOpTimeDelay)
+    Set_Default_Value                        0x08014fc9   Thumb Code     2  eeprom_par.o(i.Set_Default_Value)
+    StartChildOp                             0x08014fcd   Thumb Code    58  opctrl.o(i.StartChildOp)
+    StartOp                                  0x0801500d   Thumb Code    14  opctrl.o(i.StartOp)
+    StartOpByMode                            0x0801501d   Thumb Code    58  opctrl.o(i.StartOpByMode)
+    StepCtrlMachine                          0x0801505d   Thumb Code   172  process.o(i.StepCtrlMachine)
+    SysTick_Handler                          0x08015109   Thumb Code    76  stm32f10x_it.o(i.SysTick_Handler)
+    SystemInit                               0x08015165   Thumb Code    78  system_stm32f10x.o(i.SystemInit)
+    TIM2_IRQHandler                          0x080151c5   Thumb Code  1210  stepmotor.o(i.TIM2_IRQHandler)
+    TIM3_IRQHandler                          0x08015681   Thumb Code  1210  stepmotor.o(i.TIM3_IRQHandler)
+    TIM_ClearITPendingBit                    0x08015b41   Thumb Code     6  stm32f10x_tim.o(i.TIM_ClearITPendingBit)
+    TIM_Cmd                                  0x08015b47   Thumb Code    24  stm32f10x_tim.o(i.TIM_Cmd)
+    TIM_DeInit                               0x08015b61   Thumb Code   424  stm32f10x_tim.o(i.TIM_DeInit)
+    TIM_GetCapture1                          0x08015d49   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture1)
+    TIM_GetCapture2                          0x08015d4f   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture2)
+    TIM_GetCapture3                          0x08015d55   Thumb Code     6  stm32f10x_tim.o(i.TIM_GetCapture3)
+    TIM_GetCapture4                          0x08015d5b   Thumb Code     8  stm32f10x_tim.o(i.TIM_GetCapture4)
+    TIM_GetITStatus                          0x08015d63   Thumb Code    34  stm32f10x_tim.o(i.TIM_GetITStatus)
+    TIM_ITConfig                             0x08015d85   Thumb Code    18  stm32f10x_tim.o(i.TIM_ITConfig)
+    TIM_OC1Init                              0x08015d99   Thumb Code   132  stm32f10x_tim.o(i.TIM_OC1Init)
+    TIM_OC1PreloadConfig                     0x08015e31   Thumb Code    18  stm32f10x_tim.o(i.TIM_OC1PreloadConfig)
+    TIM_OC2Init                              0x08015e45   Thumb Code   154  stm32f10x_tim.o(i.TIM_OC2Init)
+    TIM_OC2PreloadConfig                     0x08015ee9   Thumb Code    26  stm32f10x_tim.o(i.TIM_OC2PreloadConfig)
+    TIM_OC3Init                              0x08015f05   Thumb Code   150  stm32f10x_tim.o(i.TIM_OC3Init)
+    TIM_OC3PreloadConfig                     0x08015fa5   Thumb Code    18  stm32f10x_tim.o(i.TIM_OC3PreloadConfig)
+    TIM_OC4Init                              0x08015fb9   Thumb Code   114  stm32f10x_tim.o(i.TIM_OC4Init)
+    TIM_OC4PreloadConfig                     0x08016035   Thumb Code    26  stm32f10x_tim.o(i.TIM_OC4PreloadConfig)
+    TIM_SetCompare1                          0x0801604f   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare1)
+    TIM_SetCompare2                          0x08016053   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare2)
+    TIM_SetCompare3                          0x08016057   Thumb Code     4  stm32f10x_tim.o(i.TIM_SetCompare3)
+    TIM_SetCompare4                          0x0801605b   Thumb Code     6  stm32f10x_tim.o(i.TIM_SetCompare4)
+    TIM_TimeBaseInit                         0x08016061   Thumb Code   122  stm32f10x_tim.o(i.TIM_TimeBaseInit)
+    UART4_IRQHandler                         0x08016105   Thumb Code   580  serial.o(i.UART4_IRQHandler)
+    USART2_IRQHandler                        0x08016385   Thumb Code   568  serial.o(i.USART2_IRQHandler)
+    USART_ClearFlag                          0x080165f5   Thumb Code    18  stm32f10x_usart.o(i.USART_ClearFlag)
+    USART_Cmd                                0x08016607   Thumb Code    24  stm32f10x_usart.o(i.USART_Cmd)
+    USART_GetFlagStatus                      0x0801661f   Thumb Code    26  stm32f10x_usart.o(i.USART_GetFlagStatus)
+    USART_GetITStatus                        0x08016639   Thumb Code    84  stm32f10x_usart.o(i.USART_GetITStatus)
+    USART_ITConfig                           0x0801668d   Thumb Code    74  stm32f10x_usart.o(i.USART_ITConfig)
+    USART_Init                               0x080166d9   Thumb Code   210  stm32f10x_usart.o(i.USART_Init)
+    USART_ReceiveData                        0x080167b1   Thumb Code    10  stm32f10x_usart.o(i.USART_ReceiveData)
+    USART_SendData                           0x080167bb   Thumb Code     8  stm32f10x_usart.o(i.USART_SendData)
+    USBWakeUp_IRQHandler                     0x080167c3   Thumb Code    12  stm32f10x_it.o(i.USBWakeUp_IRQHandler)
+    USB_LP_CAN1_RX0_IRQHandler               0x080167cf   Thumb Code     2  stm32f10x_it.o(i.USB_LP_CAN1_RX0_IRQHandler)
+    UsageFault_Handler                       0x080167d1   Thumb Code    10  stm32f10x_it.o(i.UsageFault_Handler)
+    __0printf$8                              0x080167f5   Thumb Code    22  printf8.o(i.__0printf$8)
+    __1printf$8                              0x080167f5   Thumb Code     0  printf8.o(i.__0printf$8)
+    __2printf                                0x080167f5   Thumb Code     0  printf8.o(i.__0printf$8)
+    __0sprintf$8                             0x08016815   Thumb Code    34  printf8.o(i.__0sprintf$8)
+    __1sprintf$8                             0x08016815   Thumb Code     0  printf8.o(i.__0sprintf$8)
+    __2sprintf                               0x08016815   Thumb Code     0  printf8.o(i.__0sprintf$8)
+    __scatterload_copy                       0x0801683d   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0801684b   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x0801684d   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    check_time_delay                         0x08016cc5   Thumb Code    34  driver.o(i.check_time_delay)
+    checksum                                 0x08016ced   Thumb Code    82  ip_arp_udp_tcp.o(i.checksum)
+    cmd_get_all_info                         0x08016d41   Thumb Code   188  bsp_command.o(i.cmd_get_all_info)
+    cmd_get_firmware                         0x08016e0d   Thumb Code   114  bsp_command.o(i.cmd_get_firmware)
+    cmd_get_mcu_data                         0x08016e8d   Thumb Code    96  command.o(i.cmd_get_mcu_data)
+    cmd_get_op_info                          0x08016efd   Thumb Code   148  bsp_command.o(i.cmd_get_op_info)
+    comm_cmd_execution                       0x08016f9d   Thumb Code   678  communicate.o(i.comm_cmd_execution)
+    delay_ms                                 0x080172ad   Thumb Code    26  my_fun.o(i.delay_ms)
+    delay_us                                 0x080172c7   Thumb Code    40  my_fun.o(i.delay_us)
+    dm_ctrl_one                              0x080172f1   Thumb Code   242  driver.o(i.dm_ctrl_one)
+    enc28j60Init                             0x080173f5   Thumb Code   330  enc28j60.o(i.enc28j60Init)
+    enc28j60PacketReceive                    0x0801754d   Thumb Code   256  enc28j60.o(i.enc28j60PacketReceive)
+    enc28j60PacketSend                       0x08017651   Thumb Code   128  enc28j60.o(i.enc28j60PacketSend)
+    enc28j60PhyWrite                         0x080176d1   Thumb Code    54  enc28j60.o(i.enc28j60PhyWrite)
+    enc28j60Read                             0x08017707   Thumb Code    20  enc28j60.o(i.enc28j60Read)
+    enc28j60ReadBuffer                       0x0801771d   Thumb Code    52  enc28j60.o(i.enc28j60ReadBuffer)
+    enc28j60ReadOp                           0x08017755   Thumb Code    64  enc28j60.o(i.enc28j60ReadOp)
+    enc28j60SetBank                          0x08017799   Thumb Code    48  enc28j60.o(i.enc28j60SetBank)
+    enc28j60Write                            0x080177cd   Thumb Code    24  enc28j60.o(i.enc28j60Write)
+    enc28j60WriteBuffer                      0x080177e5   Thumb Code    46  enc28j60.o(i.enc28j60WriteBuffer)
+    enc28j60WriteOp                          0x08017819   Thumb Code    54  enc28j60.o(i.enc28j60WriteOp)
+    eth_type_is_arp_and_my_ip                0x08017855   Thumb Code    64  ip_arp_udp_tcp.o(i.eth_type_is_arp_and_my_ip)
+    eth_type_is_boardcast                    0x08017899   Thumb Code    40  ip_arp_udp_tcp.o(i.eth_type_is_boardcast)
+    eth_type_is_my_mac                       0x080178c1   Thumb Code    46  ip_arp_udp_tcp.o(i.eth_type_is_my_mac)
+    ethernet_send_msg                        0x080178f5   Thumb Code   146  ethernet.o(i.ethernet_send_msg)
+    ethernet_tcp                             0x080179a1   Thumb Code   220  ethernet.o(i.ethernet_tcp)
+    ethernet_udp                             0x08017a95   Thumb Code    36  ethernet.o(i.ethernet_udp)
+    ethernet_winpcap                         0x08017ac9   Thumb Code    36  ethernet.o(i.ethernet_winpcap)
+    fill_ip_hdr_checksum                     0x08017afd   Thumb Code    44  ip_arp_udp_tcp.o(i.fill_ip_hdr_checksum)
+    fpga_read                                0x08017b29   Thumb Code    12  driver.o(i.fpga_read)
+    fputc                                    0x08017b35   Thumb Code    32  serial.o(i.fputc)
+    get_board_id                             0x08017b59   Thumb Code   156  driver.o(i.get_board_id)
+    get_parameter                            0x08017c01   Thumb Code    62  eeprom_par.o(i.get_parameter)
+    get_tcp_data_pointer                     0x08017c49   Thumb Code    18  ip_arp_udp_tcp.o(i.get_tcp_data_pointer)
+    init_ethernet                            0x08017c65   Thumb Code   106  ethernet.o(i.init_ethernet)
+    init_ip_arp_udp_tcp                      0x08017ced   Thumb Code    46  ip_arp_udp_tcp.o(i.init_ip_arp_udp_tcp)
+    init_len_info                            0x08017d29   Thumb Code    58  ip_arp_udp_tcp.o(i.init_len_info)
+    init_parameter                           0x08017d6d   Thumb Code   244  eeprom_par.o(i.init_parameter)
+    init_step_motor                          0x08017e6d   Thumb Code   962  stepmotor.o(i.init_step_motor)
+    init_uart                                0x0801823d   Thumb Code   374  serial.o(i.init_uart)
+    input_get_all                            0x080183c5   Thumb Code    68  driver.o(i.input_get_all)
+    input_get_one                            0x08018411   Thumb Code    44  driver.o(i.input_get_one)
+    main                                     0x08018441   Thumb Code   126  main.o(i.main)
+    make_arp_answer_from_request             0x080184f9   Thumb Code    92  ip_arp_udp_tcp.o(i.make_arp_answer_from_request)
+    make_echo_reply_from_request             0x0801855d   Thumb Code    62  ip_arp_udp_tcp.o(i.make_echo_reply_from_request)
+    make_eth                                 0x0801859d   Thumb Code    30  ip_arp_udp_tcp.o(i.make_eth)
+    make_ip                                  0x080185c1   Thumb Code    44  ip_arp_udp_tcp.o(i.make_ip)
+    make_tcp_ack_from_any                    0x080185f1   Thumb Code    98  ip_arp_udp_tcp.o(i.make_tcp_ack_from_any)
+    make_tcp_ack_with_data                   0x08018659   Thumb Code    76  ip_arp_udp_tcp.o(i.make_tcp_ack_with_data)
+    make_tcp_synack_from_syn                 0x080186a5   Thumb Code    76  ip_arp_udp_tcp.o(i.make_tcp_synack_from_syn)
+    make_tcphead                             0x080186f1   Thumb Code   190  ip_arp_udp_tcp.o(i.make_tcphead)
+    make_udp_reply_from_request              0x080187b9   Thumb Code   148  ip_arp_udp_tcp.o(i.make_udp_reply_from_request)
+    make_winpcap_ack_with_data               0x0801884d   Thumb Code    24  ip_arp_udp_tcp.o(i.make_winpcap_ack_with_data)
+    print_message                            0x08018865   Thumb Code   182  driver.o(i.print_message)
+    process_all_cmd                          0x080189c5   Thumb Code     8  communicate.o(i.process_all_cmd)
+    process_computer                         0x080189cd   Thumb Code     2  communicate.o(i.process_computer)
+    process_ethernet                         0x080189d1   Thumb Code   194  ethernet.o(i.process_ethernet)
+    process_serial                           0x08018a9d   Thumb Code    34  serial.o(i.process_serial)
+    save_parameter                           0x08018acd   Thumb Code   100  eeprom_par.o(i.save_parameter)
+    serial_send_msg                          0x08018b3d   Thumb Code    26  serial.o(i.serial_send_msg)
+    set_parameter                            0x08018b65   Thumb Code    60  eeprom_par.o(i.set_parameter)
+    sm_get_abs                               0x08018ba9   Thumb Code    38  stepmotor.o(i.sm_get_abs)
+    sm_run                                   0x08018bd5   Thumb Code   678  stepmotor.o(i.sm_run)
+    sm_run_abs                               0x08018e85   Thumb Code    86  stepmotor.o(i.sm_run_abs)
+    sm_set_abs_zero                          0x08018ee5   Thumb Code    18  stepmotor.o(i.sm_set_abs_zero)
+    sm_set_dir                               0x08018efd   Thumb Code    96  stepmotor.o(i.sm_set_dir)
+    sm_set_enable                            0x08018f69   Thumb Code   140  stepmotor.o(i.sm_set_enable)
+    sm_set_pul                               0x08019001   Thumb Code    84  stepmotor.o(i.sm_set_pul)
+    sm_stop                                  0x0801905d   Thumb Code   236  stepmotor.o(i.sm_stop)
+    test_step_motor                          0x08019151   Thumb Code   180  bsp_command.o(i.test_step_motor)
+    Region$$Table$$Base                      0x080192e0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08019300   Number         0  anon$$obj.o(Region$$Table)
     bRecvData                                0x20000014   Data           1  communicate.o(.data)
     txlen                                    0x20000018   Data           4  communicate.o(.data)
     device_connected                         0x2000001c   Data           1  communicate.o(.data)
@@ -2511,7 +2513,7 @@ Image Symbol Table
     OpBlankCardBoxUp                         0x200062d4   Data          52  process.o(.bss)
     OpSendCardToPretargeting                 0x20006308   Data          52  process.o(.bss)
     OpAutoMakeCard                           0x2000633c   Data          52  process.o(.bss)
-    OpReturnCard                             0x20006370   Data          52  process.o(.bss)
+    OpPretargetingReturnCard                 0x20006370   Data          52  process.o(.bss)
     OpPretargetingToAccessory                0x200063a4   Data          52  process.o(.bss)
     gMachineOperation                        0x200063d8   Data         200  process.o(.bss)
     __initial_sp                             0x200068a0   Data           0  startup_stm32f10x_hd.o(STACK)
@@ -2524,9 +2526,9 @@ Memory Map of the image
 
   Image Entry point : 0x08010131
 
-  Load Region LR_IROM1 (Base: 0x08010000, Size: 0x0000b930, Max: 0x00070000, ABSOLUTE, COMPRESSED[0x00009a98])
+  Load Region LR_IROM1 (Base: 0x08010000, Size: 0x0000b960, Max: 0x00070000, ABSOLUTE, COMPRESSED[0x00009ac8])
 
-    Execution Region ER_IROM1 (Base: 0x08010000, Size: 0x000092d0, Max: 0x00070000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08010000, Size: 0x00009300, Max: 0x00070000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -2622,219 +2624,219 @@ Memory Map of the image
     0x08011b0e   0x00000002   PAD
     0x08011b10   0x000003f8   Code   RO         3667    i.Op_AutoMakeCard   process.o
     0x08011f08   0x000000e0   Code   RO         3668    i.Op_BlankCardBoxUp  process.o
-    0x08011fe8   0x000001f4   Code   RO         3669    i.Op_ClampCardCarMove  process.o
-    0x080121dc   0x00000070   Code   RO         3670    i.Op_ClampClose     process.o
-    0x0801224c   0x00000070   Code   RO         3671    i.Op_ClampOpen      process.o
-    0x080122bc   0x0000004c   Code   RO         3672    i.Op_CloseGasSwitch  process.o
-    0x08012308   0x0000004c   Code   RO         3673    i.Op_ClosingPressure  process.o
-    0x08012354   0x00000074   Code   RO         3674    i.Op_CoolDown       process.o
-    0x080123c8   0x00000074   Code   RO         3675    i.Op_CoolRise       process.o
-    0x0801243c   0x000002cc   Code   RO         3676    i.Op_CuttingPlatformWork  process.o
-    0x08012708   0x0000010c   Code   RO         3677    i.Op_GotoLoadingPlatform  process.o
-    0x08012814   0x00000084   Code   RO         3678    i.Op_LeftClampClose  process.o
-    0x08012898   0x00000084   Code   RO         3679    i.Op_LeftClampOpen  process.o
-    0x0801291c   0x0000004c   Code   RO         3680    i.Op_OpenGasSwitch  process.o
-    0x08012968   0x0000004c   Code   RO         3681    i.Op_OpeningPressure  process.o
-    0x080129b4   0x00000074   Code   RO         3682    i.Op_PresDown       process.o
-    0x08012a28   0x00000074   Code   RO         3683    i.Op_PresRise       process.o
-    0x08012a9c   0x000000f8   Code   RO         3684    i.Op_PretargetingReset  process.o
-    0x08012b94   0x000001e8   Code   RO         3685    i.Op_PretargetingToAccessory  process.o
-    0x08012d7c   0x000000a8   Code   RO         3686    i.Op_PretargetingUp  process.o
-    0x08012e24   0x0000004c   Code   RO         3687    i.Op_PretargetingVacuumCupClose  process.o
-    0x08012e70   0x0000004c   Code   RO         3688    i.Op_PretargetingVacuumCupOpen  process.o
-    0x08012ebc   0x00000108   Code   RO         3689    i.Op_ResetBlankCardBox  process.o
-    0x08012fc4   0x0000007c   Code   RO         3690    i.Op_ResetClamp     process.o
-    0x08013040   0x000001cc   Code   RO         3691    i.Op_ResetClampCardCar  process.o
-    0x0801320c   0x000001bc   Code   RO         3692    i.Op_ResetModule    process.o
-    0x080133c8   0x00000110   Code   RO         3693    i.Op_ResetSuck      process.o
-    0x080134d8   0x00000160   Code   RO         3694    i.Op_ResetSuckCardCar  process.o
-    0x08013638   0x000001fc   Code   RO         3695    i.Op_ReturnCard     process.o
-    0x08013834   0x00000084   Code   RO         3696    i.Op_RightClampClose  process.o
-    0x080138b8   0x00000084   Code   RO         3697    i.Op_RightClampOpen  process.o
-    0x0801393c   0x000000ac   Code   RO         3698    i.Op_ScramProcess   process.o
-    0x080139e8   0x00000230   Code   RO         3699    i.Op_SendCardToPretargeting  process.o
-    0x08013c18   0x00000154   Code   RO         3700    i.Op_SuckCardCarMove  process.o
-    0x08013d6c   0x00000168   Code   RO         3701    i.Op_SuckMove       process.o
-    0x08013ed4   0x0000004c   Code   RO         3702    i.Op_SuckVacuumCupClose  process.o
-    0x08013f20   0x0000004c   Code   RO         3703    i.Op_SuckVacuumCupOpen  process.o
-    0x08013f6c   0x000002c0   Code   RO         3704    i.Op_WarmCoolMakeCard  process.o
-    0x0801422c   0x00000074   Code   RO         3705    i.Op_WarmDown       process.o
-    0x080142a0   0x00000074   Code   RO         3706    i.Op_WarmRise       process.o
-    0x08014314   0x000000a8   Code   RO         3707    i.Op_WasteStorageDown  process.o
-    0x080143bc   0x000000f4   Code   RO         3708    i.Op_WasteStorageReset  process.o
-    0x080144b0   0x0000000c   Code   RO         1995    i.PWR_BackupAccessCmd  stm32f10x_pwr.o
-    0x080144bc   0x000000d4   Code   RO         2169    i.PackageMsg        communicate.o
-    0x08014590   0x00000002   Code   RO         3106    i.PendSV_Handler    stm32f10x_it.o
-    0x08014592   0x00000002   PAD
-    0x08014594   0x00000144   Code   RO         2170    i.ProcessCmd        communicate.o
-    0x080146d8   0x000002bc   Code   RO         2820    i.ProcessSystemCmd  bsp_command.o
-    0x08014994   0x0000004c   Code   RO         3709    i.ProcessUpdateParameter  process.o
-    0x080149e0   0x0000011c   Code   RO         3575    i.ProcessUserCmd    command.o
-    0x08014afc   0x00000020   Code   RO         1358    i.RCC_AHBPeriphClockCmd  stm32f10x_rcc.o
-    0x08014b1c   0x00000020   Code   RO         1359    i.RCC_APB1PeriphClockCmd  stm32f10x_rcc.o
-    0x08014b3c   0x00000020   Code   RO         1360    i.RCC_APB1PeriphResetCmd  stm32f10x_rcc.o
-    0x08014b5c   0x00000020   Code   RO         1361    i.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
-    0x08014b7c   0x00000020   Code   RO         1362    i.RCC_APB2PeriphResetCmd  stm32f10x_rcc.o
-    0x08014b9c   0x000000d4   Code   RO         1369    i.RCC_GetClocksFreq  stm32f10x_rcc.o
-    0x08014c70   0x00000034   Code   RO         1377    i.RCC_LSEConfig     stm32f10x_rcc.o
-    0x08014ca4   0x0000006c   Code   RO         3710    i.ResetAllSignal    process.o
-    0x08014d10   0x00000048   Code   RO         2734    i.ResumeOp          opctrl.o
-    0x08014d58   0x0000009c   Code   RO         3026    i.SPI1_Init         spi.o
-    0x08014df4   0x00000038   Code   RO         3027    i.SPI1_ReadWrite    spi.o
-    0x08014e2c   0x00000018   Code   RO         1682    i.SPI_Cmd           stm32f10x_spi.o
-    0x08014e44   0x00000012   Code   RO         1690    i.SPI_I2S_GetFlagStatus  stm32f10x_spi.o
-    0x08014e56   0x00000006   Code   RO         1693    i.SPI_I2S_ReceiveData  stm32f10x_spi.o
-    0x08014e5c   0x00000004   Code   RO         1694    i.SPI_I2S_SendData  stm32f10x_spi.o
-    0x08014e60   0x0000003c   Code   RO         1695    i.SPI_Init          stm32f10x_spi.o
-    0x08014e9c   0x00000002   Code   RO         3107    i.SVC_Handler       stm32f10x_it.o
-    0x08014e9e   0x00000004   Code   RO         2736    i.SetOpRunMode      opctrl.o
-    0x08014ea2   0x00000002   PAD
-    0x08014ea4   0x00000010   Code   RO         2737    i.SetOpTimeDelay    opctrl.o
-    0x08014eb4   0x00000008   Code   RO         3210    i.SetSysClock       system_stm32f10x.o
-    0x08014ebc   0x000000dc   Code   RO         3211    i.SetSysClockTo72   system_stm32f10x.o
-    0x08014f98   0x00000002   Code   RO         3493    i.Set_Default_Value  eeprom_par.o
-    0x08014f9a   0x00000002   PAD
-    0x08014f9c   0x00000040   Code   RO         2738    i.StartChildOp      opctrl.o
-    0x08014fdc   0x0000000e   Code   RO         2739    i.StartOp           opctrl.o
-    0x08014fea   0x00000002   PAD
-    0x08014fec   0x00000040   Code   RO         2740    i.StartOpByMode     opctrl.o
-    0x0801502c   0x000000ac   Code   RO         3711    i.StepCtrlMachine   process.o
-    0x080150d8   0x0000005c   Code   RO         3108    i.SysTick_Handler   stm32f10x_it.o
-    0x08015134   0x00000060   Code   RO         3213    i.SystemInit        system_stm32f10x.o
-    0x08015194   0x000004ba   Code   RO         2880    i.TIM2_IRQHandler   stepmotor.o
-    0x0801564e   0x00000002   PAD
-    0x08015650   0x000004c0   Code   RO         2881    i.TIM3_IRQHandler   stepmotor.o
-    0x08015b10   0x00000006   Code   RO          364    i.TIM_ClearITPendingBit  stm32f10x_tim.o
-    0x08015b16   0x00000018   Code   RO          369    i.TIM_Cmd           stm32f10x_tim.o
-    0x08015b2e   0x00000002   PAD
-    0x08015b30   0x000001e8   Code   RO          374    i.TIM_DeInit        stm32f10x_tim.o
-    0x08015d18   0x00000006   Code   RO          384    i.TIM_GetCapture1   stm32f10x_tim.o
-    0x08015d1e   0x00000006   Code   RO          385    i.TIM_GetCapture2   stm32f10x_tim.o
-    0x08015d24   0x00000006   Code   RO          386    i.TIM_GetCapture3   stm32f10x_tim.o
-    0x08015d2a   0x00000008   Code   RO          387    i.TIM_GetCapture4   stm32f10x_tim.o
-    0x08015d32   0x00000022   Code   RO          390    i.TIM_GetITStatus   stm32f10x_tim.o
-    0x08015d54   0x00000012   Code   RO          394    i.TIM_ITConfig      stm32f10x_tim.o
-    0x08015d66   0x00000002   PAD
-    0x08015d68   0x00000098   Code   RO          398    i.TIM_OC1Init       stm32f10x_tim.o
-    0x08015e00   0x00000012   Code   RO          401    i.TIM_OC1PreloadConfig  stm32f10x_tim.o
-    0x08015e12   0x00000002   PAD
-    0x08015e14   0x000000a4   Code   RO          403    i.TIM_OC2Init       stm32f10x_tim.o
-    0x08015eb8   0x0000001a   Code   RO          406    i.TIM_OC2PreloadConfig  stm32f10x_tim.o
-    0x08015ed2   0x00000002   PAD
-    0x08015ed4   0x000000a0   Code   RO          408    i.TIM_OC3Init       stm32f10x_tim.o
-    0x08015f74   0x00000012   Code   RO          411    i.TIM_OC3PreloadConfig  stm32f10x_tim.o
-    0x08015f86   0x00000002   PAD
-    0x08015f88   0x0000007c   Code   RO          413    i.TIM_OC4Init       stm32f10x_tim.o
-    0x08016004   0x0000001a   Code   RO          415    i.TIM_OC4PreloadConfig  stm32f10x_tim.o
-    0x0801601e   0x00000004   Code   RO          430    i.TIM_SetCompare1   stm32f10x_tim.o
-    0x08016022   0x00000004   Code   RO          431    i.TIM_SetCompare2   stm32f10x_tim.o
-    0x08016026   0x00000004   Code   RO          432    i.TIM_SetCompare3   stm32f10x_tim.o
-    0x0801602a   0x00000006   Code   RO          433    i.TIM_SetCompare4   stm32f10x_tim.o
-    0x08016030   0x000000a4   Code   RO          440    i.TIM_TimeBaseInit  stm32f10x_tim.o
-    0x080160d4   0x00000280   Code   RO         2676    i.UART4_IRQHandler  serial.o
-    0x08016354   0x00000270   Code   RO         2677    i.USART2_IRQHandler  serial.o
-    0x080165c4   0x00000012   Code   RO         1027    i.USART_ClearFlag   stm32f10x_usart.o
-    0x080165d6   0x00000018   Code   RO         1031    i.USART_Cmd         stm32f10x_usart.o
-    0x080165ee   0x0000001a   Code   RO         1034    i.USART_GetFlagStatus  stm32f10x_usart.o
-    0x08016608   0x00000054   Code   RO         1035    i.USART_GetITStatus  stm32f10x_usart.o
-    0x0801665c   0x0000004a   Code   RO         1037    i.USART_ITConfig    stm32f10x_usart.o
-    0x080166a6   0x00000002   PAD
-    0x080166a8   0x000000d8   Code   RO         1038    i.USART_Init        stm32f10x_usart.o
-    0x08016780   0x0000000a   Code   RO         1045    i.USART_ReceiveData  stm32f10x_usart.o
-    0x0801678a   0x00000008   Code   RO         1048    i.USART_SendData    stm32f10x_usart.o
-    0x08016792   0x0000000c   Code   RO         3109    i.USBWakeUp_IRQHandler  stm32f10x_it.o
-    0x0801679e   0x00000002   Code   RO         3110    i.USB_LP_CAN1_RX0_IRQHandler  stm32f10x_it.o
-    0x080167a0   0x00000024   Code   RO         3111    i.UsageFault_Handler  stm32f10x_it.o
-    0x080167c4   0x00000020   Code   RO         4229    i.__0printf$8       mc_w.l(printf8.o)
-    0x080167e4   0x00000028   Code   RO         4231    i.__0sprintf$8      mc_w.l(printf8.o)
-    0x0801680c   0x0000000e   Code   RO         4325    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x0801681a   0x00000002   Code   RO         4326    i.__scatterload_null  mc_w.l(handlers.o)
-    0x0801681c   0x0000000e   Code   RO         4327    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x0801682a   0x00000002   PAD
-    0x0801682c   0x00000408   Code   RO         4236    i._printf_core      mc_w.l(printf8.o)
-    0x08016c34   0x00000026   Code   RO         4237    i._printf_post_padding  mc_w.l(printf8.o)
-    0x08016c5a   0x00000030   Code   RO         4238    i._printf_pre_padding  mc_w.l(printf8.o)
-    0x08016c8a   0x0000000a   Code   RO         4240    i._sputc            mc_w.l(printf8.o)
-    0x08016c94   0x00000028   Code   RO         3245    i.check_time_delay  driver.o
-    0x08016cbc   0x00000052   Code   RO         2542    i.checksum          ip_arp_udp_tcp.o
-    0x08016d0e   0x00000002   PAD
-    0x08016d10   0x000000cc   Code   RO         2821    i.cmd_get_all_info  bsp_command.o
-    0x08016ddc   0x00000080   Code   RO         2822    i.cmd_get_firmware  bsp_command.o
-    0x08016e5c   0x00000070   Code   RO         3576    i.cmd_get_mcu_data  command.o
-    0x08016ecc   0x000000a0   Code   RO         2823    i.cmd_get_op_info   bsp_command.o
-    0x08016f6c   0x00000310   Code   RO         2171    i.comm_cmd_execution  communicate.o
-    0x0801727c   0x0000001a   Code   RO         3445    i.delay_ms          my_fun.o
-    0x08017296   0x00000028   Code   RO         3447    i.delay_us          my_fun.o
-    0x080172be   0x00000002   PAD
-    0x080172c0   0x00000104   Code   RO         3248    i.dm_ctrl_one       driver.o
-    0x080173c4   0x00000158   Code   RO         2357    i.enc28j60Init      enc28j60.o
-    0x0801751c   0x00000104   Code   RO         2358    i.enc28j60PacketReceive  enc28j60.o
-    0x08017620   0x00000080   Code   RO         2359    i.enc28j60PacketSend  enc28j60.o
-    0x080176a0   0x00000036   Code   RO         2361    i.enc28j60PhyWrite  enc28j60.o
-    0x080176d6   0x00000014   Code   RO         2362    i.enc28j60Read      enc28j60.o
-    0x080176ea   0x00000002   PAD
-    0x080176ec   0x00000038   Code   RO         2363    i.enc28j60ReadBuffer  enc28j60.o
-    0x08017724   0x00000044   Code   RO         2364    i.enc28j60ReadOp    enc28j60.o
-    0x08017768   0x00000034   Code   RO         2365    i.enc28j60SetBank   enc28j60.o
-    0x0801779c   0x00000018   Code   RO         2366    i.enc28j60Write     enc28j60.o
-    0x080177b4   0x00000034   Code   RO         2367    i.enc28j60WriteBuffer  enc28j60.o
-    0x080177e8   0x0000003c   Code   RO         2368    i.enc28j60WriteOp   enc28j60.o
-    0x08017824   0x00000044   Code   RO         2543    i.eth_type_is_arp_and_my_ip  ip_arp_udp_tcp.o
-    0x08017868   0x00000028   Code   RO         2544    i.eth_type_is_boardcast  ip_arp_udp_tcp.o
-    0x08017890   0x00000034   Code   RO         2546    i.eth_type_is_my_mac  ip_arp_udp_tcp.o
-    0x080178c4   0x000000ac   Code   RO         2468    i.ethernet_send_msg  ethernet.o
-    0x08017970   0x000000f4   Code   RO         2470    i.ethernet_tcp      ethernet.o
-    0x08017a64   0x00000034   Code   RO         2471    i.ethernet_udp      ethernet.o
-    0x08017a98   0x00000034   Code   RO         2472    i.ethernet_winpcap  ethernet.o
-    0x08017acc   0x0000002c   Code   RO         2547    i.fill_ip_hdr_checksum  ip_arp_udp_tcp.o
-    0x08017af8   0x0000000c   Code   RO         3249    i.fpga_read         driver.o
-    0x08017b04   0x00000024   Code   RO         2678    i.fputc             serial.o
-    0x08017b28   0x000000a8   Code   RO         3251    i.get_board_id      driver.o
-    0x08017bd0   0x00000048   Code   RO         3494    i.get_parameter     eeprom_par.o
-    0x08017c18   0x0000001c   Code   RO         2550    i.get_tcp_data_pointer  ip_arp_udp_tcp.o
-    0x08017c34   0x00000088   Code   RO         2473    i.init_ethernet     ethernet.o
-    0x08017cbc   0x0000003c   Code   RO         2551    i.init_ip_arp_udp_tcp  ip_arp_udp_tcp.o
-    0x08017cf8   0x00000044   Code   RO         2552    i.init_len_info     ip_arp_udp_tcp.o
-    0x08017d3c   0x00000100   Code   RO         3495    i.init_parameter    eeprom_par.o
-    0x08017e3c   0x000003d0   Code   RO         2883    i.init_step_motor   stepmotor.o
-    0x0801820c   0x00000188   Code   RO         2679    i.init_uart         serial.o
-    0x08018394   0x0000004c   Code   RO         3256    i.input_get_all     driver.o
-    0x080183e0   0x00000030   Code   RO         3257    i.input_get_one     driver.o
-    0x08018410   0x000000b8   Code   RO         3553    i.main              main.o
-    0x080184c8   0x00000064   Code   RO         2553    i.make_arp_answer_from_request  ip_arp_udp_tcp.o
-    0x0801852c   0x0000003e   Code   RO         2554    i.make_echo_reply_from_request  ip_arp_udp_tcp.o
-    0x0801856a   0x00000002   PAD
-    0x0801856c   0x00000024   Code   RO         2555    i.make_eth          ip_arp_udp_tcp.o
-    0x08018590   0x00000030   Code   RO         2556    i.make_ip           ip_arp_udp_tcp.o
-    0x080185c0   0x00000068   Code   RO         2557    i.make_tcp_ack_from_any  ip_arp_udp_tcp.o
-    0x08018628   0x0000004c   Code   RO         2558    i.make_tcp_ack_with_data  ip_arp_udp_tcp.o
-    0x08018674   0x0000004c   Code   RO         2559    i.make_tcp_synack_from_syn  ip_arp_udp_tcp.o
-    0x080186c0   0x000000c8   Code   RO         2560    i.make_tcphead      ip_arp_udp_tcp.o
-    0x08018788   0x00000094   Code   RO         2561    i.make_udp_reply_from_request  ip_arp_udp_tcp.o
-    0x0801881c   0x00000018   Code   RO         2562    i.make_winpcap_ack_with_data  ip_arp_udp_tcp.o
-    0x08018834   0x00000160   Code   RO         3260    i.print_message     driver.o
-    0x08018994   0x00000008   Code   RO         2172    i.process_all_cmd   communicate.o
-    0x0801899c   0x00000002   Code   RO         2176    i.process_computer  communicate.o
-    0x0801899e   0x00000002   PAD
-    0x080189a0   0x000000cc   Code   RO         2474    i.process_ethernet  ethernet.o
-    0x08018a6c   0x00000030   Code   RO         2680    i.process_serial    serial.o
-    0x08018a9c   0x00000070   Code   RO         3496    i.save_parameter    eeprom_par.o
-    0x08018b0c   0x00000028   Code   RO         2681    i.serial_send_msg   serial.o
-    0x08018b34   0x00000044   Code   RO         3497    i.set_parameter     eeprom_par.o
-    0x08018b78   0x0000002c   Code   RO         2887    i.sm_get_abs        stepmotor.o
-    0x08018ba4   0x000002b0   Code   RO         2889    i.sm_run            stepmotor.o
-    0x08018e54   0x00000060   Code   RO         2890    i.sm_run_abs        stepmotor.o
-    0x08018eb4   0x00000018   Code   RO         2891    i.sm_set_abs_zero   stepmotor.o
-    0x08018ecc   0x0000006c   Code   RO         2892    i.sm_set_dir        stepmotor.o
-    0x08018f38   0x00000098   Code   RO         2893    i.sm_set_enable     stepmotor.o
-    0x08018fd0   0x0000005c   Code   RO         2894    i.sm_set_pul        stepmotor.o
-    0x0801902c   0x000000f4   Code   RO         2895    i.sm_stop           stepmotor.o
-    0x08019120   0x000000bc   Code   RO         2824    i.test_step_motor   bsp_command.o
-    0x080191dc   0x0000008f   Data   RO         3262    .constdata          driver.o
-    0x0801926b   0x0000001d   Data   RO         3263    .conststring        driver.o
-    0x08019288   0x00000026   Data   RO         3555    .conststring        main.o
-    0x080192ae   0x00000002   PAD
-    0x080192b0   0x00000020   Data   RO         4323    Region$$Table       anon$$obj.o
+    0x08011fe8   0x000001d4   Code   RO         3669    i.Op_ClampCardCarMove  process.o
+    0x080121bc   0x00000070   Code   RO         3670    i.Op_ClampClose     process.o
+    0x0801222c   0x00000070   Code   RO         3671    i.Op_ClampOpen      process.o
+    0x0801229c   0x0000004c   Code   RO         3672    i.Op_CloseGasSwitch  process.o
+    0x080122e8   0x0000004c   Code   RO         3673    i.Op_ClosingPressure  process.o
+    0x08012334   0x00000074   Code   RO         3674    i.Op_CoolDown       process.o
+    0x080123a8   0x00000074   Code   RO         3675    i.Op_CoolRise       process.o
+    0x0801241c   0x000002cc   Code   RO         3676    i.Op_CuttingPlatformWork  process.o
+    0x080126e8   0x0000010c   Code   RO         3677    i.Op_GotoLoadingPlatform  process.o
+    0x080127f4   0x00000084   Code   RO         3678    i.Op_LeftClampClose  process.o
+    0x08012878   0x00000084   Code   RO         3679    i.Op_LeftClampOpen  process.o
+    0x080128fc   0x0000004c   Code   RO         3680    i.Op_OpenGasSwitch  process.o
+    0x08012948   0x0000004c   Code   RO         3681    i.Op_OpeningPressure  process.o
+    0x08012994   0x00000074   Code   RO         3682    i.Op_PresDown       process.o
+    0x08012a08   0x00000074   Code   RO         3683    i.Op_PresRise       process.o
+    0x08012a7c   0x000000f8   Code   RO         3684    i.Op_PretargetingReset  process.o
+    0x08012b74   0x00000204   Code   RO         3685    i.Op_PretargetingReturnCard  process.o
+    0x08012d78   0x000001e8   Code   RO         3686    i.Op_PretargetingToAccessory  process.o
+    0x08012f60   0x000000a8   Code   RO         3687    i.Op_PretargetingUp  process.o
+    0x08013008   0x0000004c   Code   RO         3688    i.Op_PretargetingVacuumCupClose  process.o
+    0x08013054   0x0000004c   Code   RO         3689    i.Op_PretargetingVacuumCupOpen  process.o
+    0x080130a0   0x00000108   Code   RO         3690    i.Op_ResetBlankCardBox  process.o
+    0x080131a8   0x0000007c   Code   RO         3691    i.Op_ResetClamp     process.o
+    0x08013224   0x000001cc   Code   RO         3692    i.Op_ResetClampCardCar  process.o
+    0x080133f0   0x000001bc   Code   RO         3693    i.Op_ResetModule    process.o
+    0x080135ac   0x00000110   Code   RO         3694    i.Op_ResetSuck      process.o
+    0x080136bc   0x00000160   Code   RO         3695    i.Op_ResetSuckCardCar  process.o
+    0x0801381c   0x00000084   Code   RO         3696    i.Op_RightClampClose  process.o
+    0x080138a0   0x00000084   Code   RO         3697    i.Op_RightClampOpen  process.o
+    0x08013924   0x000000ac   Code   RO         3698    i.Op_ScramProcess   process.o
+    0x080139d0   0x00000278   Code   RO         3699    i.Op_SendCardToPretargeting  process.o
+    0x08013c48   0x00000154   Code   RO         3700    i.Op_SuckCardCarMove  process.o
+    0x08013d9c   0x00000168   Code   RO         3701    i.Op_SuckMove       process.o
+    0x08013f04   0x0000004c   Code   RO         3702    i.Op_SuckVacuumCupClose  process.o
+    0x08013f50   0x0000004c   Code   RO         3703    i.Op_SuckVacuumCupOpen  process.o
+    0x08013f9c   0x000002c0   Code   RO         3704    i.Op_WarmCoolMakeCard  process.o
+    0x0801425c   0x00000074   Code   RO         3705    i.Op_WarmDown       process.o
+    0x080142d0   0x00000074   Code   RO         3706    i.Op_WarmRise       process.o
+    0x08014344   0x000000a8   Code   RO         3707    i.Op_WasteStorageDown  process.o
+    0x080143ec   0x000000f4   Code   RO         3708    i.Op_WasteStorageReset  process.o
+    0x080144e0   0x0000000c   Code   RO         1995    i.PWR_BackupAccessCmd  stm32f10x_pwr.o
+    0x080144ec   0x000000d4   Code   RO         2169    i.PackageMsg        communicate.o
+    0x080145c0   0x00000002   Code   RO         3106    i.PendSV_Handler    stm32f10x_it.o
+    0x080145c2   0x00000002   PAD
+    0x080145c4   0x00000144   Code   RO         2170    i.ProcessCmd        communicate.o
+    0x08014708   0x000002bc   Code   RO         2820    i.ProcessSystemCmd  bsp_command.o
+    0x080149c4   0x0000004c   Code   RO         3709    i.ProcessUpdateParameter  process.o
+    0x08014a10   0x0000011c   Code   RO         3575    i.ProcessUserCmd    command.o
+    0x08014b2c   0x00000020   Code   RO         1358    i.RCC_AHBPeriphClockCmd  stm32f10x_rcc.o
+    0x08014b4c   0x00000020   Code   RO         1359    i.RCC_APB1PeriphClockCmd  stm32f10x_rcc.o
+    0x08014b6c   0x00000020   Code   RO         1360    i.RCC_APB1PeriphResetCmd  stm32f10x_rcc.o
+    0x08014b8c   0x00000020   Code   RO         1361    i.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
+    0x08014bac   0x00000020   Code   RO         1362    i.RCC_APB2PeriphResetCmd  stm32f10x_rcc.o
+    0x08014bcc   0x000000d4   Code   RO         1369    i.RCC_GetClocksFreq  stm32f10x_rcc.o
+    0x08014ca0   0x00000034   Code   RO         1377    i.RCC_LSEConfig     stm32f10x_rcc.o
+    0x08014cd4   0x0000006c   Code   RO         3710    i.ResetAllSignal    process.o
+    0x08014d40   0x00000048   Code   RO         2734    i.ResumeOp          opctrl.o
+    0x08014d88   0x0000009c   Code   RO         3026    i.SPI1_Init         spi.o
+    0x08014e24   0x00000038   Code   RO         3027    i.SPI1_ReadWrite    spi.o
+    0x08014e5c   0x00000018   Code   RO         1682    i.SPI_Cmd           stm32f10x_spi.o
+    0x08014e74   0x00000012   Code   RO         1690    i.SPI_I2S_GetFlagStatus  stm32f10x_spi.o
+    0x08014e86   0x00000006   Code   RO         1693    i.SPI_I2S_ReceiveData  stm32f10x_spi.o
+    0x08014e8c   0x00000004   Code   RO         1694    i.SPI_I2S_SendData  stm32f10x_spi.o
+    0x08014e90   0x0000003c   Code   RO         1695    i.SPI_Init          stm32f10x_spi.o
+    0x08014ecc   0x00000002   Code   RO         3107    i.SVC_Handler       stm32f10x_it.o
+    0x08014ece   0x00000004   Code   RO         2736    i.SetOpRunMode      opctrl.o
+    0x08014ed2   0x00000002   PAD
+    0x08014ed4   0x00000010   Code   RO         2737    i.SetOpTimeDelay    opctrl.o
+    0x08014ee4   0x00000008   Code   RO         3210    i.SetSysClock       system_stm32f10x.o
+    0x08014eec   0x000000dc   Code   RO         3211    i.SetSysClockTo72   system_stm32f10x.o
+    0x08014fc8   0x00000002   Code   RO         3493    i.Set_Default_Value  eeprom_par.o
+    0x08014fca   0x00000002   PAD
+    0x08014fcc   0x00000040   Code   RO         2738    i.StartChildOp      opctrl.o
+    0x0801500c   0x0000000e   Code   RO         2739    i.StartOp           opctrl.o
+    0x0801501a   0x00000002   PAD
+    0x0801501c   0x00000040   Code   RO         2740    i.StartOpByMode     opctrl.o
+    0x0801505c   0x000000ac   Code   RO         3711    i.StepCtrlMachine   process.o
+    0x08015108   0x0000005c   Code   RO         3108    i.SysTick_Handler   stm32f10x_it.o
+    0x08015164   0x00000060   Code   RO         3213    i.SystemInit        system_stm32f10x.o
+    0x080151c4   0x000004ba   Code   RO         2880    i.TIM2_IRQHandler   stepmotor.o
+    0x0801567e   0x00000002   PAD
+    0x08015680   0x000004c0   Code   RO         2881    i.TIM3_IRQHandler   stepmotor.o
+    0x08015b40   0x00000006   Code   RO          364    i.TIM_ClearITPendingBit  stm32f10x_tim.o
+    0x08015b46   0x00000018   Code   RO          369    i.TIM_Cmd           stm32f10x_tim.o
+    0x08015b5e   0x00000002   PAD
+    0x08015b60   0x000001e8   Code   RO          374    i.TIM_DeInit        stm32f10x_tim.o
+    0x08015d48   0x00000006   Code   RO          384    i.TIM_GetCapture1   stm32f10x_tim.o
+    0x08015d4e   0x00000006   Code   RO          385    i.TIM_GetCapture2   stm32f10x_tim.o
+    0x08015d54   0x00000006   Code   RO          386    i.TIM_GetCapture3   stm32f10x_tim.o
+    0x08015d5a   0x00000008   Code   RO          387    i.TIM_GetCapture4   stm32f10x_tim.o
+    0x08015d62   0x00000022   Code   RO          390    i.TIM_GetITStatus   stm32f10x_tim.o
+    0x08015d84   0x00000012   Code   RO          394    i.TIM_ITConfig      stm32f10x_tim.o
+    0x08015d96   0x00000002   PAD
+    0x08015d98   0x00000098   Code   RO          398    i.TIM_OC1Init       stm32f10x_tim.o
+    0x08015e30   0x00000012   Code   RO          401    i.TIM_OC1PreloadConfig  stm32f10x_tim.o
+    0x08015e42   0x00000002   PAD
+    0x08015e44   0x000000a4   Code   RO          403    i.TIM_OC2Init       stm32f10x_tim.o
+    0x08015ee8   0x0000001a   Code   RO          406    i.TIM_OC2PreloadConfig  stm32f10x_tim.o
+    0x08015f02   0x00000002   PAD
+    0x08015f04   0x000000a0   Code   RO          408    i.TIM_OC3Init       stm32f10x_tim.o
+    0x08015fa4   0x00000012   Code   RO          411    i.TIM_OC3PreloadConfig  stm32f10x_tim.o
+    0x08015fb6   0x00000002   PAD
+    0x08015fb8   0x0000007c   Code   RO          413    i.TIM_OC4Init       stm32f10x_tim.o
+    0x08016034   0x0000001a   Code   RO          415    i.TIM_OC4PreloadConfig  stm32f10x_tim.o
+    0x0801604e   0x00000004   Code   RO          430    i.TIM_SetCompare1   stm32f10x_tim.o
+    0x08016052   0x00000004   Code   RO          431    i.TIM_SetCompare2   stm32f10x_tim.o
+    0x08016056   0x00000004   Code   RO          432    i.TIM_SetCompare3   stm32f10x_tim.o
+    0x0801605a   0x00000006   Code   RO          433    i.TIM_SetCompare4   stm32f10x_tim.o
+    0x08016060   0x000000a4   Code   RO          440    i.TIM_TimeBaseInit  stm32f10x_tim.o
+    0x08016104   0x00000280   Code   RO         2676    i.UART4_IRQHandler  serial.o
+    0x08016384   0x00000270   Code   RO         2677    i.USART2_IRQHandler  serial.o
+    0x080165f4   0x00000012   Code   RO         1027    i.USART_ClearFlag   stm32f10x_usart.o
+    0x08016606   0x00000018   Code   RO         1031    i.USART_Cmd         stm32f10x_usart.o
+    0x0801661e   0x0000001a   Code   RO         1034    i.USART_GetFlagStatus  stm32f10x_usart.o
+    0x08016638   0x00000054   Code   RO         1035    i.USART_GetITStatus  stm32f10x_usart.o
+    0x0801668c   0x0000004a   Code   RO         1037    i.USART_ITConfig    stm32f10x_usart.o
+    0x080166d6   0x00000002   PAD
+    0x080166d8   0x000000d8   Code   RO         1038    i.USART_Init        stm32f10x_usart.o
+    0x080167b0   0x0000000a   Code   RO         1045    i.USART_ReceiveData  stm32f10x_usart.o
+    0x080167ba   0x00000008   Code   RO         1048    i.USART_SendData    stm32f10x_usart.o
+    0x080167c2   0x0000000c   Code   RO         3109    i.USBWakeUp_IRQHandler  stm32f10x_it.o
+    0x080167ce   0x00000002   Code   RO         3110    i.USB_LP_CAN1_RX0_IRQHandler  stm32f10x_it.o
+    0x080167d0   0x00000024   Code   RO         3111    i.UsageFault_Handler  stm32f10x_it.o
+    0x080167f4   0x00000020   Code   RO         4229    i.__0printf$8       mc_w.l(printf8.o)
+    0x08016814   0x00000028   Code   RO         4231    i.__0sprintf$8      mc_w.l(printf8.o)
+    0x0801683c   0x0000000e   Code   RO         4325    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0801684a   0x00000002   Code   RO         4326    i.__scatterload_null  mc_w.l(handlers.o)
+    0x0801684c   0x0000000e   Code   RO         4327    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0801685a   0x00000002   PAD
+    0x0801685c   0x00000408   Code   RO         4236    i._printf_core      mc_w.l(printf8.o)
+    0x08016c64   0x00000026   Code   RO         4237    i._printf_post_padding  mc_w.l(printf8.o)
+    0x08016c8a   0x00000030   Code   RO         4238    i._printf_pre_padding  mc_w.l(printf8.o)
+    0x08016cba   0x0000000a   Code   RO         4240    i._sputc            mc_w.l(printf8.o)
+    0x08016cc4   0x00000028   Code   RO         3245    i.check_time_delay  driver.o
+    0x08016cec   0x00000052   Code   RO         2542    i.checksum          ip_arp_udp_tcp.o
+    0x08016d3e   0x00000002   PAD
+    0x08016d40   0x000000cc   Code   RO         2821    i.cmd_get_all_info  bsp_command.o
+    0x08016e0c   0x00000080   Code   RO         2822    i.cmd_get_firmware  bsp_command.o
+    0x08016e8c   0x00000070   Code   RO         3576    i.cmd_get_mcu_data  command.o
+    0x08016efc   0x000000a0   Code   RO         2823    i.cmd_get_op_info   bsp_command.o
+    0x08016f9c   0x00000310   Code   RO         2171    i.comm_cmd_execution  communicate.o
+    0x080172ac   0x0000001a   Code   RO         3445    i.delay_ms          my_fun.o
+    0x080172c6   0x00000028   Code   RO         3447    i.delay_us          my_fun.o
+    0x080172ee   0x00000002   PAD
+    0x080172f0   0x00000104   Code   RO         3248    i.dm_ctrl_one       driver.o
+    0x080173f4   0x00000158   Code   RO         2357    i.enc28j60Init      enc28j60.o
+    0x0801754c   0x00000104   Code   RO         2358    i.enc28j60PacketReceive  enc28j60.o
+    0x08017650   0x00000080   Code   RO         2359    i.enc28j60PacketSend  enc28j60.o
+    0x080176d0   0x00000036   Code   RO         2361    i.enc28j60PhyWrite  enc28j60.o
+    0x08017706   0x00000014   Code   RO         2362    i.enc28j60Read      enc28j60.o
+    0x0801771a   0x00000002   PAD
+    0x0801771c   0x00000038   Code   RO         2363    i.enc28j60ReadBuffer  enc28j60.o
+    0x08017754   0x00000044   Code   RO         2364    i.enc28j60ReadOp    enc28j60.o
+    0x08017798   0x00000034   Code   RO         2365    i.enc28j60SetBank   enc28j60.o
+    0x080177cc   0x00000018   Code   RO         2366    i.enc28j60Write     enc28j60.o
+    0x080177e4   0x00000034   Code   RO         2367    i.enc28j60WriteBuffer  enc28j60.o
+    0x08017818   0x0000003c   Code   RO         2368    i.enc28j60WriteOp   enc28j60.o
+    0x08017854   0x00000044   Code   RO         2543    i.eth_type_is_arp_and_my_ip  ip_arp_udp_tcp.o
+    0x08017898   0x00000028   Code   RO         2544    i.eth_type_is_boardcast  ip_arp_udp_tcp.o
+    0x080178c0   0x00000034   Code   RO         2546    i.eth_type_is_my_mac  ip_arp_udp_tcp.o
+    0x080178f4   0x000000ac   Code   RO         2468    i.ethernet_send_msg  ethernet.o
+    0x080179a0   0x000000f4   Code   RO         2470    i.ethernet_tcp      ethernet.o
+    0x08017a94   0x00000034   Code   RO         2471    i.ethernet_udp      ethernet.o
+    0x08017ac8   0x00000034   Code   RO         2472    i.ethernet_winpcap  ethernet.o
+    0x08017afc   0x0000002c   Code   RO         2547    i.fill_ip_hdr_checksum  ip_arp_udp_tcp.o
+    0x08017b28   0x0000000c   Code   RO         3249    i.fpga_read         driver.o
+    0x08017b34   0x00000024   Code   RO         2678    i.fputc             serial.o
+    0x08017b58   0x000000a8   Code   RO         3251    i.get_board_id      driver.o
+    0x08017c00   0x00000048   Code   RO         3494    i.get_parameter     eeprom_par.o
+    0x08017c48   0x0000001c   Code   RO         2550    i.get_tcp_data_pointer  ip_arp_udp_tcp.o
+    0x08017c64   0x00000088   Code   RO         2473    i.init_ethernet     ethernet.o
+    0x08017cec   0x0000003c   Code   RO         2551    i.init_ip_arp_udp_tcp  ip_arp_udp_tcp.o
+    0x08017d28   0x00000044   Code   RO         2552    i.init_len_info     ip_arp_udp_tcp.o
+    0x08017d6c   0x00000100   Code   RO         3495    i.init_parameter    eeprom_par.o
+    0x08017e6c   0x000003d0   Code   RO         2883    i.init_step_motor   stepmotor.o
+    0x0801823c   0x00000188   Code   RO         2679    i.init_uart         serial.o
+    0x080183c4   0x0000004c   Code   RO         3256    i.input_get_all     driver.o
+    0x08018410   0x00000030   Code   RO         3257    i.input_get_one     driver.o
+    0x08018440   0x000000b8   Code   RO         3553    i.main              main.o
+    0x080184f8   0x00000064   Code   RO         2553    i.make_arp_answer_from_request  ip_arp_udp_tcp.o
+    0x0801855c   0x0000003e   Code   RO         2554    i.make_echo_reply_from_request  ip_arp_udp_tcp.o
+    0x0801859a   0x00000002   PAD
+    0x0801859c   0x00000024   Code   RO         2555    i.make_eth          ip_arp_udp_tcp.o
+    0x080185c0   0x00000030   Code   RO         2556    i.make_ip           ip_arp_udp_tcp.o
+    0x080185f0   0x00000068   Code   RO         2557    i.make_tcp_ack_from_any  ip_arp_udp_tcp.o
+    0x08018658   0x0000004c   Code   RO         2558    i.make_tcp_ack_with_data  ip_arp_udp_tcp.o
+    0x080186a4   0x0000004c   Code   RO         2559    i.make_tcp_synack_from_syn  ip_arp_udp_tcp.o
+    0x080186f0   0x000000c8   Code   RO         2560    i.make_tcphead      ip_arp_udp_tcp.o
+    0x080187b8   0x00000094   Code   RO         2561    i.make_udp_reply_from_request  ip_arp_udp_tcp.o
+    0x0801884c   0x00000018   Code   RO         2562    i.make_winpcap_ack_with_data  ip_arp_udp_tcp.o
+    0x08018864   0x00000160   Code   RO         3260    i.print_message     driver.o
+    0x080189c4   0x00000008   Code   RO         2172    i.process_all_cmd   communicate.o
+    0x080189cc   0x00000002   Code   RO         2176    i.process_computer  communicate.o
+    0x080189ce   0x00000002   PAD
+    0x080189d0   0x000000cc   Code   RO         2474    i.process_ethernet  ethernet.o
+    0x08018a9c   0x00000030   Code   RO         2680    i.process_serial    serial.o
+    0x08018acc   0x00000070   Code   RO         3496    i.save_parameter    eeprom_par.o
+    0x08018b3c   0x00000028   Code   RO         2681    i.serial_send_msg   serial.o
+    0x08018b64   0x00000044   Code   RO         3497    i.set_parameter     eeprom_par.o
+    0x08018ba8   0x0000002c   Code   RO         2887    i.sm_get_abs        stepmotor.o
+    0x08018bd4   0x000002b0   Code   RO         2889    i.sm_run            stepmotor.o
+    0x08018e84   0x00000060   Code   RO         2890    i.sm_run_abs        stepmotor.o
+    0x08018ee4   0x00000018   Code   RO         2891    i.sm_set_abs_zero   stepmotor.o
+    0x08018efc   0x0000006c   Code   RO         2892    i.sm_set_dir        stepmotor.o
+    0x08018f68   0x00000098   Code   RO         2893    i.sm_set_enable     stepmotor.o
+    0x08019000   0x0000005c   Code   RO         2894    i.sm_set_pul        stepmotor.o
+    0x0801905c   0x000000f4   Code   RO         2895    i.sm_stop           stepmotor.o
+    0x08019150   0x000000bc   Code   RO         2824    i.test_step_motor   bsp_command.o
+    0x0801920c   0x0000008f   Data   RO         3262    .constdata          driver.o
+    0x0801929b   0x0000001d   Data   RO         3263    .conststring        driver.o
+    0x080192b8   0x00000026   Data   RO         3555    .conststring        main.o
+    0x080192de   0x00000002   PAD
+    0x080192e0   0x00000020   Data   RO         4323    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x000068a0, Max: 0x00010000, ABSOLUTE, COMPRESSED[0x000007c8])
@@ -2899,7 +2901,7 @@ Image component sizes
         66          0          0          0          0       1062   my_fun.o
        478         26          0          0          0       6787   opctrl.o
        248          6          0          0         96       1299   parameter.o
-     11992       1234          0        119       2384      35909   process.o
+     12040       1236          0        119       2384      35985   process.o
       1780        190          0         45          0       5081   serial.o
        212         14          0          0          0       1165   spi.o
         36          8        304          0       1024        876   startup_stm32f10x_hd.o
@@ -2918,7 +2920,7 @@ Image component sizes
        324         26          0         20          0       2289   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-     35404       3312        548       9820      16960     498126   Object Totals
+     35452       3314        548       9820      16960     498202   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         46          0          2         15          4          0   (incl. Padding)
 
@@ -2966,15 +2968,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     37036       3388        548       9824      16960     486014   Grand Totals
-     37036       3388        548       1992      16960     486014   ELF Image Totals (compressed)
-     37036       3388        548       1992          0          0   ROM Totals
+     37084       3390        548       9824      16960     486090   Grand Totals
+     37084       3390        548       1992      16960     486090   ELF Image Totals (compressed)
+     37084       3390        548       1992          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                37584 (  36.70kB)
+    Total RO  Size (Code + RO Data)                37632 (  36.75kB)
     Total RW  Size (RW Data + ZI Data)             26784 (  26.16kB)
-    Total ROM Size (Code + RO Data + RW Data)      39576 (  38.65kB)
+    Total ROM Size (Code + RO Data + RW Data)      39624 (  38.70kB)
 
 ==============================================================================
 

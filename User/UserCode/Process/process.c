@@ -8,53 +8,51 @@
 #include <stdio.h>
 
 /******** 相关动作结构体变量定义 ******************************/
-stOpCtrl OpResetModule;	            					//复位
-stOpCtrl OpResetClampCardCar;   						//复位送卡通道
-stOpCtrl OpWarmDown; 			 						//加热下降
-stOpCtrl OpWarmRise; 			 		  				//加热升起
-stOpCtrl OpCoolDown; 				  					//冷却下降
-stOpCtrl OpCoolRise; 			 	  					//冷却升起
-stOpCtrl OpPresDown; 				  					//冲压下降
-stOpCtrl OpPresRise; 			 	  					//冲压升起
-stOpCtrl OpOpeningPressure;	 							//压力开
-stOpCtrl OpClosingPressure; 							//压力关
-stOpCtrl OpRightClampClose; 							//右边夹子闭合
-stOpCtrl OpRightClampOpen; 								//右边夹子松开
-stOpCtrl OpLeftClampClose; 								//左边夹子闭合
-stOpCtrl OpLeftClampOpen; 								//左边夹子松开
-stOpCtrl OpClampClose; 									//夹子闭合
-stOpCtrl OpClampCardCarMove; 							//抓卡小车移动位置	
-stOpCtrl OpPretargetingReset;            				//预定位复位
-stOpCtrl OpPretargetingUp;                				//预定位上	
-//hww
-stOpCtrl  OpResetClamp;									//爪子复位
-stOpCtrl  OpClampOpen;									//爪子张开
-stOpCtrl  OpClampClose;									//爪子闭合
-stOpCtrl OpWasteStorageReset;  							//废料场电机复位
-stOpCtrl OpWasteStorageDown;	 						//废料场电机下降
-stOpCtrl OpPretargetingVacuumCupOpen;					//预定位真空吸打开
-stOpCtrl OpPretargetingVacuumCupClose;					//预定位真空吸关闭
-stOpCtrl OpSuckVacuumCupOpen;							//吸盘真空吸打开
-stOpCtrl OpSuckVacuumCupClose;							//吸盘真空吸关闭
-stOpCtrl OpOpenGasSwitch;			 				    //气路开启
-stOpCtrl OpCloseGasSwitch;								//气路关闭
-stOpCtrl OpWarmCoolMakeCard;							//热冷压制卡
-stOpCtrl OpGotoLoadingPlatform;			   				//去预定位平台
-stOpCtrl OpCuttingPlatformWork;		 					//裁剪平台工作
-stOpCtrl OpScramProcess;								//紧急停止剪卡和制卡流程
+stOpCtrl OpResetModule;	            					//1复位
+stOpCtrl OpResetClampCardCar;   						//2复位夹卡小车
+stOpCtrl OpClampCardCarMove; 							//3夹卡小车移动位置	
+stOpCtrl  OpResetClamp;									//4爪子复位
+stOpCtrl  OpClampOpen;									//5爪子张开
+stOpCtrl  OpClampClose;									//6爪子闭合
+stOpCtrl OpRightClampClose; 							//7右边夹子闭合
+stOpCtrl OpRightClampOpen; 								//8右边夹子松开
+stOpCtrl OpLeftClampClose; 								//9左边夹子闭合
+stOpCtrl OpLeftClampOpen; 								//10左边夹子松开
+stOpCtrl OpOpeningPressure;	 							//11压力开
+stOpCtrl OpClosingPressure; 							//12压力关
+stOpCtrl OpWarmDown; 			 						//13加热下降
+stOpCtrl OpWarmRise; 			 		  				//14加热升起
+stOpCtrl OpCoolDown; 				  					//15冷却下降
+stOpCtrl OpCoolRise; 			 	  					//16冷却升起
+stOpCtrl OpPresDown; 				  					//17冲压下降
+stOpCtrl OpPresRise; 			 	  					//18冲压升起	
+stOpCtrl OpPretargetingReset;            				//19预定位复位
+stOpCtrl OpPretargetingUp;                				//20预定位上升
+stOpCtrl OpWasteStorageReset;  							//21废料场电机复位
+stOpCtrl OpWasteStorageDown;	 						//22废料场电机下降
+stOpCtrl OpPretargetingVacuumCupOpen;					//23预定位真空吸打开
+stOpCtrl OpPretargetingVacuumCupClose;					//24预定位真空吸关闭
+stOpCtrl OpSuckVacuumCupOpen;							//25吸盘真空吸打开
+stOpCtrl OpSuckVacuumCupClose;							//26吸盘真空吸关闭
+stOpCtrl OpOpenGasSwitch;			 				    //27气路开启
+stOpCtrl OpCloseGasSwitch;								//28气路关闭
+stOpCtrl OpWarmCoolMakeCard;							//29热冷压制卡
+stOpCtrl OpGotoLoadingPlatform;			   				//30去预定位平台
+stOpCtrl OpCuttingPlatformWork;		 					//31裁剪平台工作
+stOpCtrl OpScramProcess;								//32紧急停止剪卡和制卡流程
 //吸卡小车
-stOpCtrl OpSuckCardCarMove;								//吸卡小车移动位置
-stOpCtrl OpResetSuckCardCar;							//吸卡小车复位
-stOpCtrl OpResetSuck;									//吸盘复位
+stOpCtrl OpSuckCardCarMove;								//33吸卡小车移动位置
+stOpCtrl OpResetSuckCardCar;							//34吸卡小车复位
+stOpCtrl OpResetSuck;									//35吸盘复位
 //吸盘
-stOpCtrl OpSuckMove;									//吸盘下降
+stOpCtrl OpSuckMove;									//36吸盘下降
 //白卡箱
-stOpCtrl OpResetBlankCardBox;							//白卡箱复位
-stOpCtrl OpBlankCardBoxUp;								//白卡箱升起
-stOpCtrl OpSendCardToPretargeting;						//送卡到预定位
-stOpCtrl OpAutoMakeCard;								//自动制卡
-stOpCtrl OpReturnCard;									//还卡
-stOpCtrl OpPretargetingToAccessory;						//预定位到辅料位
+stOpCtrl OpResetBlankCardBox;							//37白卡箱复位
+stOpCtrl OpBlankCardBoxUp;								//38白卡箱升起
+stOpCtrl OpSendCardToPretargeting;						//39送卡到预定位
+stOpCtrl OpAutoMakeCard;								//40自动制卡
+stOpCtrl OpPretargetingReturnCard;						//41预定位还卡到
+stOpCtrl OpPretargetingToAccessory;						//42预定位到辅料位
 
 
 
@@ -229,7 +227,7 @@ void InitializeMachine(void)
 	gMachineOperation[gnOperationNo++] = &OpBlankCardBoxUp;				//38 白卡箱上升	
 	gMachineOperation[gnOperationNo++] = &OpSendCardToPretargeting;		//39 送卡到预定位
 	gMachineOperation[gnOperationNo++] = &OpAutoMakeCard;				//40 自动制卡
-	gMachineOperation[gnOperationNo++] = &OpReturnCard;					//41 还卡
+	gMachineOperation[gnOperationNo++] = &OpPretargetingReturnCard;		//41 预定位还卡到
 	gMachineOperation[gnOperationNo++] = &OpPretargetingToAccessory;	//42 //预定位到辅料位
 
 	for (i = 1; i < gnOperationNo; i++)
@@ -1246,15 +1244,19 @@ void Op_ClampCardCarMove(void)
 		case STEP25:
 			if(IsChildOpOK(CurrentOp, &OpWarmRise) == true)
 			{
-				StartChildOp(CurrentOp, &OpClampClose);  		//爪子闭合
-				CurrentOp->nStep = STEP26;
-			}
-		break;
-		case STEP26:
-			if(IsChildOpOK(CurrentOp, &OpClampClose) == true)
-			{
 				CurrentOp->nStep = STEP1;
 			}
+		// 	if(IsChildOpOK(CurrentOp, &OpWarmRise) == true)
+		// 	{
+		// 		StartChildOp(CurrentOp, &OpClampClose);  		//爪子闭合
+		// 		CurrentOp->nStep = STEP26;
+		// 	}
+		// break;
+		// case STEP26:
+		// 	if(IsChildOpOK(CurrentOp, &OpClampClose) == true)
+		// 	{
+		// 		CurrentOp->nStep = STEP1;
+		// 	}
 		break;
 /////////////////////////////////////////////////////////////////////////////////////
 		case STEP1:
@@ -1893,7 +1895,7 @@ void Op_ResetModule(void)
 		case STEP5:
 			if(IsChildOpOK(CurrentOp, &OpWasteStorageReset) == true)
 			{
-				StartChildOp(CurrentOp, &OpPresRise);  					//裁剪工位复位
+				StartChildOp(CurrentOp, &OpPresRise);  		//裁剪工位复位
 				CurrentOp->nStep = STEP6;
 			}
 	   	break;
@@ -1914,7 +1916,7 @@ void Op_ResetModule(void)
 		case STEP8:
 			if(IsChildOpOK(CurrentOp, &OpWarmRise) == true)
 			{
-				StartChildOp(CurrentOp, &OpResetClamp);  		//爪子复位
+				StartChildOp(CurrentOp, &OpResetClamp);  	//爪子复位
 				CurrentOp->nStep = STEP9;
 			}
 		break;
@@ -2388,7 +2390,7 @@ void Op_CuttingPlatformWork(void)
 		case STEP16:
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove) == true)
 			{
-				SetOpTimeDelay(CurrentOp, 1000);			
+				SetOpTimeDelay(CurrentOp, 500);			
 				CurrentOp->nStep = STEP17;		 
 			}
 	   	break;
@@ -2763,7 +2765,7 @@ void Op_ResetSuck(void)
 			else
 			{
 				nStatusSuck = ENUM_SUCK_UNKNOW;
-				sm_run(SM_SUCK,DIR_SM_SUCK_UP,parameter[PAR_SUCK_SPEED],35000);	 //回原点
+				sm_run(SM_SUCK,DIR_SM_SUCK_UP,parameter[PAR_SUCK_SPEED],40000);	 //回原点
 				CurrentOp->nStep = STEP1;
 			}
 		break;
@@ -2964,7 +2966,7 @@ void Op_ResetBlankCardBox(void)
 			}
 		break;
 		case STEP2:
-			if(IsSmRunFinish(SM_WASTESTORAGE) == true)
+			if(IsSmRunFinish(SM_BLANK_CARD_BOX) == true)
 			{
 				nStatusBlankCardBox = STATUS_ORG;  //在原点
 				CurrentOp->nResult = 0xffff;
@@ -3091,6 +3093,17 @@ void Op_SendCardToPretargeting(void)
 	{
 		return;
 	}
+	if((CurrentOp->nStep >= STEP6) && (CurrentOp->nStep <= STEP8)) //在这几个STEP之间检测卡片是否掉落
+	{
+		 if ((input_get_one(SN_SUCK_BAROMETER) == SENSOR_TYPE_VACUUM_OFF)) //真空压力表检测
+//		 	|| (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_OFF)) //反射传感器检测
+		{
+			dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_OFF); //吸盘真空吸关闭
+			sm_stop(SM_SUCK_CARD_CAR); //停止吸卡小车
+			sm_stop(SM_SUCK);		   //停止吸卡小车
+			CurrentOp->nResult = ERROR_SUCK_CARD_DROP_OUT;//10039 吸盘卡片掉落					
+		}
+	}
 	switch (CurrentOp->nStep)
 	{
 		case START:
@@ -3101,8 +3114,8 @@ void Op_SendCardToPretargeting(void)
 			if (IsChildOpOK(CurrentOp,&OpBlankCardBoxUp) == true)
 			{
 				gSuckCardCarMove_Flag = true;
-				gSuckCardCarPosition   = ENUM_BLANK; //空白卡位
-				StartChildOp(CurrentOp,&OpSuckCardCarMove); //吸卡小车移动到白卡位
+				gSuckCardCarPosition   = cParamBuf[10]; //上层选择小车移动到哪里从哪里发卡
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); 
 				CurrentOp->nStep = STEP2;					
 			}
 		break;
@@ -3110,8 +3123,8 @@ void Op_SendCardToPretargeting(void)
 			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
 			{
 				gSuckMove_Flag = true;
-				gSuckPosition   = ENUM_BLANK; //空白卡位
-				StartChildOp(CurrentOp,&OpSuckMove); //吸盘下降到白卡位
+				gSuckPosition   = cParamBuf[10]; //上层选择吸盘下降到哪里从哪里发卡
+				StartChildOp(CurrentOp,&OpSuckMove); 
 				CurrentOp->nStep = STEP3;
 			}
 		break;
@@ -3141,7 +3154,7 @@ void Op_SendCardToPretargeting(void)
 				}
 				else
 				{
-					if(count < 3) //重试3次
+					if(count < 2) //重试3次
 					{
 						count++;
 						CurrentOp->nStep = STEP2; //重新下降到白卡位吸卡
@@ -3152,7 +3165,6 @@ void Op_SendCardToPretargeting(void)
 						dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_OFF); //吸盘真空吸关闭
 						CurrentOp->nResult = ERROR_SUCK_VACUUM_CARD_FAIL;//10027 吸盘真空吸卡失败
 					}
-					
 				}
 			}
 		break;	
@@ -3166,20 +3178,10 @@ void Op_SendCardToPretargeting(void)
 		case STEP7:
 			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
 			{
-				if ((input_get_one(SN_SUCK_BAROMETER) == SENSOR_TYPE_VACUUM_ON) //真空压力表检测
-					&& (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON)) //反射传感器检测
-				{
-					gSuckMove_Flag = true;
-					gSuckPosition   = ENUM_PRETARGETING; //预定位卡位
-					StartChildOp(CurrentOp,&OpSuckMove); //吸盘下降到预定位
-					CurrentOp->nStep = STEP8;
-				}
-				else
-				{
-					dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_OFF); //吸盘真空吸关闭
-					CurrentOp->nResult = ERROR_SUCK_CARD_DROP_OUT;//10039 吸盘卡片掉落					
-				}
-				
+				gSuckMove_Flag = true;
+				gSuckPosition   = ENUM_PRETARGETING; //预定位卡位
+				StartChildOp(CurrentOp,&OpSuckMove); //吸盘下降到预定位
+				CurrentOp->nStep = STEP8;				
 			}
 		break;
 		case STEP8:
@@ -3194,20 +3196,32 @@ void Op_SendCardToPretargeting(void)
 			if (CheckOpTimeDelay(CurrentOp) == true)
 			{			
 				StartChildOp(CurrentOp,&OpResetSuck); //复位吸盘
-				SetOpTimeDelay(CurrentOp,2000); //延时1S
+				SetOpTimeDelay(CurrentOp,200); //延时
 				CurrentOp->nStep = STEP10;				
 			}	
 		break;
 		case STEP10:
-			if (CheckOpTimeDelay(CurrentOp) == true)
+			if ((CheckOpTimeDelay(CurrentOp) == true) 
+			&& (IsChildOpOK(CurrentOp,&OpResetSuck) == true))
 			{	
 				if (input_get_one(SN_SUCK_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON)
 				{
-					sm_stop(SM_SUCK);
-					CurrentOp->nResult = ERROR_SUCK_FREE_CARD_FAIL;//10034 吸盘释放卡失败
+					if (count < 2) //重试3次
+					{
+						count++;
+						dm_ctrl_one(DM_SUCK_VACUUMCUP, RELAY_ON); //吸盘真空吸打开
+						CurrentOp->nStep = STEP7;
+					}
+					else
+					{
+						count = 0;
+						sm_stop(SM_SUCK);
+						CurrentOp->nResult = ERROR_SUCK_FREE_CARD_FAIL;//10034 吸盘释放卡失败						
+					}
 				}
 				else
 				{
+					count = 0;
 					CurrentOp->nStep = STEP11;
 				}
 			}			
@@ -3280,7 +3294,7 @@ Author:Jim Wong
 				}
 				else
 				{
-					if(count < 3) //重试3次
+					if(count < 2) //重试3次
 					{
 						count++;
 						CurrentOp->nStep = START; //重新下降到白卡位吸卡
@@ -3402,7 +3416,7 @@ void Op_AutoMakeCard(void)
 			}
 		break;
 		case STEP3: 
-			if (count > 6)
+			if (count > 6) //因为吸7次卡,这里重复7次
 			{
 				count = 0;
 				CurrentOp->nStep = STEP4;
@@ -3616,7 +3630,7 @@ void Op_AutoMakeCard(void)
 /****************************************************
 Function Name: Op_AutoMakeCard
 *****************************************************
-Descriptions:  自动制卡
+Descriptions:  预定位还卡
 *****************************************************
 Calls:
 *****************************************************
@@ -3628,9 +3642,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_ReturnCard(void)
+void Op_PretargetingReturnCard(void)
 {
-	stOpCtrl *CurrentOp = &OpReturnCard;
+	stOpCtrl *CurrentOp = &OpPretargetingReturnCard;
 	static unsigned char count = 0; //吸卡次数
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
@@ -3679,7 +3693,7 @@ void Op_ReturnCard(void)
 				}
 				else
 				{
-					if(count < 3) //重试3次
+					if(count < 2) //重试3次
 					{
 						count++;
 						CurrentOp->nStep = STEP1; //重新下降到白卡位吸卡
@@ -3697,8 +3711,8 @@ void Op_ReturnCard(void)
 			if (IsChildOpOK(CurrentOp,&OpResetSuck) == true)
 			{
 				gSuckCardCarMove_Flag = true;
-				gSuckCardCarPosition   = ENUM_BLANK; //空白卡位
-				StartChildOp(CurrentOp,&OpSuckCardCarMove); //吸卡小车移动到白卡位
+				gSuckCardCarPosition   = cParamBuf[10]; //上层选择还卡到哪里
+				StartChildOp(CurrentOp,&OpSuckCardCarMove); 
 				CurrentOp->nStep = STEP6;					
 			}
 		break;
@@ -3706,8 +3720,8 @@ void Op_ReturnCard(void)
 			if (IsChildOpOK(CurrentOp,&OpSuckCardCarMove) == true)
 			{
 				gSuckMove_Flag = true;
-				gSuckPosition   = ENUM_BLANK; //空白卡位
-				StartChildOp(CurrentOp,&OpSuckMove); //吸盘下降到白卡位
+				gSuckPosition   = cParamBuf[10]; //上层选择到哪里
+				StartChildOp(CurrentOp,&OpSuckMove); 
 				CurrentOp->nStep = STEP7;
 			}
 		break;
@@ -3810,7 +3824,7 @@ void StepCtrlMachine(void)
 	Op_BlankCardBoxUp();					//38 白卡箱升起
 	Op_SendCardToPretargeting();						//39 自动吸卡
 	Op_AutoMakeCard();						//40 自动制卡
-	Op_ReturnCard();						//41 还卡
+	Op_PretargetingReturnCard();						//41 还卡
 	Op_PretargetingToAccessory();			//42 预定位到辅料位
 }
 

@@ -145,7 +145,7 @@
           <Type>0</Type>
           <LineNumber>509</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134319200</Address>
+          <Address>134319252</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -154,7 +154,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>E:\EMP6910\PET脡猫卤赂鲁脤脨貌麓煤脗毛\HWW(5.27)\SendingAndCheckingModule\User\BSP\StepMotor\StepMotor.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\EMP6910\../../User/BSP/StepMotor/StepMotor.c\509</Expression>
+          <Expression></Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -182,6 +182,11 @@
           <count>4</count>
           <WinNumber>1</WinNumber>
           <ItemText>board_ip[3],0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>count</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -606,8 +611,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>426</TopLine>
+      <CurrentLine>432</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Serial\serial.c</PathWithFileName>
       <FilenameWithoutPath>serial.c</FilenameWithoutPath>
@@ -620,9 +625,9 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>5</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>230</TopLine>
+      <TopLine>228</TopLine>
       <CurrentLine>231</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\OpCtrl\OpCtrl.c</PathWithFileName>
@@ -652,10 +657,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>39</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>492</TopLine>
-      <CurrentLine>504</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\StepMotor\StepMotor.c</PathWithFileName>
       <FilenameWithoutPath>StepMotor.c</FilenameWithoutPath>
@@ -750,7 +755,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>91</TopLine>
+      <TopLine>92</TopLine>
       <CurrentLine>93</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\BSP\Driver\driver.c</PathWithFileName>
@@ -838,8 +843,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>97</TopLine>
-      <CurrentLine>104</CurrentLine>
+      <TopLine>61</TopLine>
+      <CurrentLine>70</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -884,10 +889,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>15</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1673</TopLine>
-      <CurrentLine>1680</CurrentLine>
+      <TopLine>3090</TopLine>
+      <CurrentLine>3107</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\User\UserCode\Process\process.c</PathWithFileName>
       <FilenameWithoutPath>process.c</FilenameWithoutPath>

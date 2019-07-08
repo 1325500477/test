@@ -7,31 +7,31 @@ extern "C"
 #endif
 
     //***** 输入端口定义****************************************************************
-#define SN_PREPOSITION_ORG			IN1			// 预定位原点
-#define SN_PRETARGETING_CHECK_CARD	IN2			// 预定位检卡传感器
-#define SN_COOL_CHECK_CARD        	IN3	        // 冷压位检卡传感器
-#define SN_WARM_CHECK_CARD			IN4		    // 热压位检卡传感器
-#define SN_CAR_CHANNAL_ORG			IN5		    // 抓卡小车原点检测
-#define SN_CLAMP_RIGHT_CLOSE		IN6		    // 右侧夹子关闭检测
-#define SN_CLAMP_RIGHT_OPEN			IN7		    // 右侧夹子打开检测
-#define SN_CLAMP_LEFT_CLOSE 		IN8		    // 左侧夹子关闭检测
-#define SN_CLAMP_LEFT_OPEN			IN9		    // 左侧夹子打开检测
-#define SN_WARM_UP					IN10	    // 加热部分上升检测
-#define SN_WARM_DOWN				IN11	    // 加热部分下降检测
-#define SN_COOL_UP					IN12	    // 冷却部分上升检
-#define SN_COOL_DOWN				IN13	    // 冷却部分下降检测
-#define SN_PUNCH_DOWN				IN14	    // 冲压部分下降检
-#define SN_PUNCH_UP					IN15	    // 冲压部分上升检测
-#define SN_WASTESTORAGE_ORG			IN16	    // 废卡检测原点
-#define SN_PRETARGETING_BAROMETER   IN17        // 预定位压力表
-#define SN_SUCK_BAROMETER           IN18        // 吸盘压力表
-#define SN_WASTER_CHECK_CARD        IN19        // 废卡位检测卡传感器
-#define SN_SUCK_CARD_CAR_ORG  		IN20		// 吸卡小车原点传感
-#define SN_SUCK_ORG				    IN21		// 吸盘原点传感
-#define SN_BLANK_CARD_BOX_ORG		IN22	    // 空白卡箱原点
-#define SN_BLANK_CARD_BOX_CHECK     IN23        // 白卡箱检测有无卡传感器
-#define SN_BLANK_CARD_BOX_UP        IN24        // 白卡箱顶部传感器
-#define SN_SUCK_CHECK_CARD          IN25        // 吸盘检卡传感器
+#define SN_PREPOSITION_ORG			IN1	    // 预定位原点
+#define SN_PRETARGETING_CHECK_CARD	IN2	    // 预定位检卡传感器
+#define SN_COOL_CHECK_CARD        	IN3	    // 冷压位检卡传感器
+#define SN_WARM_CHECK_CARD			IN4	    // 热压位检卡传感器
+#define SN_CAR_CHANNAL_ORG			IN5	    // 抓卡小车原点检测
+#define SN_CLAMP_RIGHT_CLOSE		IN6	    // 右侧夹子关闭检测
+#define SN_CLAMP_RIGHT_OPEN			IN7	    // 右侧夹子打开检测
+#define SN_CLAMP_LEFT_CLOSE 		IN8	    // 左侧夹子关闭检测
+#define SN_CLAMP_LEFT_OPEN			IN9	    // 左侧夹子打开检测
+#define SN_WARM_UP					IN10    // 加热部分上升检测
+#define SN_WARM_DOWN				IN11    // 加热部分下降检测
+#define SN_COOL_UP					IN12    // 冷却部分上升检
+#define SN_COOL_DOWN				IN13    // 冷却部分下降检测
+#define SN_PUNCH_DOWN				IN14    // 冲压部分下降检
+#define SN_PUNCH_UP					IN15    // 冲压部分上升检测
+#define SN_WASTESTORAGE_ORG			IN16    // 废卡检测原点
+#define SN_PRETARGETING_BAROMETER   IN17    // 预定位压力表
+#define SN_SUCK_BAROMETER           IN18    // 吸盘压力表
+#define SN_WASTER_CHECK_CARD        IN19    // 废卡位检测卡传感器
+#define SN_SUCK_CARD_CAR_ORG  		IN20    // 吸卡小车原点传感
+#define SN_SUCK_ORG				    IN21    // 吸盘原点传感
+#define SN_BLANK_CARD_BOX_ORG		IN22    // 空白卡箱原点
+#define SN_BLANK_CARD_BOX_CHECK     IN23    // 白卡箱检测有无卡传感器
+#define SN_BLANK_CARD_BOX_UP        IN24    // 白卡箱顶部传感器
+#define SN_SUCK_CHECK_CARD          IN25    // 吸盘检卡传感器
 
 
 
