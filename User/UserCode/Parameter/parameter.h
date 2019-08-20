@@ -15,35 +15,35 @@ enum ENUM_PARAMETER
 {
     PAR_WARM_STEP,							//1 到热压工位
     PAR_COOL_STEP,							//2 到冷压工位   
-    PAR_WASTE,                              //3 到废料工位
-    PAR_PRETARGETING,                       //4 到预定位
-    PAR_CUT_CARD_POSITION,                  //5 裁剪卡位置
-    PAR_BLANK_CARD_BOX_UP,					//6 白卡箱上升步数
-    PAR_SM_CHANNAL_SPEED,                   //7 小车速度
-    PAR_PRETARGET_UP_POSITION,              //8 预定位电机上升步数
-    PAR_WASTESTORAGE_DN_POSTION,            //9 废料场电机下降步数
-    PAR_WARM_TIME,							//10 热压时间 
-    PAR_COOL_TIME,							//11 冷压时间
-    PAR_SUCK_CARD_CAR_ACCESSORY,            //12 吸卡小车辅料位
-    PAR_SUCK_CARD_CAR_PRETARGETING,		    //13 吸卡小车预定位
-    PAR_SUCK_CARD_CAR_TEMPORARY,			//14 吸卡小车暂放卡位
-    PAR_SUCK_CARD_CAR_NEW_ACCESSORY,		//15 吸卡小车新辅料位
-    PAR_SUCK_CARD_CAR_PRINT,				//16 吸卡小车打印位
-    PAR_SUCK_CARD_CAR_BLANK,				//17 吸卡小车空白卡位
-    PAR_SUCK_ACCESSORY,			            //18 吸盘辅料位  
-    PAR_SUCK_PRETARGETING,				    //19 吸盘预定位
-    PAR_SUCK_TEMPORARY,				        //20 吸盘暂放卡位
-    PAR_SUCK_NEW_ACCESSORY,				    //21 吸盘新辅料位
-    PAR_SUCK_PRINT,				            //22 吸盘打印位
-    PAR_SUCK_BLANK,				            //23 吸盘空白卡位
-    PAR_SUCK_CARD_CAR_SPEED,				//24 吸卡小车运行速度
-    PAR_SUCK_SPEED,				            //25 吸盘运行速度
+    PAR_PRETARGETING,                       //3 到预定工位
+    PAR_CUT_CARD_POSITION,                  //4 裁剪卡位置
+    PAR_WASTE,                              //5 到废料工位
+    PAR_SM_CHANNAL_SPEED,                   //6 抓卡小车速度
+    PAR_PRETARGET_UP_POSITION,              //7 预定位电机上升步数
+    PAR_WASTESTORAGE_DN_POSTION,            //8 废料场电机下降步数
+    PAR_WARM_TIME,							//9 热压时间 
+    PAR_COOL_TIME,							//10 冷压时间
+    PAR_ELEVATOR_CAR_SPEED,					//11 电梯小车的速度s
+    PAR_RECEIVE_CARD,                       //12 电梯小车接卡位    
+    PAR_ELEVATOR_TO_RWMODULE,               //13 电梯到读写模块
+    PAR_RWMODULE_TO_ELEVATOR,				//14 读写模块到电梯
+    PAR_WASTE_CARD,                         //15 电梯小车废卡位
+    PAR_OCR_CARD,	        				//16 电梯小车OCR位   
+    PAR_CONNECTION_TO_SEND_CARD,			//17 衔接模块到发卡位  
+    PAR_RWMODULE_SPEED,				        //18 读写模块速度
+    PAR_RWMODULE_OUT_CARD,				    //19 读写模块出卡步数
+    PAR_OUT_CARD,           				//20 读写模块出好卡的步数
+    PAR_BAK21,				//21
+    PAR_BAK22,				//22
+    PAR_BAK23,				//23
+    PAR_BAK24,			    //24
+    PAR_BAK25,				//25
     PAR_BAK26,				//26
     PAR_BAK27,				//27
-    PAR_BAK28,			    //28
+    PAR_BAK28,				//28
     PAR_BAK29,				//29
-    PAR_BAK30,				//30
-    
+    PAR_BAK30,			    //30
+
     PAR_BAK31,				//31
     PAR_BAK32,				//32
     PAR_BAK33,				//33

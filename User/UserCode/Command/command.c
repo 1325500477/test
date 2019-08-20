@@ -116,13 +116,13 @@ void ProcessUserCmd(void)
 		// ²éÑ¯°´¼ü×´Ì¬
 		if ( comm_recv_buf[POS_DATA_0] == 1)
 		{
-			comm_send_buf[POS_DATA_0] = gStartBottonPressed;
-			gStartBottonPressed = false;
+//			comm_send_buf[POS_DATA_0] = gStartBottonPressed;
+//			gStartBottonPressed = false;
 		}
 		if ( comm_recv_buf[POS_DATA_0] == 2)
 		{
-			comm_send_buf[POS_DATA_0] = gPauseBottonPressed;
-			gPauseBottonPressed = false;
+//			comm_send_buf[POS_DATA_0] = gPauseBottonPressed;
+//			gPauseBottonPressed = false;
 		}
 		txlen = 1;
 		break;

@@ -75,7 +75,7 @@ int main(void)
 
 	debug_info("=============Program Begin!=============\n"); 
 
-	board_addr = get_board_id();
+	board_addr = get_board_id(); //固定IP地址给"0"就是192.168.200.10,以此类推
 	board_mac[5] = 10 + board_addr;
 	board_ip[3] = 10 + board_addr;
 
@@ -94,23 +94,22 @@ int main(void)
 	print_message();				//打印电路板相关信息
 
 	//iwdg_feed();					//喂狗
-
 	while(1)
 	{
-		ProcessCmd();
+	//ram_test();
+		//MutipleCommunicate();
+
+			ProcessCmd();
 
 		input_get_all();
 		process_serial();
 		process_ethernet();
 		//process_usb();			//USB口
 		comm_cmd_execution();		//解析通讯（串口/网口）
-        StepCtrlMachine();
+       StepCtrlMachine();
 		//iwdg_feed();				//喂狗	 
 		//board_test();
 		//fpga_test();
-		//ram_test();
-		//MutipleCommunicate();
-
 		process_all_cmd();
 	}
 }
