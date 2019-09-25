@@ -99,7 +99,7 @@ int main(void)
 	//ram_test();
 		//MutipleCommunicate();
 
-			ProcessCmd();
+		ProcessCmd();
 
 		input_get_all();
 		process_serial();

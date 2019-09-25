@@ -1,15 +1,13 @@
 ..\obj\command.o: ..\..\User\UserCode\Command\command.c
 ..\obj\command.o: ..\..\User\UserCode\Command\../../BSP/bsp.h
-..\obj\command.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
-..\obj\command.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
-..\obj\command.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
-..\obj\command.o: C:\Keil\ARM\RV31\INC\stdint.h
+..\obj\command.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\string.h
+..\obj\command.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdio.h
+..\obj\command.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+..\obj\command.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\command.o: ..\..\User\UserCode\Command\../../BSP/./Driver/standard.h
 ..\obj\command.o: ..\..\User\UserCode\Command\../../BSP/./Driver/my_fun.h
-..\obj\command.o: C:\Keil\ARM\RV31\INC\stdio.h
 ..\obj\command.o: ..\..\User\UserCode\Command\../../BSP/./Driver/hardware.h
 ..\obj\command.o: ..\..\User\BSP\./Driver/driver.h
-..\obj\command.o: C:\Keil\ARM\RV31\INC\stdbool.h
 ..\obj\command.o: ..\..\User\BSP\./OpCtrl/OpCtrl.h
 ..\obj\command.o: ..\..\User\UserCode\Command\../../BSP/./Driver/driver.h
 ..\obj\command.o: ..\..\User\UserCode\Command\../../BSP/./Serial/Serial.h
@@ -19,7 +17,6 @@
 ..\obj\command.o: ..\..\User\UserCode\Command\../../BSP/./EEPROM/eeprom.h
 ..\obj\command.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 ..\obj\command.o: ..\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-..\obj\command.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\command.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
 ..\obj\command.o: ..\..\User\BSP\Stm32f10x\stm32f10x_conf.h
 ..\obj\command.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h

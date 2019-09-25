@@ -1,12 +1,12 @@
 ..\obj\hardware.o: ..\..\User\BSP\Driver\hardware.c
 ..\obj\hardware.o: ..\..\User\BSP\Driver\hardware.h
 ..\obj\hardware.o: ..\..\User\BSP\./Driver/driver.h
-..\obj\hardware.o: C:\Keil\ARM\RV31\INC\stdbool.h
+..\obj\hardware.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdbool.h
 ..\obj\hardware.o: ..\..\User\BSP\./Driver/standard.h
 ..\obj\hardware.o: ..\..\User\BSP\./OpCtrl/OpCtrl.h
 ..\obj\hardware.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 ..\obj\hardware.o: ..\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-..\obj\hardware.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+..\obj\hardware.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\hardware.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
 ..\obj\hardware.o: ..\..\User\BSP\Stm32f10x\stm32f10x_conf.h
 ..\obj\hardware.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
@@ -35,4 +35,4 @@
 ..\obj\hardware.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 ..\obj\hardware.o: ..\..\User\BSP\Driver\platform.h
 ..\obj\hardware.o: ..\..\User\BSP\./Driver/driver.h
-..\obj\hardware.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+..\obj\hardware.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdio.h

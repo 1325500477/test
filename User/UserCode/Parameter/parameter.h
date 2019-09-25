@@ -23,18 +23,18 @@ enum ENUM_PARAMETER
     PAR_WASTESTORAGE_DN_POSTION,            //8 废料场电机下降步数
     PAR_WARM_TIME,							//9 热压时间 
     PAR_COOL_TIME,							//10 冷压时间
-    PAR_ELEVATOR_CAR_SPEED,					//11 电梯小车的速度s
+    PAR_LIFT_UP_DN_SPEED,					//11 电梯小车的速度s
     PAR_RECEIVE_CARD,                       //12 电梯小车接卡位    
     PAR_ELEVATOR_TO_RWMODULE,               //13 电梯到读写模块
     PAR_RWMODULE_TO_ELEVATOR,				//14 读写模块到电梯
     PAR_WASTE_CARD,                         //15 电梯小车废卡位
     PAR_OCR_CARD,	        				//16 电梯小车OCR位   
-    PAR_CONNECTION_TO_SEND_CARD,			//17 衔接模块到发卡位  
+    PAR_CONNECTION_NORMA,			        //17 衔接模块正常位置 
     PAR_RWMODULE_SPEED,				        //18 读写模块速度
     PAR_RWMODULE_OUT_CARD,				    //19 读写模块出卡步数
     PAR_OUT_CARD,           				//20 读写模块出好卡的步数
-    PAR_BAK21,				//21
-    PAR_BAK22,				//22
+    PAR_CONNECTION_ENTER_OCR,				//21 衔接模块进卡到OCR
+    PAR_CONNECTION_EXIT_OCR,			    //22 衔接模块出卡到OCR
     PAR_BAK23,				//23
     PAR_BAK24,			    //24
     PAR_BAK25,				//25

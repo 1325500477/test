@@ -83,6 +83,7 @@ void init_dm_ctl(void)
 void input_get_all(void)
 {
 	//最高位位IN32,最低位为IN1
+	__disable_irq();
 	m_Input_All_now2 = 0xFFFF;
 	m_Input_All_now2 = fpga_read(0x18); 	//测试是否等于0x5AA5
 	m_Input_All_now2 = (fpga_read(0x14)) & 0xFF;
@@ -90,6 +91,7 @@ void input_get_all(void)
 	m_Input_All_now = fpga_read(0x12);
 	m_Input_All_now = m_Input_All_now << 16;
 	m_Input_All_now = m_Input_All_now + fpga_read(0x10);
+	__enable_irq();
 }
 
 /***************************************************************************************************************

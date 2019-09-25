@@ -2,7 +2,7 @@
 ..\obj\bspconfig.o: ..\..\User\BSP\./Driver/standard.h
 ..\obj\bspconfig.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 ..\obj\bspconfig.o: ..\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-..\obj\bspconfig.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+..\obj\bspconfig.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\bspconfig.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
 ..\obj\bspconfig.o: ..\..\User\BSP\Stm32f10x\stm32f10x_conf.h
 ..\obj\bspconfig.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h

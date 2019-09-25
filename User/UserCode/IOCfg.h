@@ -26,15 +26,15 @@ extern "C"
     #define SN_PRETARGETING_BAROMETER   IN17   // 预定位负压表检测是否吸到卡
     #define SN_WASTE_BOX_CHECK          IN18   // 废料箱到位检测
     #define SN_WASTE_CHECK_CARD         IN19   // 废料位检测夹子上是否有废料
-    #define SN_CONNECTION_ORG       	IN20   // 衔接模块原点
+    #define SN_LIFT_HORIZON_ORG     	IN20   // 电梯小车水平原点
     #define SN_RECEIVE_CARD        	    IN21   // 接卡负压表检测是否吸到剪切后的卡
     #define SN_CARD_SLOT                IN22   // 电梯卡槽检测是否有卡
-    #define SN_ELEVATOR_CAR_ORG         IN23   // 电梯小车原点 
-    #define SN_RWMODULE_ENTER_CARD	    IN24   // 读写模块进卡通道/废卡进卡通道传感器
+    #define SN_LIFT_UP_DN_ORG         	IN23   // 电梯小车原点 
+    #define SN_RW_CH_NEAR_LIFT	    	IN24   // 读写模块进卡通道/废卡进卡通道传感器
     #define SN_WASTER_CARD_BOX_FULL     IN25   // 废卡箱满传感器
     #define SN_WASTER_CARD_BOX_EMPTY    IN26   // 废卡箱空传感器
     #define SN_WASTER_CARD_BOX_CHECK    IN27   // 废卡箱到位检测传感器
-    #define SN_CARD_EXIT                IN28   // 好卡出卡口传感器
+    #define SN_RW_CH_NEAR_OUTSIDE       IN28   // 出卡口传感器
     #define SN_WASTE_BOX_FULL           IN29   // 废料箱满传感器
     //***** 输出端口定义（单向直流马达、电磁铁、指示灯...）*******************************
     #define DM_WARM_CONTROL				DM1	   // 加热继电器控制
@@ -55,19 +55,20 @@ extern "C"
     #define SM_PRETARGETING             SM_2   // 预定位电机SM102   
     #define SM_WASTESTORAGE             SM_3   // 废料场电机SM103
     #define SM_RWMODULE                 SM_4   // 读写模块电机SM104
-    #define SM_CONNECTION               SM_5   // 衔接模块移动电机SM105
-    #define SM_ELEVATOR_CAR             SM_6   // 电梯小车SM106
+    #define SM_LIFT_HORIZON_MOVE        SM_5   // 电梯小车水平移动电机
+    #define SM_LIFT_UP_DN             	SM_6   // 电梯小车SM106
     //***** 步进电机转动方向定义********************************************************
     #define DIR_SM_CHANNEL_FORWARD     	    SM_CW  // 通道电机前进 
     #define DIR_SM_CHANNEL_BACKWARD         SM_CCW // 通道电机返回
-    #define DIR_SM_PRETARGETING_FORWARD     SM_CW  // 预定位向上
-    #define DIR_SM_PRETARGETING_BACKWARD    SM_CCW // 预定位向下
-    #define DIR_SM_ELEVATOR_CAR_UP          SM_CCW // 电梯小车上升
-    #define DIR_SM_ELEVATOR_CAR_DOWN        SM_CW  // 电梯小车下降
-    #define DIR_SM_CONNECTION_ORG           SM_CW  // 衔接模块原点
-    #define DIR_SM_CONNECTION_CARD          SM_CCW // 衔接模块发卡位
-    #define DIR_SM_RWMODULE_IN_CARD         SM_CCW // 读写模块进卡
-    #define DIR_SM_RWMODULE_OUT_CARD        SM_CW  // 读写模块出卡 
+    #define DIR_SM_PRETARGETING_FORWARD     SM_CW // 预定位向上
+    #define DIR_SM_PRETARGETING_BACKWARD    SM_CCW  // 预定位向下
+    #define DIR_SM_LIFT_UP          		SM_CCW // 电梯小车上升
+    #define DIR_SM_LIFT_DN        			SM_CW  // 电梯小车下降
+    #define DIR_SM_LIFT_HORIZON_BACK        SM_CCW // 电梯水平后退
+    #define DIR_SM_LIFT_HORIZON_FRONT       SM_CW  // 电梯水平前进
+    #define DIR_SM_RW_CH_IN_FROM_LIFT       SM_CCW // 读写模块进卡
+    #define DIR_SM_RW_CH_OUT_LIFT        	SM_CW  // 读写模块出卡 
+    #define DIR_SM_ENTER_RECYCLE_BOX        SM_CW  // 进回收箱 
     //***** 直流电机动作状态定义********************************************************
     #define DM_CLAMP_OPEN           	DM_CW  // 挡板控制电机顺时针转动
     #define DM_CLAMP_CLOSE          	DM_CCW // 挡板控制电机逆时针转动

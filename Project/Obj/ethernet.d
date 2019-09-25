@@ -1,15 +1,13 @@
 ..\obj\ethernet.o: ..\..\User\BSP\Ethernet\ethernet.c
-..\obj\ethernet.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+..\obj\ethernet.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\string.h
 ..\obj\ethernet.o: ..\..\User\BSP\bsp.h
-..\obj\ethernet.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
-..\obj\ethernet.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
-..\obj\ethernet.o: C:\Keil\ARM\RV31\INC\stdint.h
+..\obj\ethernet.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdio.h
+..\obj\ethernet.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+..\obj\ethernet.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\ethernet.o: ..\..\User\BSP\./Driver/standard.h
 ..\obj\ethernet.o: ..\..\User\BSP\./Driver/my_fun.h
-..\obj\ethernet.o: C:\Keil\ARM\RV31\INC\stdio.h
 ..\obj\ethernet.o: ..\..\User\BSP\./Driver/hardware.h
 ..\obj\ethernet.o: ..\..\User\BSP\./Driver/driver.h
-..\obj\ethernet.o: C:\Keil\ARM\RV31\INC\stdbool.h
 ..\obj\ethernet.o: ..\..\User\BSP\./OpCtrl/OpCtrl.h
 ..\obj\ethernet.o: ..\..\User\BSP\./Driver/driver.h
 ..\obj\ethernet.o: ..\..\User\BSP\./Serial/Serial.h
@@ -19,7 +17,6 @@
 ..\obj\ethernet.o: ..\..\User\BSP\./EEPROM/eeprom.h
 ..\obj\ethernet.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 ..\obj\ethernet.o: ..\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-..\obj\ethernet.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\ethernet.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
 ..\obj\ethernet.o: ..\..\User\BSP\Stm32f10x\stm32f10x_conf.h
 ..\obj\ethernet.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h

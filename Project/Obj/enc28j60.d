@@ -1,11 +1,10 @@
 ..\obj\enc28j60.o: ..\..\User\BSP\Ethernet\enc28j60.c
-..\obj\enc28j60.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
-..\obj\enc28j60.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+..\obj\enc28j60.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\string.h
+..\obj\enc28j60.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdio.h
 ..\obj\enc28j60.o: ..\..\User\BSP\./Driver/my_fun.h
-..\obj\enc28j60.o: C:\Keil\ARM\RV31\INC\stdio.h
 ..\obj\enc28j60.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 ..\obj\enc28j60.o: ..\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-..\obj\enc28j60.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+..\obj\enc28j60.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\enc28j60.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
 ..\obj\enc28j60.o: ..\..\User\BSP\Stm32f10x\stm32f10x_conf.h
 ..\obj\enc28j60.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h

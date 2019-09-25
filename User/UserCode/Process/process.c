@@ -38,60 +38,72 @@ stOpCtrl OpCloseGasSwitch;						//26 气路关闭
 stOpCtrl OpWarmCoolMakeCard;					//27 热冷压制卡
 stOpCtrl OpGotoLoadingPlatform;			   		//28 去预定位平台
 stOpCtrl OpCuttingPlatformWork;		 			//29 裁剪平台工作
-stOpCtrl OpScramProcess;						//30 紧急停止剪卡和制卡流程
+stOpCtrl OpLiftUpDnReset;						//30 
 //电梯模块
-stOpCtrl OpResetElevatorCar;					//31 复位电梯小车
-stOpCtrl OpElevatorCarMove;						//32 电梯小车移动
-stOpCtrl OpResetConnection;						//33 复位衔接模块
-stOpCtrl OpConnectionSendCard;					//34 衔接模块到发卡位
+stOpCtrl OpResetLiftModule;						//31 复位电梯模块
+stOpCtrl OpLiftUpDnMove;						//32 电梯小车移动
+stOpCtrl OpLiftHorizonReset;					//33 电梯小车水平复位
+stOpCtrl OpLiftHorizonMove;						//34 衔接模块移动
 stOpCtrl OpReceiveCardVacuumOn;					//35 接卡位真空开
 stOpCtrl OpReceiveCardVacuumOff;				//36 接卡位真空关
 stOpCtrl OpHeaterPowerOn;						//37 发热管电源开
 stOpCtrl OpHeaterPowerOff;						//38 发热管电源关
-stOpCtrl OpRWModuleInCard;						//39 读写模块进卡
-stOpCtrl OpRWModuleOutCard;						//40 读写模块出卡
-//组合流程
-stOpCtrl OpElevatorSendCardToRWModule;			//41 电梯发卡到读写模块
+stOpCtrl OpRWChannelInCardFromLiftSide;			//39 电梯向读写通道进卡
+stOpCtrl OpRWChannelOutCardToLiftSide;			//40 读写通道向电梯出卡
+//电梯组合流程
+stOpCtrl OpLiftSuckSendCardToRWChannel;			//41 电梯发卡到读写模块
 stOpCtrl OpRWModuleSendCardToOCR;				//42 读写模块发卡到OCR
 stOpCtrl OpOCRToRWModuleOutCard;				//43 OCR到读写模块出卡
+stOpCtrl OpCutSendCardToRWModule;				//44 发卡到读写模块
+stOpCtrl OpPerfectCardEnter;					//45 好卡进卡
+stOpCtrl OpPerfectCardExit;						//46 好卡出卡
+//以下新增
+stOpCtrl OpLiftSlotSendCardToRWChannel;			//47 电梯槽发卡到读写器通道
+stOpCtrl OpRWChannelSendCardToLiftSlot;			//48 读写通道发卡到电梯卡槽
+stOpCtrl OpLiftSlotSendCardToRecycleBox;		//49 电梯卡槽送卡到回收箱
+stOpCtrl OpRWModuleReset;						//50 读写模块复位
 
-
-stOpCtrl OpAutoMakeCard;						//44 自动制卡
-
-
-unsigned char gStatusPretarget 	  = STATUS_UNKNOW;		//预定位位置状态
-unsigned char gStatusWastestorage = STATUS_UNKNOW;  	//废料位置状态
-unsigned char bFlagReset 		  = FALSE;        		//复位标志位
+unsigned char gStatusPretarget 	  = STATUS_UNKNOW;	//预定位位置状态
+unsigned char gStatusWastestorage = STATUS_UNKNOW;  //废料位置状态
+unsigned char bFlagReset 		  = FALSE;        	//复位标志位
+unsigned char gGoToPretarget_flag = 0;
 /******** 其它定义*********************************/
-stOpCtrl *gMachineOperation[50]; // 设置一个支持50个流程的指针数组
-unsigned char gnOperationNo = 1; // 执行的动作序号（从1开始对各个动作结构体变量逐个初始化）
-extern unsigned char cParamBuf[];//接收参数
-//Clamp card car
-unsigned char gTrolleyCarMove_Flag 	 = false;  		//通道小车运行标志
-unsigned char gTrolleyCarPosition  	 = ENUM_UNKNOW; //通道小车的位置
+stOpCtrl *gMachineOperation[80]; 					// 设置一个支持50个流程的指针数组
+unsigned char gnOperationNo = 1; 					// 执行的动作序号（从1开始对各个动作结构体变量逐个初始化）
+extern unsigned char cParamBuf[];					//接收参数
+//夹卡小车
+unsigned char gTrolleyCarMove_Flag 	 = false;  		//夹卡小车运行标志
+unsigned char gTrolleyCarPosition  	 = ENUM_UNKNOW; //夹卡小车的位置
 unsigned int gTrolleyCarMoveCount 	 = 0;           //小车移动次数,达到一定次数复位消除累积误差
-unsigned int gAbsPosTrolleyCarMov[6] = { 	//抓卡小车移动各个工位的绝对步数初始值
+unsigned int gAbsPosTrolleyCarMov[6] = { 			//抓卡小车移动各个工位的绝对步数初始值
 	0, 	 	//空余
 	13, 	//1热压位 
 	165,	//2冷压位
 	311,	//3预定位
-	448,	//4剪卡位
+	449,	//4剪卡位
 	580,	//5废料位
  };	
 //电梯小车
-unsigned char gRWCheckCar_Flag	    = false; //电梯小车运行标志位
-unsigned char gElevatorCarPosition  = ENUM_ELEVATOR_UNKNOW;  //电梯小车位置
-unsigned int  gRWCheckCarCount	    = 0;	//电梯小车运行达到一定次数复位消除累积误差
-//衔接模块 
-unsigned char gConnectionPosition   = STATUS_UNKNOW; //Connection module position flag
-unsigned int gAbsElevatorCarMove[6] = { //电梯小车移动
+unsigned char flag_LiftUpDnMove	    = false; 				 //电梯小车运行标志位
+unsigned char gLiftUpDnPosition  = ENUM_LIFT_UP_DN_UNKNOW;   //电梯小车位置
+unsigned int gAbsLiftUpDnMove[6] = { 					 	 //电梯小车移动参数
 	0,	  //空余
-	250,  //1接卡位
-	42,   //2电梯到读写模块位(好卡出卡位)
-	195,  //3读写模块到电梯位
-	177,  //4废卡位
-	13,   //5OCR位 
+	245,  //1接卡位
+	41,   //2电梯吸卡到读写通道	
+	195,  //3电梯槽对读写通道
+	176,  //4电梯槽对回收箱
+	12,   //5电梯槽到OCR
 }; 
+//电梯小车水平移动 
+unsigned char flag_Lift_H_MOVE	= false; 		 		  		 //电梯小车水平运行标志位
+unsigned char gLiftHorizonPosition   = ENUM_LIFT_HORIZON_UNKNOW; //电梯小车水平位置
+unsigned int  gAbsLiftHorizonMove[4] = { 			 		 	 //电梯小车水平移动参数
+	0,	  //空余
+	470,  //1接送卡位
+	600,  //2进OCR位
+	280,  //3出OCR位
+}; 
+
 /****************************************************
 Function Name: ProcessUpdateParameter
 *****************************************************
@@ -127,14 +139,15 @@ void ProcessUpdateParameter(void)
 		//14读写模块到电梯
 		//15废卡位
 		//16OCR检测位 	 		
-		gAbsElevatorCarMove[i+1] = parameter[i+11];
+		gAbsLiftUpDnMove[i+1] = parameter[i+11];
 	} 
-	/* 	gAbsPosTrolleyCarMov[ENUM_INSIDE_WARE] 	       = parameter[PAR_WARM_STEP];		   //1 到热压工位
-		gAbsPosTrolleyCarMov[ENUM_INSIDE_COOL]         = parameter[PAR_COOL_STEP];		   //2 到冷压工位
-		gAbsPosTrolleyCarMov[ENUM_INSIDE_WASTE]    	   = parameter[PAR_WASTE];	   		   //3 到撕膜工位
-		gAbsPosTrolleyCarMov[ENUM_INSIDE_PRETARGETING] = parameter[PAR_PRETARGETING];	   //4 到预定位
-		gAbsPosTrolleyCarMov[ENUM_INSIDE_CUT_CARD] 	   = parameter[PAR_CUT_CARD_POSITION]; //5 到剪卡位
-	*/
+	//1正常位置 			   		   
+    //2进OCR	  
+    //3出OCR
+	gAbsLiftHorizonMove[1] = parameter[PAR_CONNECTION_NORMA];
+	gAbsLiftHorizonMove[2] = parameter[PAR_CONNECTION_ENTER_OCR];
+	gAbsLiftHorizonMove[3] = parameter[PAR_CONNECTION_EXIT_OCR];
+
 }
 
 /****************************************************
@@ -157,53 +170,59 @@ Author:Jim Wong
 void InitializeMachine(void)
 {
 	unsigned char i;
-	gMachineOperation[gnOperationNo++] = &OpResetModule;				//1 复位
-	gMachineOperation[gnOperationNo++] = &OpResetClampCardCar; 			//2 复位夹卡小车
-	gMachineOperation[gnOperationNo++] = &OpClampCardCarMove;   		//3 夹卡小车移动位置
-	gMachineOperation[gnOperationNo++] = &OpResetClamp;					//4 复位爪子
-	gMachineOperation[gnOperationNo++] = &OpClampOpen; 					//5 爪子张开
-	gMachineOperation[gnOperationNo++] = &OpClampClose; 				//6 爪子闭合
-	gMachineOperation[gnOperationNo++] = &OpRightClampClose; 			//7 右侧爪子闭合
-	gMachineOperation[gnOperationNo++] = &OpRightClampOpen; 			//8 右侧爪子张开
-	gMachineOperation[gnOperationNo++] = &OpLeftClampClose; 			//9 左侧爪子闭合
-	gMachineOperation[gnOperationNo++] = &OpLeftClampOpen; 				//10 左侧爪子张开
-	gMachineOperation[gnOperationNo++] = &OpOpeningPressure;			//11 总源开
-	gMachineOperation[gnOperationNo++] = &OpClosingPressure;			//12 总源关
-	gMachineOperation[gnOperationNo++] = &OpWarmRise;				 	//13 热压上升
-	gMachineOperation[gnOperationNo++] = &OpWarmDown;				 	//14 热压下降
-	gMachineOperation[gnOperationNo++] = &OpCoolDown;					//15 冷却下降
-	gMachineOperation[gnOperationNo++] = &OpCoolRise;					//16 冷却升起
-	gMachineOperation[gnOperationNo++] = &OpPresDown;					//17 冲压下降
-	gMachineOperation[gnOperationNo++] = &OpPresRise;					//18 冲压升起
-	gMachineOperation[gnOperationNo++] = &OpPretargetingReset;          //19 预定位复位
-	gMachineOperation[gnOperationNo++] = &OpPretargetingUp;             //20 预定位上升
-	gMachineOperation[gnOperationNo++] = &OpWasteStorageReset;			//21 废料场电机复位
-	gMachineOperation[gnOperationNo++] = &OpWasteStorageDown;	  		//22 废料场电机下降
-	gMachineOperation[gnOperationNo++] = &OpPretargetingVacuumCupOpen;	//23 预定位真空打开
- 	gMachineOperation[gnOperationNo++] = &OpPretargetingVacuumCupClose;	//24 预定位真空关闭
-	gMachineOperation[gnOperationNo++] = &OpOpenGasSwitch;				//25 总气打开	
-	gMachineOperation[gnOperationNo++] = &OpCloseGasSwitch;				//26 总气关闭
-	//组合动作
-	gMachineOperation[gnOperationNo++] = &OpWarmCoolMakeCard;			//27 热冷压制卡	
-	gMachineOperation[gnOperationNo++] = &OpGotoLoadingPlatform;		//28 到预定位+预定位上升+打开夹子
-	gMachineOperation[gnOperationNo++] = &OpCuttingPlatformWork;		//29 剪卡+废料				 
-	gMachineOperation[gnOperationNo++] = &OpScramProcess;				//30 紧急停止剪卡和制卡流程
-	//电梯模块
-	gMachineOperation[gnOperationNo++] = &OpResetElevatorCar;			//31 复位电梯小车
-	gMachineOperation[gnOperationNo++] = &OpElevatorCarMove;			//32 电梯小车移动
-	gMachineOperation[gnOperationNo++] = &OpResetConnection;			//33 复位衔接模块
-	gMachineOperation[gnOperationNo++] = &OpConnectionSendCard;			//34 衔接模块到发卡位
-	gMachineOperation[gnOperationNo++] = &OpReceiveCardVacuumOn;		//35 接卡位负压开
-	gMachineOperation[gnOperationNo++] = &OpReceiveCardVacuumOff;		//36 接卡位负压关
-	gMachineOperation[gnOperationNo++] = &OpHeaterPowerOn;				//37 发热管电源开
-	gMachineOperation[gnOperationNo++] = &OpHeaterPowerOff;				//38 发热管电源关
-	gMachineOperation[gnOperationNo++] = &OpRWModuleInCard;				//39 读写模块进卡
-	gMachineOperation[gnOperationNo++] = &OpRWModuleOutCard;			//40 读写模块出卡
-	gMachineOperation[gnOperationNo++] = &OpElevatorSendCardToRWModule;	//41 电梯发卡到读写模块
-	gMachineOperation[gnOperationNo++] = &OpRWModuleSendCardToOCR;		//42 读写模块发卡到OCR
-	gMachineOperation[gnOperationNo++] = &OpOCRToRWModuleOutCard;		//43 OCR到读写模块出卡
+	gMachineOperation[gnOperationNo++] = &OpResetModule;					//1 复位
+	gMachineOperation[gnOperationNo++] = &OpResetClampCardCar; 				//2 复位夹卡小车
+	gMachineOperation[gnOperationNo++] = &OpClampCardCarMove;   			//3 夹卡小车移动位置
+	gMachineOperation[gnOperationNo++] = &OpResetClamp;						//4 复位爪子
+	gMachineOperation[gnOperationNo++] = &OpClampOpen; 						//5 爪子张开
+	gMachineOperation[gnOperationNo++] = &OpClampClose; 					//6 爪子闭合
+	gMachineOperation[gnOperationNo++] = &OpRightClampClose; 				//7 右侧爪子闭合
+	gMachineOperation[gnOperationNo++] = &OpRightClampOpen; 				//8 右侧爪子张开
+	gMachineOperation[gnOperationNo++] = &OpLeftClampClose; 				//9 左侧爪子闭合
+	gMachineOperation[gnOperationNo++] = &OpLeftClampOpen; 					//10 左侧爪子张开
+	gMachineOperation[gnOperationNo++] = &OpOpeningPressure;				//11 总源开
+	gMachineOperation[gnOperationNo++] = &OpClosingPressure;				//12 总源关
+	gMachineOperation[gnOperationNo++] = &OpWarmRise;				 		//13 热压上升
+	gMachineOperation[gnOperationNo++] = &OpWarmDown;				 		//14 热压下降
+	gMachineOperation[gnOperationNo++] = &OpCoolDown;						//15 冷却下降
+	gMachineOperation[gnOperationNo++] = &OpCoolRise;						//16 冷却升起
+	gMachineOperation[gnOperationNo++] = &OpPresDown;						//17 冲压下降
+	gMachineOperation[gnOperationNo++] = &OpPresRise;						//18 冲压升起
+	gMachineOperation[gnOperationNo++] = &OpPretargetingReset;          	//19 预定位复位
+	gMachineOperation[gnOperationNo++] = &OpPretargetingUp;             	//20 预定位上升
+	gMachineOperation[gnOperationNo++] = &OpWasteStorageReset;				//21 废料场电机复位
+	gMachineOperation[gnOperationNo++] = &OpWasteStorageDown;	  			//22 废料场电机下降
+	gMachineOperation[gnOperationNo++] = &OpPretargetingVacuumCupOpen;		//23 预定位真空打开
+ 	gMachineOperation[gnOperationNo++] = &OpPretargetingVacuumCupClose;		//24 预定位真空关闭
+	gMachineOperation[gnOperationNo++] = &OpOpenGasSwitch;					//25 总气打开	
+	gMachineOperation[gnOperationNo++] = &OpCloseGasSwitch;					//26 总气关闭
+	//组合动作	
+	gMachineOperation[gnOperationNo++] = &OpWarmCoolMakeCard;				//27 热冷压制卡	
+	gMachineOperation[gnOperationNo++] = &OpGotoLoadingPlatform;			//28 到预定位+预定位上升+打开夹子
+	gMachineOperation[gnOperationNo++] = &OpCuttingPlatformWork;			//29 剪卡+废料				 
+	gMachineOperation[gnOperationNo++] = &OpLiftUpDnReset;					//30 电梯小车复位
+	//电梯模块	
+	gMachineOperation[gnOperationNo++] = &OpResetLiftModule;				//31 复位电梯小车
+	gMachineOperation[gnOperationNo++] = &OpLiftUpDnMove;					//32 电梯小车移动
+	gMachineOperation[gnOperationNo++] = &OpLiftHorizonReset;				//33 电梯小车水平复位
+	gMachineOperation[gnOperationNo++] = &OpLiftHorizonMove;				//34 衔接模块移动
+	gMachineOperation[gnOperationNo++] = &OpReceiveCardVacuumOn;			//35 接卡位负压开
+	gMachineOperation[gnOperationNo++] = &OpReceiveCardVacuumOff;			//36 接卡位负压关
+	gMachineOperation[gnOperationNo++] = &OpHeaterPowerOn;					//37 发热管电源开
+	gMachineOperation[gnOperationNo++] = &OpHeaterPowerOff;					//38 发热管电源关
+	gMachineOperation[gnOperationNo++] = &OpRWChannelInCardFromLiftSide;	//39 读写模块进卡
+	gMachineOperation[gnOperationNo++] = &OpRWChannelOutCardToLiftSide;		//40 读写模块出卡
+	gMachineOperation[gnOperationNo++] = &OpLiftSuckSendCardToRWChannel;	//41 电梯发卡到读写模块
+	gMachineOperation[gnOperationNo++] = &OpRWModuleSendCardToOCR;			//42 读写模块发卡到OCR
+	gMachineOperation[gnOperationNo++] = &OpOCRToRWModuleOutCard;			//43 OCR到读写模块出卡
+	gMachineOperation[gnOperationNo++] = &OpCutSendCardToRWModule;			//44 剪发卡到读写模块
+	gMachineOperation[gnOperationNo++] = &OpPerfectCardEnter;				//45 好卡进卡
+	gMachineOperation[gnOperationNo++] = &OpPerfectCardExit;				//46 好卡出卡
+	gMachineOperation[gnOperationNo++] = &OpLiftSlotSendCardToRWChannel;	//47 电梯槽发卡到读写器通道
+	gMachineOperation[gnOperationNo++] = &OpRWChannelSendCardToLiftSlot;	//48 读写通道发卡到电梯卡槽
+	gMachineOperation[gnOperationNo++] = &OpLiftSlotSendCardToRecycleBox;	//49 电梯卡槽送卡到回收箱
+	gMachineOperation[gnOperationNo++] = &OpRWModuleReset;					//50 读写模块复位
 
-	gMachineOperation[gnOperationNo++] = &OpAutoMakeCard;				//44 自动制卡
 	for (i = 1; i < gnOperationNo; i++)
 	{
 		InitOpStruct(gMachineOperation[i], i, 0xFFFE);
@@ -277,21 +296,16 @@ void Op_ResetModule(void)
 	{
 		case START:
 			bFlagReset = FALSE;
-			gStatusPretarget = STATUS_UNKNOW;		//Pretargeting status unknow
-			gStatusWastestorage = STATUS_UNKNOW;	//Waste status unknow
+			gStatusPretarget = STATUS_UNKNOW;				//Pretargeting status unknow
+			gStatusWastestorage = STATUS_UNKNOW;			//Waste status unknow
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			StartChildOp(CurrentOp, &OpOpeningPressure);  //Hydraulic open
-			StartChildOp(CurrentOp, &OpOpenGasSwitch);	  //Gas open
+			dm_ctrl_one(DM_HEATER_POWER, RELAY_ON);		  	//Heater power on	   加热芯电源打开
 			CurrentOp->nStep = STEP2;
 		break;
 		case STEP2:
-			if((IsChildOpOK(CurrentOp, &OpOpeningPressure)) && 
-				(IsChildOpOK(CurrentOp, &OpOpenGasSwitch)))
-			{
-				CurrentOp->nStep = STEP3;
-			}
+			CurrentOp->nStep = STEP3;
 		break;
 		case STEP3:
 			StartChildOp(CurrentOp, &OpPretargetingReset);  //Pretargeting reset
@@ -300,7 +314,7 @@ void Op_ResetModule(void)
 		case STEP4:
 			if(IsChildOpOK(CurrentOp, &OpPretargetingReset)) //Pretargeting reset finish
 			{
-				StartChildOp(CurrentOp, &OpWasteStorageReset);  //Waste reset 
+				StartChildOp(CurrentOp, &OpWasteStorageReset); //Waste reset 
 				CurrentOp->nStep = STEP5;
 			}
 	   	break;
@@ -342,24 +356,92 @@ void Op_ResetModule(void)
 		case STEP10:
 			if(IsChildOpOK(CurrentOp, &OpResetClampCardCar))
 			{
-				StartChildOp(CurrentOp, &OpResetElevatorCar);  	//Elevator car reset
 				CurrentOp->nStep = STEP11;	
 			}
 		break;
 		case STEP11:
-			if(IsChildOpOK(CurrentOp, &OpResetElevatorCar))
-			{
-				StartChildOp(CurrentOp, &OpResetConnection);  	//Connection reset
-				CurrentOp->nStep = STEP12;	
-			}
+			gTrolleyCarMove_Flag = true;  					//Car run flag
+			gTrolleyCarPosition = ENUM_INSIDE_PRETARGETING; 
+			StartChildOp(CurrentOp, &OpClampCardCarMove);	//Go back pretargeting
+			CurrentOp->nStep = STEP12;		
 		break;
 		case STEP12:
-			if(IsChildOpOK(CurrentOp,&OpResetConnection))
-			 {
-				bFlagReset = TRUE;  //Reset flag
-				CurrentOp->nResult = 0xffff;				
-			 }
+			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove))
+			{
+				StartChildOp(CurrentOp, &OpPretargetingUp);	//Pretargeting Up
+				CurrentOp->nStep = STEP13;
+			}
 		break;
+		case STEP13:
+			if(IsChildOpOK(CurrentOp, &OpPretargetingUp))
+			{
+				StartChildOp(CurrentOp, &OpClampOpen); 		//Clamp Open
+				CurrentOp->nStep = STEP14;
+			}
+		break;
+		case STEP14:
+			if(IsChildOpOK(CurrentOp, &OpClampOpen))
+			{
+			 	CurrentOp->nStep = STEP15;
+			}
+		break;
+		case STEP15:
+			StartChildOp(CurrentOp, &OpRWModuleReset); 		//Read write module reset
+			CurrentOp->nStep = STEP16;
+		break;
+ 		case STEP16:
+			if(IsChildOpOK(CurrentOp, &OpRWModuleReset))
+			{
+			 	CurrentOp->nStep = STEP17;
+			}
+		break;
+		case STEP17:
+			if((input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_ON)
+			&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON))
+			{
+				CurrentOp->nResult = ERROR_RWCHANNEL_AND_LIFT_CARD_SLOT_ALL_HAVE_CARD;	//ERROR:下控制板复位时检测到读写通道与电梯卡槽同时有卡
+			}
+			else 
+			{
+				dm_ctrl_one(DM_PNEUMATIC_SWITCH, RELAY_ON);	//总气压打开
+				dm_ctrl_one(DM_RECEIVE_CARD, RELAY_ON);		//接卡真空吸打开
+				SetOpTimeDelay(CurrentOp,2000);
+				CurrentOp->nStep = STEP18;
+			}
+		break;
+		case STEP18:
+			if (CheckOpTimeDelay(CurrentOp))
+			{
+				if((input_get_one(SN_RECEIVE_CARD) == SENSOR_TYPE_BEAM_ON)
+				&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON))
+				{
+					dm_ctrl_one(DM_RECEIVE_CARD, RELAY_OFF);		//接卡真空吸关闭
+					dm_ctrl_one(DM_PNEUMATIC_SWITCH, RELAY_OFF);	//总气压关闭
+					CurrentOp->nResult = ERROR_RWCHANNEL_AND_LIFT_RECEIVE_ALL_HAVE_CARD; //ERROR:下控制板复位时检测到读写通道与电梯接卡吸盘处都有卡
+				}
+				else 
+				{
+					CurrentOp->nStep = STEP19;
+				}
+			}
+		break;
+		case STEP19:
+			StartChildOp(CurrentOp, &OpResetLiftModule);  	//Lift module reset
+			dm_ctrl_one(DM_RECEIVE_CARD, RELAY_OFF);		//接卡真空吸关闭
+			CurrentOp->nStep = STEP20;	
+		break;
+		case STEP20:
+			if(IsChildOpOK(CurrentOp, &OpResetLiftModule))
+			{
+				CurrentOp->nStep = STEP21;	
+			}
+		break;
+		case STEP21:
+			gGoToPretarget_flag = 0;
+			bFlagReset = TRUE;  //Reset flag
+			CurrentOp->nResult = 0xffff;
+		break;
+
 		default:
 		break;
 	} 
@@ -394,91 +476,108 @@ void Op_ResetClampCardCar(void)
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			StartChildOp(CurrentOp, &OpPretargetingReset);     //Pretargeting reset
-			CurrentOp->nStep = STEP2;
+			if(gStatusPretarget == STATUS_ORG)
+			{
+				CurrentOp->nStep = STEP3;	
+			}
+			else
+			{
+				StartChildOp(CurrentOp, &OpPretargetingReset);     //Pretargeting reset
+				CurrentOp->nStep = STEP2;				
+			}
 	   	break;
 		case STEP2:
 		   	if(IsChildOpOK(CurrentOp, &OpPretargetingReset))
 			{
-				StartChildOp(CurrentOp, &OpWasteStorageReset); //Waste Reset
 				CurrentOp->nStep = STEP3;
 			}
 	   	break;
 		case STEP3:
-			if(IsChildOpOK(CurrentOp, &OpWasteStorageReset))
+			if(gStatusWastestorage == STATUS_ORG)
 			{
-				StartChildOp(CurrentOp, &OpPresRise);  	//Cut reset
+				CurrentOp->nStep = STEP5;	
+			}
+			else
+			{
+				StartChildOp(CurrentOp, &OpWasteStorageReset); //Waste Reset
 				CurrentOp->nStep = STEP4;
 			}
 		break;
 		case STEP4:
-			if(IsChildOpOK(CurrentOp, &OpPresRise))
+			if(IsChildOpOK(CurrentOp, &OpWasteStorageReset))
 			{
-				StartChildOp(CurrentOp, &OpCoolRise);  	//Cool Rise
+				StartChildOp(CurrentOp, &OpPresRise);  	//Cut reset
 				CurrentOp->nStep = STEP5;
 			}
 		break;
 		case STEP5:
-			if(IsChildOpOK(CurrentOp, &OpCoolRise))
+			if(IsChildOpOK(CurrentOp, &OpPresRise))
 			{
-				StartChildOp(CurrentOp, &OpWarmRise);  	//Warm Rise
+				StartChildOp(CurrentOp, &OpCoolRise);  	//Cool Rise
 				CurrentOp->nStep = STEP6;
 			}
 		break;
 		case STEP6:
-			if(IsChildOpOK(CurrentOp, &OpWarmRise))
+			if(IsChildOpOK(CurrentOp, &OpCoolRise))
 			{
+				StartChildOp(CurrentOp, &OpWarmRise);  	//Warm Rise
 				CurrentOp->nStep = STEP7;
 			}
 		break;
 		case STEP7:
+			if(IsChildOpOK(CurrentOp, &OpWarmRise))
+			{
+				CurrentOp->nStep = STEP8;
+			}
+		break;
+		case STEP8:
 			if (input_get_one(SN_CAR_CHANNAL_ORG) == SENSOR_TYPE_BEAM_OFF) 	//Not origin	
 			{
-				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_BACKWARD, 150,PULSE_TO_MILLIMETER(1500)); //Backward run a distance
-				CurrentOp->nStep = STEP10;
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_BACKWARD, 100,PULSE_TO_MILLIMETER(1500)); //Backward run a distance
+				CurrentOp->nStep = STEP11;
 			}
 			else  //在原点
 			{
-				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_FORWARD, 150, PULSE_TO_MILLIMETER(40)); //Forward run a distance
-				CurrentOp->nStep = STEP8;
+				sm_run(SM_CHANNEL, DIR_SM_CHANNEL_FORWARD, 100, PULSE_TO_MILLIMETER(40)); //Forward run a distance
+				CurrentOp->nStep = STEP9;
 			}			
 		break;
-		case STEP8:
+		case STEP9:
 			if(IsSmRunFinish(SM_CHANNEL))  
 			{
 				if (input_get_one(SN_CAR_CHANNAL_ORG) == SENSOR_TYPE_BEAM_OFF) //Leave origin
 				{
 					SetOpTimeDelay(CurrentOp,300);   //Reverse run delay
-					CurrentOp->nStep = STEP9;	
+					CurrentOp->nStep = STEP10;	
 				}
 				else       	
 				{
-					CurrentOp->nResult = ERROR_CHANNAL_LEAVE_ORG_FAIL;   //11001离开原点传感器失败
+					CurrentOp->nResult = ERROR_CHANNAL_LEAVE_ORG_FAIL;   //ERROR:离开原点传感器失败
 				}	
 			}
 		break;																																																	
-		case STEP9:
+		case STEP10:
 			if (CheckOpTimeDelay(CurrentOp))
 			{
-				CurrentOp->nStep = STEP7;
+				CurrentOp->nStep = STEP8;
 			}	
 		break;
-		case STEP10:
+		case STEP11:
 			if (input_get_one(SN_CAR_CHANNAL_ORG) == SENSOR_TYPE_BEAM_ON) //At the origin
 			{
 				sm_stop(SM_CHANNEL); 	//Stop Motor
-				CurrentOp->nStep = STEP11;
+				CurrentOp->nStep = STEP12;
 			}	
 			else if (IsSmRunFinish(SM_CHANNEL)) //Motor action finish
 			{
-				CurrentOp->nResult = ERROR_CHANNAL_RETURN_ORG_FAIL;	//11002 通道返回传感器失败			
+				CurrentOp->nResult = ERROR_CHANNAL_RETURN_ORG_FAIL;	//ERROR:通道返回传感器失败			
 			}		
 		break;
-		case STEP11:
-			sm_run(SM_CHANNEL, DIR_SM_CHANNEL_BACKWARD, 100,PULSE_TO_MILLIMETER(1)); //Continue backward run a distance
-			CurrentOp->nStep = STEP12;
-		break;
 		case STEP12:
+			sm_run(SM_CHANNEL, DIR_SM_CHANNEL_BACKWARD, 100,PULSE_TO_MILLIMETER(1)); //Continue backward run a distance
+			CurrentOp->nStep = STEP13;
+		break;
+		case STEP13:
 			if (IsSmRunFinish(SM_CHANNEL))
 			{
 				sm_set_abs_zero(SM_CHANNEL); //Clean step motor of steps
@@ -534,7 +633,7 @@ void Op_WarmDown(void)
 			} 
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
-				CurrentOp->nResult = ERROR_WARMING_DOWN_FAIL; //11003加热下降失败
+				CurrentOp->nResult = ERROR_WARMING_DOWN_FAIL; //ERROR:加热下降失败
 			}
 		break;
 		default:
@@ -586,7 +685,7 @@ void Op_WarmRise(void)
 			} 
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
-				CurrentOp->nResult = ERROR_WARMING_RISE_FAIL; //11004加热升起失败
+				CurrentOp->nResult = ERROR_WARMING_RISE_FAIL; //ERROR:加热升起失败
 			}
 		break;
 		default:
@@ -637,7 +736,7 @@ void Op_CoolDown(void)
 			} 
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
-				CurrentOp->nResult = ERROR_COOLING_DOWN_FAIL; //11005冷却下降失败
+				CurrentOp->nResult = ERROR_COOLING_DOWN_FAIL; //ERROR:冷却下降失败
 			}
 		break;
 		default:
@@ -688,7 +787,7 @@ void Op_CoolRise(void)
 			} 
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
-				CurrentOp->nResult = ERROR_COOLING_RISE_FAIL;  //11006冷却升起失败
+				CurrentOp->nResult = ERROR_COOLING_RISE_FAIL;  //ERROR:冷却升起失败
 			}
 		break;
 		default:
@@ -739,7 +838,7 @@ void Op_PresDown(void)
 			} 
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
-				CurrentOp->nResult = ERROR_PRESS_DOWN_FAIL;	 //11007冲压下降失败
+				CurrentOp->nResult = ERROR_PRESS_DOWN_FAIL;	 //ERROR:冲压下降失败
 			}
 		break;
 		default:
@@ -790,7 +889,7 @@ void Op_PresRise(void)
 			} 
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
-				CurrentOp->nResult = ERROR_PRESS_RISE_FAIL;	 //11008 冲压升起失败
+				CurrentOp->nResult = ERROR_PRESS_RISE_FAIL;	 //ERROR:冲压升起失败
 			}
 		break;
 		default:
@@ -924,7 +1023,7 @@ void Op_RightClampClose(void)
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
 				dm_ctrl_one(DM_CLAMP_RIGHT,DM_BRAKE);	//Stop motor
-				CurrentOp->nResult = ERROR_RIGHT_CLAMP_CLOSE_FAIL;	 //11009 右边夹子关闭失败
+				CurrentOp->nResult = ERROR_RIGHT_CLAMP_CLOSE_FAIL;	 //ERROR:右边夹子关闭失败
 			}
 		break;
 		default:
@@ -977,7 +1076,7 @@ void Op_RightClampOpen(void)
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
 				dm_ctrl_one(DM_CLAMP_RIGHT,DM_BRAKE);
-				CurrentOp->nResult = ERROR_RIGHT_CLAMP_OPEN_FAIL;	//11010 右边夹子打开失败
+				CurrentOp->nResult = ERROR_RIGHT_CLAMP_OPEN_FAIL;	//ERROR:右边夹子打开失败
 			}
 		break;
 		default:
@@ -1030,7 +1129,7 @@ void Op_LeftClampClose(void)
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
 				dm_ctrl_one(DM_CLAMP_LEFT,DM_BRAKE);
-				CurrentOp->nResult = ERROR_LEFT_CLAMP_CLOSE_FAIL;	//11011 左边夹子关闭失败
+				CurrentOp->nResult = ERROR_LEFT_CLAMP_CLOSE_FAIL;	//ERROR:左边夹子关闭失败
 			}
 		break;
 		default:
@@ -1083,7 +1182,7 @@ void Op_LeftClampOpen(void)
 			else if (CheckOpTimeDelay(CurrentOp))
 			{
 				dm_ctrl_one(DM_CLAMP_LEFT,DM_BRAKE); 
-				CurrentOp->nResult = ERROR_LEFT_CLAMP_OPEN_FAIL; //11012 左边传感器故障导致夹子打开失败
+				CurrentOp->nResult = ERROR_LEFT_CLAMP_OPEN_FAIL; //ERROR:左边传感器故障导致夹子打开失败
 			}
 		break;
 		default:
@@ -1108,34 +1207,34 @@ Author:Jim Wong
 *****************************************************/
 void Op_ClampClose(void)
 {
-		stOpCtrl *CurrentOp = &OpClampClose;
-		if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
-		{
-			return;
-		}
-		switch (CurrentOp->nStep)
-		{
-			case START:	
-				StartChildOp(CurrentOp, &OpRightClampClose); //Close right clamp
-				StartChildOp(CurrentOp, &OpLeftClampClose);  //Close left clamp
-				CurrentOp->nStep = STEP1;	
-			break;
+	stOpCtrl *CurrentOp = &OpClampClose;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:	
+			StartChildOp(CurrentOp, &OpRightClampClose); //Close right clamp
+			StartChildOp(CurrentOp, &OpLeftClampClose);  //Close left clamp
+			CurrentOp->nStep = STEP1;	
+		break;
 
-			case STEP1:	
-				if((IsChildOpOK(CurrentOp, &OpRightClampClose)) &&
-					 (IsChildOpOK(CurrentOp, &OpLeftClampClose)))
-				{
-					CurrentOp->nStep = STEP_SUCCESS;
-				}	
-			break;
+		case STEP1:	
+			if((IsChildOpOK(CurrentOp, &OpRightClampClose)) &&
+					(IsChildOpOK(CurrentOp, &OpLeftClampClose)))
+			{
+				CurrentOp->nStep = STEP_SUCCESS;
+			}	
+		break;
 
-			case STEP_SUCCESS:
-				CurrentOp->nResult = 0xffff;
-			break;
-			default:
-			break;
-		}
-		DealResult(CurrentOp); //Clean action 
+		case STEP_SUCCESS:
+			CurrentOp->nResult = 0xffff;
+		break;
+		default:
+		break;
+	}
+	DealResult(CurrentOp); //Clean action 
 }
 /****************************************************
 Function Name: Op_ClampOpen
@@ -1233,7 +1332,7 @@ void Op_ResetClamp(void)
 /****************************************************
 Function Name: Op_ClampCardCarMove
 *****************************************************
-Descriptions:  Clamp car move
+Descriptions:  Clamp card car move
 *****************************************************
 Calls:         
 *****************************************************
@@ -1267,22 +1366,35 @@ void Op_ClampCardCarMove(void)
 			}
 			if(ChannelTrolleyCarPos > 5)
 			{
-				CurrentOp->nResult = ERROR_TROLLEY_CAR_POSITION_PARA_MAX; //11013 抓卡小车上层传输的数据超出接收最大值
-			}		
+				CurrentOp->nResult = ERROR_TROLLEY_CAR_POSITION_PARA_MAX; //ERROR:抓卡小车上层传输的数据超出接收最大值
+			}	
+
+			if (ChannelTrolleyCarPos != ENUM_INSIDE_PRETARGETING) //
+			{
+				gGoToPretarget_flag = 0;
+			}
+
 			CurrentOp->nStep = STEP1;					
 		break;
 	/////////////////////////////////////////////////////////////////////////////
 	/*增加小车移动时候的保护,小车移动时如果不把预定位(撕膜位)下降和废料位上升,
 	冷压热压剪卡升起,夹子闭合,小车移动时会撞到导致电机失歩及皮带对不准工位  */	
 		case STEP1:
-			if(gStatusPretarget == STATUS_UNKNOW) //Pretargeting position unknow
+			if(gStatusPretarget == STATUS_ORG) //Pretargeting position orgin
 			{
-				StartChildOp(CurrentOp, &OpPretargetingReset);  //Pretargeting reset
-				CurrentOp->nStep = STEP2;	
+				CurrentOp->nStep = STEP3;				
 			}
 			else
 			{
-				CurrentOp->nStep = STEP3;
+				if(1 == gGoToPretarget_flag)
+				{
+					CurrentOp->nStep = STEP3;	
+				}
+				else
+				{
+					StartChildOp(CurrentOp, &OpPretargetingReset);  //Pretargeting reset
+					CurrentOp->nStep = STEP2;					
+				}
 			}		
 		break;
 		case STEP2:
@@ -1292,81 +1404,84 @@ void Op_ClampCardCarMove(void)
 			}
 		break;
 		case STEP3:
-			if (gStatusWastestorage == STATUS_UNKNOW) //Waster position unknow
+			if (gStatusWastestorage == STATUS_ORG) //Waster position unknow
 			{
-				StartChildOp(CurrentOp, &OpWasteStorageReset); //Waste reset
-				CurrentOp->nStep = STEP4;				
+				CurrentOp->nStep = STEP5;			
 			}
 			else
 			{
-				CurrentOp->nStep = STEP4;
+				StartChildOp(CurrentOp, &OpWasteStorageReset); //Waste reset
+				CurrentOp->nStep = STEP4;					
 			}
 		break;
 		case STEP4:
 			if(IsChildOpOK(CurrentOp, &OpWasteStorageReset))
 			{
-				StartChildOp(CurrentOp, &OpPresRise);  		//Cut reset
 				CurrentOp->nStep = STEP5;
 			}
 		break;
 		case STEP5:
+			StartChildOp(CurrentOp, &OpPresRise);  		//Cut reset
+			CurrentOp->nStep = STEP6;
+		break;
+		case STEP6:
 			if(IsChildOpOK(CurrentOp, &OpPresRise))
 			{
 				StartChildOp(CurrentOp, &OpCoolRise);  		//Cool reset
-				CurrentOp->nStep = STEP6;
-			}
-		break;
-		case STEP6:
-			if(IsChildOpOK(CurrentOp, &OpCoolRise))
-			{
-				StartChildOp(CurrentOp, &OpWarmRise);  		//Warm reset
 				CurrentOp->nStep = STEP7;
 			}
 		break;
 		case STEP7:
-			if(IsChildOpOK(CurrentOp, &OpWarmRise))
+			if(IsChildOpOK(CurrentOp, &OpCoolRise))
 			{
+				StartChildOp(CurrentOp, &OpWarmRise);  		//Warm reset
 				CurrentOp->nStep = STEP8;
 			}
 		break;
-	/////////////////////////////////////////////////////////////////////////////////////
 		case STEP8:
+			if(IsChildOpOK(CurrentOp, &OpWarmRise))
+			{
+				CurrentOp->nStep = STEP9;
+			}
+		break;
+	/////////////////////////////////////////////////////////////////////////////////////
+		case STEP9:
 			if (gTrolleyCarPosition == ENUM_UNKNOW) //Position unknow
 			{				
-				CurrentOp->nStep = STEP9;
+				CurrentOp->nStep = STEP10;
 			}
 			else
 			{
-				CurrentOp->nStep = STEP11;
+				CurrentOp->nStep = STEP12;
 			}             	
 		break;
-		case STEP9:
-			StartChildOp(CurrentOp,&OpResetClampCardCar); //Reset car		
-			CurrentOp->nStep = STEP10;	
-		break;
 		case STEP10:
-			if (IsChildOpOK(CurrentOp,&OpResetClampCardCar)) 
-			{
-				CurrentOp->nStep = STEP11;	
-			}
+			StartChildOp(CurrentOp,&OpResetClampCardCar); //Reset car		
+			CurrentOp->nStep = STEP11;	
 		break;
 		case STEP11:
+			if (IsChildOpOK(CurrentOp,&OpResetClampCardCar)) 
+			{
+				CurrentOp->nStep = STEP12;	
+			}
+		break;
+		case STEP12:
 			if(gTrolleyCarMoveCount<100) //运行到一定次数后复位清除累积误差
 			{
 				gTrolleyCarMoveCount++;
-				CurrentOp->nStep = STEP12;
+				CurrentOp->nStep = STEP13;
 			}
 			else
 			{
-				CurrentOp->nStep = STEP9;
+				CurrentOp->nStep = STEP10;
 				gTrolleyCarMoveCount = 0;
 			}
 		break;
-		case STEP12:   //According Upper transfer of position go absolute step
+		case STEP13:   //According Upper transfer of position go absolute step
 			sm_run_abs(SM_CHANNEL,parameter[PAR_SM_CHANNAL_SPEED],PULSE_TO_MILLIMETER(gAbsPosTrolleyCarMov[ChannelTrolleyCarPos]));	
-			CurrentOp->nStep= STEP13;
+			CurrentOp->nStep= STEP14;
 		break;
-		case STEP13:
+		case STEP14:
 			if(IsSmRunFinish(SM_CHANNEL))	
 			{
 				gTrolleyCarPosition = ChannelTrolleyCarPos; //SynchronizeUpper transfer of position
@@ -1427,12 +1542,13 @@ void Op_PretargetingReset(void)
 			} 
 			else if(IsSmRunFinish(SM_PRETARGETING))
 			{
-				CurrentOp->nResult = ERROR_PRETARGETING_RETURN_ORIGIN_FAIL;	  //11014 预定位返回原点失败
+				CurrentOp->nResult = ERROR_PRETARGETING_RETURN_ORIGIN_FAIL;	  //ERROR:预定位返回原点失败
 			}
 		break;
 		case STEP2:
 			if(IsSmRunFinish(SM_PRETARGETING))
-			{
+			{	
+				dm_ctrl_one(DM_PRETARGETING_VACUUMCUP, RELAY_OFF);			//Pretargeting vacuum close
 				gStatusPretarget = STATUS_ORG; // origin
 				CurrentOp->nResult = 0xffff;
 			}
@@ -1450,7 +1566,7 @@ void Op_PretargetingReset(void)
 				}
 				else
 				{
-					CurrentOp->nResult = ERROR_PRETARGETING_LEAVE_ORIGIN_FAIL; //11015 预定位离开原点失败
+					CurrentOp->nResult = ERROR_PRETARGETING_LEAVE_ORIGIN_FAIL; //ERROR:预定位离开原点失败
 				}
 			}
 		break;
@@ -1519,7 +1635,7 @@ void Op_PretargetingUp(void)
 				else
 				{
 					gStatusPretarget = STATUS_UNKNOW;
-					CurrentOp->nResult = ERROR_PRETARGETING_UP_LEAVE_ORIGIN_FAIL;//11033 预定位升起时离开原点失败
+					CurrentOp->nResult = ERROR_PRETARGETING_UP_LEAVE_ORIGIN_FAIL;//ERROR:预定位升起时离开原点失败
 				}
 				
 			}
@@ -1565,7 +1681,7 @@ void Op_WasteStorageReset(void)
 			else
 			{
 				gStatusWastestorage = STATUS_UNKNOW;
-				sm_run(SM_WASTESTORAGE,SM_CCW,10,2000);	 //Backward origin
+				sm_run(SM_WASTESTORAGE,SM_CCW,50,2000);	 //Backward origin
 				CurrentOp->nStep = STEP1;
 			}
 		break;
@@ -1573,12 +1689,12 @@ void Op_WasteStorageReset(void)
 			if (input_get_one(SN_WASTESTORAGE_ORG) == SENSOR_TYPE_BEAM_ON) //Run to origin
 			{
 				sm_stop(SM_WASTESTORAGE); //Stop Motor
-				sm_run(SM_WASTESTORAGE,SM_CCW,10,100);	 //Continue go a distance
+				sm_run(SM_WASTESTORAGE,SM_CCW,50,100);	 //Continue go a distance
 				CurrentOp->nStep = STEP2;
 			} 
 			else if(IsSmRunFinish(SM_WASTESTORAGE))
 			{
-				CurrentOp->nResult = ERROR_WASTESTORAGE_RETURN_ORIGIN_FAIL;	 //11016 废卡位返回原点失败
+				CurrentOp->nResult = ERROR_WASTESTORAGE_RETURN_ORIGIN_FAIL;	 //ERROR:废卡位返回原点失败
 			}
 		break;
 		case STEP2:
@@ -1589,7 +1705,7 @@ void Op_WasteStorageReset(void)
 			}
 		break;
 		case STEP3:
-			sm_run(SM_WASTESTORAGE,SM_CW,10,200);	 			//Motor leave origin
+			sm_run(SM_WASTESTORAGE,SM_CW,50,200);	 			//Motor leave origin
 			CurrentOp->nStep = STEP4;
 		break;
 		case STEP4:
@@ -1601,7 +1717,7 @@ void Op_WasteStorageReset(void)
 				}
 				else
 				{
-					CurrentOp->nResult = ERROR_WASTESTORAGE_LEAVE_ORIGIN_FAIL; //11017 废卡位离开原点失败
+					CurrentOp->nResult = ERROR_WASTESTORAGE_LEAVE_ORIGIN_FAIL; //ERROR:废卡位离开原点失败
 				}
 			}
 		break;
@@ -1656,7 +1772,7 @@ void Op_WasteStorageDown(void)
 			}
 		break;
 		case STEP2:
-			sm_run(SM_WASTESTORAGE,SM_CW,10, parameter[PAR_WASTESTORAGE_DN_POSTION]); //Motor run
+			sm_run(SM_WASTESTORAGE,SM_CW,50, parameter[PAR_WASTESTORAGE_DN_POSTION]); //Motor run
 			CurrentOp->nStep = STEP3; 
 		break;
 		case STEP3:
@@ -1670,7 +1786,7 @@ void Op_WasteStorageDown(void)
 				else
 				{
 					gStatusWastestorage = STATUS_UNKNOW;
-					CurrentOp->nResult = ERROR_WASTESTORAGE_DOWN_LEAVE_ORIGIN_FAIL;//11034 废卡位下降离开原点失败 
+					CurrentOp->nResult = ERROR_WASTESTORAGE_DOWN_LEAVE_ORIGIN_FAIL;//ERROR:废卡位下降离开原点失败 
 				}
 				
 			}
@@ -1760,7 +1876,6 @@ void Op_PretargetingVacuumCupClose(void)
 	}
 	DealResult(CurrentOp);
 }
-
 /****************************************************
 Function Name: Op_OpenGasSwitch
 *****************************************************
@@ -1840,11 +1955,10 @@ void Op_CloseGasSwitch(void)
 	}
 	DealResult(CurrentOp);
 }
-
 /****************************************************
-Function Name:Op_WarmCoolMakeCardd
+Function Name:Op_WarmCoolMakeCard
 *****************************************************
-Descriptions: 热冷压制卡模块
+Descriptions: Warm Cool Make card
 *****************************************************
 Calls:         
 *****************************************************
@@ -1859,7 +1973,6 @@ Author:Jim Wong
 void Op_WarmCoolMakeCard(void)
 {
 	stOpCtrl *CurrentOp = &OpWarmCoolMakeCard;
-
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;
@@ -1867,13 +1980,15 @@ void Op_WarmCoolMakeCard(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
+			dm_ctrl_one(DM_HYDRULIC_POWER, RELAY_ON);	//Hydraulic power on
+			dm_ctrl_one(DM_ALL_CONTROL, RELAY_ON);		//Hydraulic relay open
 			if (input_get_one(SN_PRETARGETING_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON) //Pretargeting check have card
 			{
 				CurrentOp->nStep = STEP1;					
 			}
 			else
 			{
-				CurrentOp->nResult = ERROR_PRETARGETING_NONE_CARD;	//11018 预定位无卡
+				CurrentOp->nResult = ERROR_PRETARGETING_NONE_CARD;	//ERROR:预定位无卡
 			}
 		break;
 	   	case STEP1:
@@ -1908,21 +2023,22 @@ void Op_WarmCoolMakeCard(void)
 			}
 		break;
 		case STEP6:
+			dm_ctrl_one(DM_PNEUMATIC_SWITCH, RELAY_OFF);			//Gas off	
 			gTrolleyCarMove_Flag = true;
 			gTrolleyCarPosition = ENUM_INSIDE_WARE; 	   			//Warm 
 			StartChildOp(CurrentOp, &OpClampCardCarMove);  			//Run to warm
 			CurrentOp->nStep = STEP7;
 		break;
 		case STEP7:
-				if (input_get_one(SN_COOL_CHECK_CARD) == SENSOR_TYPE_BEAM_ON) // Cool position Have card
-				{
-					CurrentOp->nStep = STEP8;	
-				}
-				else if(IsChildOpOK(CurrentOp, &OpClampCardCarMove))
-				{
-					sm_stop(SM_CHANNEL);
-					CurrentOp->nResult = ERROR_PRETARGETING_FROM_COOL_NONE_CARD; //11019 预定位到冷压位无卡
-				}
+			if (input_get_one(SN_COOL_CHECK_CARD) == SENSOR_TYPE_BEAM_ON) // Cool position Have card
+			{
+				CurrentOp->nStep = STEP8;	
+			}
+			else if(IsChildOpOK(CurrentOp, &OpClampCardCarMove))
+			{
+				sm_stop(SM_CHANNEL);
+				CurrentOp->nResult = ERROR_PRETARGETING_FROM_COOL_NONE_CARD; //ERROR:预定位到冷压位无卡
+			}
 		break;
 		case STEP8:	
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove))
@@ -1962,7 +2078,7 @@ void Op_WarmCoolMakeCard(void)
 			else if(IsChildOpOK(CurrentOp, &OpClampCardCarMove)) //Action before finish not detected card 
 			{
 				sm_stop(SM_CHANNEL); //Stop car
-				CurrentOp->nResult = ERROR_WARM_FROM_COOL_NONE_CARD; //11020 热压位到冷压位无卡
+				CurrentOp->nResult = ERROR_WARM_FROM_COOL_NONE_CARD; //ERROR:热压位到冷压位无卡
 			}	
 		break;
 		case STEP13:
@@ -1991,7 +2107,7 @@ void Op_WarmCoolMakeCard(void)
 			{
 				gTrolleyCarMove_Flag = true;
 				gTrolleyCarPosition = ENUM_INSIDE_PRETARGETING; //Pretargeting
-				StartChildOp(CurrentOp, &OpClampCardCarMove); //go back Pretargeting
+				StartChildOp(CurrentOp, &OpClampCardCarMove);   //go back Pretargeting
 				CurrentOp->nStep = STEP17;		
 			}
 		break;
@@ -2016,12 +2132,13 @@ void Op_WarmCoolMakeCard(void)
 			}
 			else
 			{
-				CurrentOp->nResult = ERROR_COOL_FROM_PRETARGETING_NONE_CARD;//11021 冷压位到预定位无卡
+				CurrentOp->nResult = ERROR_COOL_FROM_PRETARGETING_NONE_CARD;//ERROR:冷压位到预定位无卡
 			}	
 		break;
 		case STEP20:
 			if(IsChildOpOK(CurrentOp, &OpClampOpen))
 			{
+				dm_ctrl_one(DM_PNEUMATIC_SWITCH, RELAY_ON);			//Gas on
 				CurrentOp->nResult = 0xffff;
 			}
 		break;	
@@ -2072,45 +2189,30 @@ void Op_GotoLoadingPlatform(void)
 			}
 		break;
 		case STEP2:
-			if(gStatusPretarget == STATUS_ORG)	//确保预定位在原点，防止夹爪被撞
-			{
-				CurrentOp->nStep = STEP4;	
-			}
-			else
-			{
-				StartChildOp(CurrentOp, &OpPretargetingReset);	//Pretargeting reset
-				CurrentOp->nStep = STEP3;	
-			}
+			gTrolleyCarMove_Flag = true;  					//Car run flag
+			gTrolleyCarPosition = ENUM_INSIDE_PRETARGETING; 
+			StartChildOp(CurrentOp, &OpClampCardCarMove);	//Go back pretargeting
+			CurrentOp->nStep = STEP3;		
 		break;
 		case STEP3:
-			if(IsChildOpOK(CurrentOp, &OpPretargetingReset))
+			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove))
 			{
+				StartChildOp(CurrentOp, &OpPretargetingUp);	//Pretargeting Up
 				CurrentOp->nStep = STEP4;
 			}
 		break;
 		case STEP4:
-			gTrolleyCarMove_Flag = true;  					//Car run flag
-			gTrolleyCarPosition = ENUM_INSIDE_PRETARGETING; 
-			StartChildOp(CurrentOp, &OpClampCardCarMove);	//Go back pretargeting
-			CurrentOp->nStep = STEP5;		
-		break;
-		case STEP5:
-			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove))
-			{
-				StartChildOp(CurrentOp, &OpPretargetingUp);	//Pretargeting Up
-				CurrentOp->nStep = STEP6;
-			}
-		break;
-		case STEP6:
 			if(IsChildOpOK(CurrentOp, &OpPretargetingUp))
 			{
 				StartChildOp(CurrentOp, &OpClampOpen); 		//Clamp Open
-				CurrentOp->nStep = STEP7;
+				CurrentOp->nStep = STEP5;
 			}
 		break;
-		case STEP7:
+		case STEP5:
 			if(IsChildOpOK(CurrentOp, &OpClampOpen))
 			{
+				dm_ctrl_one(DM_PNEUMATIC_SWITCH, RELAY_ON);	  //Gas relay open
+				gGoToPretarget_flag = 1;
 				CurrentOp->nResult = 0xffff;
 			}
 		break;
@@ -2147,11 +2249,13 @@ void Op_CuttingPlatformWork(void)
 		case START:
 			if (input_get_one(SN_PRETARGETING_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON) //Pretargeting detected have card
 			{
+				dm_ctrl_one(DM_HYDRULIC_POWER, RELAY_ON);	//Hydraulic power on
+				dm_ctrl_one(DM_ALL_CONTROL, RELAY_ON);		//Hydraulic relay open
 				CurrentOp->nStep = STEP1;					
 			}
 			else
 			{
-				CurrentOp->nResult = ERROR_PRETARGETING_FROM_WASTE_NONE_CARD;//11022 预定位到废料位无卡
+				CurrentOp->nResult = ERROR_PRETARGETING_FROM_WASTE_NONE_CARD;//ERROR:预定位到废料位无卡
 			}
 		break;
 		case STEP1:
@@ -2200,14 +2304,14 @@ void Op_CuttingPlatformWork(void)
 		break;
 		case STEP8:
 			gTrolleyCarMove_Flag = true;  
-			gTrolleyCarPosition = ENUM_INSIDE_CUT_CARD; //Cut card position
+			gTrolleyCarPosition = ENUM_INSIDE_CUT_CARD; 	//Cut card position
 			StartChildOp(CurrentOp, &OpClampCardCarMove);	//Move to Cut card
 			CurrentOp->nStep = STEP9;	
 		break;
 		case STEP9:
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove))
 			{
-				SetOpTimeDelay(CurrentOp, 1000);
+				SetOpTimeDelay(CurrentOp, 300);
 				CurrentOp->nStep = STEP10;		 
 			}
 	   	break;
@@ -2221,7 +2325,7 @@ void Op_CuttingPlatformWork(void)
 		case STEP11:
 			if(IsChildOpOK(CurrentOp, &OpPresDown))
 			{					
-				SetOpTimeDelay(CurrentOp, 1000);
+				SetOpTimeDelay(CurrentOp, 300);
 				CurrentOp->nStep = STEP12;	
 			}
 		break;
@@ -2240,14 +2344,17 @@ void Op_CuttingPlatformWork(void)
 		break;
 		case STEP14:
 			gTrolleyCarMove_Flag = true; 
-			gTrolleyCarPosition = ENUM_INSIDE_WASTE; //Waste
+			gTrolleyCarPosition = ENUM_INSIDE_WASTE; 	 //Waste
 			StartChildOp(CurrentOp, &OpClampCardCarMove);//move to waste
 			CurrentOp->nStep = STEP15;	
 		break;
 		case STEP15:
 			if(IsChildOpOK(CurrentOp, &OpClampCardCarMove))
 			{
-				SetOpTimeDelay(CurrentOp, 500);			
+				dm_ctrl_one(DM_HYDRULIC_POWER, RELAY_OFF);	//Hydraulic power off
+				dm_ctrl_one(DM_ALL_CONTROL, RELAY_OFF);		//Hydraulic relay close
+
+				SetOpTimeDelay(CurrentOp, 300);			
 				CurrentOp->nStep = STEP16;		 
 			}
 	   	break;
@@ -2312,65 +2419,9 @@ void Op_CuttingPlatformWork(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_ScramProcess
+Function Name: Op_LiftUpDnReset
 *****************************************************
-Descriptions:  Scram stop make card process
-*****************************************************
-Calls:
-*****************************************************
-Input  parameter: None
-*****************************************************
-Output parameter: None
-*****************************************************
-Return value: None
-*****************************************************
-Author:Jim Wong
-*****************************************************/
-void Op_ScramProcess(void)
-{
-	stOpCtrl *CurrentOp = &OpScramProcess;
-	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
-	{
-		return;
-	}
-	switch (CurrentOp->nStep)
-	{
-		case START:
-			OpCuttingPlatformWork.bEn = false; 	 //Disable Cut card process
-			OpWarmCoolMakeCard.bEn = false;		 //Disable make card process
-			sm_stop(SM_CHANNEL);			     //Stop motor
-			StartChildOp(CurrentOp,&OpWarmRise); //Warm rise
-			CurrentOp->nStep = STEP1;
-		break;
-		case STEP1:
-			if(IsChildOpOK(CurrentOp,&OpWarmRise))
-			{
-				StartChildOp(CurrentOp,&OpCoolRise); //Cool Rise
-				CurrentOp->nStep = STEP2;
-			}
-		break;
-		case STEP2:
-			if(IsChildOpOK(CurrentOp,&OpCoolRise))
-			{
-				StartChildOp(CurrentOp,&OpPresRise); //Cut rise
-				CurrentOp->nStep = STEP3;
-			}			
-		break;
-		case STEP3:
-			if(IsChildOpOK(CurrentOp,&OpPresRise))
-			{
-				CurrentOp->nResult = 0xffff;
-			}
-		break;
-		default:
-		break;
-	}
-	DealResult(CurrentOp);
-}
-/****************************************************
-Function Name: Op_ResetElevatorCar
-*****************************************************
-Descriptions:  Reset Elevator car
+Descriptions: Lift car vertical reset
 *****************************************************
 Calls:
 *****************************************************
@@ -2382,10 +2433,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_ResetElevatorCar(void)
+void Op_LiftUpDnReset(void)
 {
-	stOpCtrl *CurrentOp = &OpResetElevatorCar;
-
+	stOpCtrl *CurrentOp = &OpLiftUpDnReset;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;
@@ -2394,79 +2444,62 @@ void Op_ResetElevatorCar(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
-			gElevatorCarPosition = ENUM_ELEVATOR_UNKNOW;
+			gLiftUpDnPosition = ENUM_LIFT_UP_DN_UNKNOW;
 			CurrentOp->nStep = STEP1;
 		break;
+
 		case STEP1:
-			if(gConnectionPosition == STATUS_ORG) //Connection at position
+			if (input_get_one(SN_LIFT_UP_DN_ORG) == SENSOR_TYPE_BEAM_OFF) 	// Not origin	
 			{
-				CurrentOp->nStep = STEP3;
-			}
-			else
-			{
-				StartChildOp(CurrentOp, &OpResetConnection); //Reset Connection module	
-				CurrentOp->nStep = STEP2;			
-			}
-			
-	   	break;
-		case STEP2:
-			 if(IsChildOpOK(CurrentOp, &OpResetConnection))
-			{
-				CurrentOp->nStep = STEP3;
-			}
-		break;
-		case STEP3:
-			if (input_get_one(SN_ELEVATOR_CAR_ORG) == SENSOR_TYPE_BEAM_OFF) 	// Not origin	
-			{
-				sm_run(SM_ELEVATOR_CAR, DIR_SM_ELEVATOR_CAR_DOWN,parameter[PAR_ELEVATOR_CAR_SPEED],PULSE_TO_MILLIMETER(334)); //Go back run a distance
+				sm_run(SM_LIFT_UP_DN, DIR_SM_LIFT_DN,100,PULSE_TO_MILLIMETER(334)); //Go back run a distance
 				CurrentOp->nStep = STEP6;
 			}
 			else //Origin
 			{
-				sm_run(SM_ELEVATOR_CAR, DIR_SM_ELEVATOR_CAR_UP,parameter[PAR_ELEVATOR_CAR_SPEED], PULSE_TO_MILLIMETER(13)); //Go forward run a distance
+				sm_run(SM_LIFT_UP_DN, DIR_SM_LIFT_UP,100, PULSE_TO_MILLIMETER(13)); //Go forward run a distance
 				CurrentOp->nStep = STEP4;
 			}			
 		break;
 		case STEP4:
-			if(IsSmRunFinish(SM_ELEVATOR_CAR))  
+			if(IsSmRunFinish(SM_LIFT_UP_DN))  
 			{
-				if (input_get_one(SN_ELEVATOR_CAR_ORG) == SENSOR_TYPE_BEAM_OFF) //Leave origin
+				if (input_get_one(SN_LIFT_UP_DN_ORG) == SENSOR_TYPE_BEAM_OFF) //Leave origin
 				{
 					SetOpTimeDelay(CurrentOp,300);   //Reversal delay
 					CurrentOp->nStep = STEP5;	
 				}
 				else        	
 				{
-					CurrentOp->nResult = ERROR_ELEVATOR_CAR_LEAVE_ORIGIN_FAIL; //11023 电梯小车离开原点失败
+					CurrentOp->nResult = ERROR_LIFT_CAR_LEAVE_ORIGIN_FAIL; //ERROR:电梯升降离开原点失败
 				}	
 			}
 		break;																																																	
 		case STEP5:
 			if (CheckOpTimeDelay(CurrentOp))
 			{
-				CurrentOp->nStep = STEP3;
+				CurrentOp->nStep = STEP1;
 			}	
 		break;
 		case STEP6:
-			if (input_get_one(SN_ELEVATOR_CAR_ORG) == SENSOR_TYPE_BEAM_ON) //Go to origin
+			if (input_get_one(SN_LIFT_UP_DN_ORG) == SENSOR_TYPE_BEAM_ON) //Go to origin
 			{
-				sm_stop(SM_ELEVATOR_CAR); 	//Stop elevator car		
+				sm_stop(SM_LIFT_UP_DN); 	//Stop elevator car		
 				CurrentOp->nStep = STEP7;
 			}	
-			else if (IsSmRunFinish(SM_ELEVATOR_CAR)) 
+			else if (IsSmRunFinish(SM_LIFT_UP_DN)) 
 			{
-				CurrentOp->nResult = ERROR_ELEVATOR_CAR_RETURN_ORIGIN_FAIL; //11024 电梯小车返回原点失败
+				CurrentOp->nResult = ERROR_LIFT_CAR_RETURN_ORIGIN_FAIL; //ERROR:电梯小车返回原点失败
 			}		
 		break;
 		case STEP7:
-			sm_run(SM_ELEVATOR_CAR, DIR_SM_ELEVATOR_CAR_DOWN, parameter[PAR_ELEVATOR_CAR_SPEED],10);  //Continue move a distance
+			sm_run(SM_LIFT_UP_DN, DIR_SM_LIFT_DN,100,10);  //Continue move a distance
 			CurrentOp->nStep = STEP8;
 		break;
 		case STEP8:
-			if (IsSmRunFinish(SM_ELEVATOR_CAR))
+			if (IsSmRunFinish(SM_LIFT_UP_DN))
 			{
-				sm_set_abs_zero(SM_ELEVATOR_CAR); //Clean step motor of absolute steps
-				gElevatorCarPosition = ENUM_ELEVATOR_CAR_ORG; //Elevator car is origin
+				sm_set_abs_zero(SM_LIFT_UP_DN); //Clean step motor of absolute steps
+				gLiftUpDnPosition = ENUM_LIFT_UP_DN_ORG; //Elevator car is origin
 				CurrentOp->nResult  = 0xffff;	
 			}
 		break;
@@ -2477,9 +2510,67 @@ void Op_ResetElevatorCar(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_ElevatorCarMove
+Function Name: Op_ResetLiftModule
 *****************************************************
-Descriptions:  Elevator car move
+Descriptions:  Reset lift module
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_ResetLiftModule(void)
+{
+	stOpCtrl *CurrentOp = &OpResetLiftModule;
+
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			CurrentOp->nStep = STEP1;
+		break;
+
+		case STEP1:
+			StartChildOp(CurrentOp, &OpLiftHorizonReset); //Lift horizontal reset
+			CurrentOp->nStep = STEP2;				
+	   	break;
+
+		case STEP2:
+		 if(IsChildOpOK(CurrentOp, &OpLiftHorizonReset))
+		{
+			CurrentOp->nStep = STEP3;
+		}
+		break;
+
+		case STEP3:
+			StartChildOp(CurrentOp, &OpLiftUpDnReset); //Lift car vertical reset	
+			CurrentOp->nStep = STEP4;
+		break;
+		case STEP4:
+		if(IsChildOpOK(CurrentOp, &OpLiftUpDnReset))
+		{
+			CurrentOp->nResult  = 0xffff;
+		}
+		break;
+
+		default:
+		break;
+	}
+	DealResult(CurrentOp);
+}
+/****************************************************
+Function Name: Op_LiftUpDnMove
+*****************************************************
+Descriptions:  lift car vertical move
 *****************************************************
 Calls:         
 *****************************************************
@@ -2491,10 +2582,11 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_ElevatorCarMove(void)
+void Op_LiftUpDnMove(void)
 {
-	stOpCtrl *CurrentOp = &OpElevatorCarMove;
-	static unsigned char ElevatorCarPos = 0; //Receive elevator car position
+	stOpCtrl *CurrentOp = &OpLiftUpDnMove;
+	static unsigned char LiftUpDnPos = 0; 			//Receive lift car position
+	static unsigned char LiftUpDnMoveCnt	= 0;	//电梯小车运行达到一定次数复位消除累积误差
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;	
@@ -2502,40 +2594,40 @@ void Op_ElevatorCarMove(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:				
-			if (gRWCheckCar_Flag == true) //Bottom call flag
+			if (flag_LiftUpDnMove == true) //Bottom call flag
 			{
-				gRWCheckCar_Flag = false;
-				ElevatorCarPos = gElevatorCarPosition; //Get bottom call position
+				flag_LiftUpDnMove = false;
+				LiftUpDnPos = gLiftUpDnPosition; //Get bottom call position
 			}
 			else //Upper call
 			{
-				ElevatorCarPos = cParamBuf[10]; //Get data bit
+				LiftUpDnPos = cParamBuf[10]; //Get data bit
 			}
-			if(ElevatorCarPos > 5)
+			if(LiftUpDnPos > 5)
 			{
-				CurrentOp->nResult = ERROR_ELEVATOR_CAR_POSITION_PARA_MAX;   //11025 电梯小车上层传输的数据超出接收最大值
+				CurrentOp->nResult = ERROR_LIFT_CAR_POSITION_PARA_MAX;   //ERROR:电梯升降移动接收参数错误
 			}		
 			CurrentOp->nStep = STEP1;					
 		break;	
- 		case STEP1: //Protection elevator car befor move reset Connection avert crash
-		 	if(gConnectionPosition == STATUS_ORG) //Connection at position
+ 		case STEP1: //Protection lift car befor move horizontal reset avert crash
+		 	if(gLiftHorizonPosition == ENUM_LIFT_HORIZON_ORG) //先启动水平方向复位
 			{
 				CurrentOp->nStep = STEP3;
 			}
 			else
 			{
-				StartChildOp(CurrentOp, &OpResetConnection);  //Reset connection
+				StartChildOp(CurrentOp, &OpLiftHorizonReset);  //Lift car horizontal reset
 				CurrentOp->nStep = STEP2;				
 			}
 		break;
 		case STEP2:
-			if(IsChildOpOK(CurrentOp, &OpResetConnection)) 
+			if(IsChildOpOK(CurrentOp, &OpLiftHorizonReset)) 
 			{
 				CurrentOp->nStep = STEP3;
 			}
 		break; 
 		case STEP3:
-			if (gElevatorCarPosition == ENUM_ELEVATOR_UNKNOW) //Unknow position
+			if (gLiftUpDnPosition == ENUM_LIFT_UP_DN_UNKNOW) //Unknow position
 			{				
 				CurrentOp->nStep = STEP4;
 			}
@@ -2545,40 +2637,40 @@ void Op_ElevatorCarMove(void)
 			}             	
 		break;
 		case STEP4:
-			StartChildOp(CurrentOp,&OpResetElevatorCar); //Reset elevator car		
+			StartChildOp(CurrentOp,&OpLiftUpDnReset); 		//Reset lift car		
 			CurrentOp->nStep = STEP5;	
 		break;
 		case STEP5:
-			if (IsChildOpOK(CurrentOp,&OpResetElevatorCar) == true) 
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnReset)) 
 			{
 				CurrentOp->nStep = STEP6;	
 			}
 		break;
 		case STEP6:
-			if(gRWCheckCarCount < 100) //运行到一定次数后复位清除累积误差
+			if(LiftUpDnMoveCnt < 100) //运行到一定次数后复位清除累积误差
 			{
-				gRWCheckCarCount++;
+				LiftUpDnMoveCnt++;
 				CurrentOp->nStep = STEP7;
 			}
 			else
 			{
 				CurrentOp->nStep = STEP4;
-				gRWCheckCarCount = 0;
+				LiftUpDnMoveCnt = 0;
 			}
 		break;
 		case STEP7:   //According upper transfer of position go absolute steps
-			sm_run_abs(SM_ELEVATOR_CAR,parameter[PAR_ELEVATOR_CAR_SPEED],PULSE_TO_MILLIMETER(gAbsElevatorCarMove[ElevatorCarPos]));	
+			sm_run_abs(SM_LIFT_UP_DN,parameter[PAR_LIFT_UP_DN_SPEED],PULSE_TO_MILLIMETER(gAbsLiftUpDnMove[LiftUpDnPos]));	
 			CurrentOp->nStep= STEP8;
 		break;
 		case STEP8:
-			if(IsSmRunFinish(SM_ELEVATOR_CAR))
+			if(IsSmRunFinish(SM_LIFT_UP_DN))
 			{
-				sm_stop(SM_ELEVATOR_CAR); 
+				sm_stop(SM_LIFT_UP_DN); 
 				CurrentOp->nStep= STEP_SUCCESS;
 			}
 		break;
 		case STEP_SUCCESS:
-			gElevatorCarPosition = ElevatorCarPos; //Synchronize upper transfer of position
+			gLiftUpDnPosition = LiftUpDnPos; //Synchronize upper transfer of position
 			CurrentOp->nResult = 0xffff;
 		break;
 		default:
@@ -2587,9 +2679,9 @@ void Op_ElevatorCarMove(void)
 	DealResult(CurrentOp);			
 }
 /****************************************************
-Function Name: Op_ResetConnection
+Function Name: Op_LiftHorizonReset
 *****************************************************
-Descriptions:  Reset Connection module
+Descriptions:  Lift Horizontal Reset
 *****************************************************
 Calls:
 *****************************************************
@@ -2601,9 +2693,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_ResetConnection(void)
+void Op_LiftHorizonReset(void)
 {
-	stOpCtrl *CurrentOp = &OpResetConnection;
+	stOpCtrl *CurrentOp = &OpLiftHorizonReset;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;
@@ -2611,36 +2703,32 @@ void Op_ResetConnection(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
-			gConnectionPosition = STATUS_UNKNOW;
+			gLiftHorizonPosition = STATUS_UNKNOW;
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			if (input_get_one(SN_CONNECTION_ORG) == SENSOR_TYPE_BEAM_OFF) 	// Not origin	
+			if (input_get_one(SN_LIFT_HORIZON_ORG) == SENSOR_TYPE_BEAM_OFF) 	//不在原点	
 			{
-				if(input_get_one(SN_RWMODULE_ENTER_CARD) == SENSOR_TYPE_BEAM_ON) //Read write module detected have card
-				{
-					sm_run(SM_RWMODULE, DIR_SM_RWMODULE_OUT_CARD,100,2000); //Read wrtie module and connection together turn
-				}
-				sm_run(SM_CONNECTION, DIR_SM_CONNECTION_ORG,50,1000); //Backward move a distance
+				sm_run(SM_LIFT_HORIZON_MOVE, DIR_SM_LIFT_HORIZON_BACK,50,1000); //Backward move a distance
 				CurrentOp->nStep = STEP4;
 			}
-			else //Origin
+			else 																
 			{
-				sm_run(SM_CONNECTION, DIR_SM_CONNECTION_CARD,50, 220); //Forward move a distance
+				sm_run(SM_LIFT_HORIZON_MOVE, DIR_SM_LIFT_HORIZON_FRONT,50, 220); //离开原点
 				CurrentOp->nStep = STEP2;
 			}			
 		break;
 		case STEP2:
-			if(IsSmRunFinish(SM_CONNECTION))  
+			if(IsSmRunFinish(SM_LIFT_HORIZON_MOVE))  
 			{
-				if (input_get_one(SN_CONNECTION_ORG) == SENSOR_TYPE_BEAM_OFF) //Leave origin
+				if (input_get_one(SN_LIFT_HORIZON_ORG) == SENSOR_TYPE_BEAM_OFF) //Leave origin
 				{
-					SetOpTimeDelay(CurrentOp,300);   //Reversal delay
+					SetOpTimeDelay(CurrentOp,300);   
 					CurrentOp->nStep = STEP3;	
 				}
 				else
 				{
-					CurrentOp->nResult = ERROR_CONNECTION_LEAVE_ORIGIN_FAIL; //11026 衔接模块离开原点失败
+					CurrentOp->nResult = ERROR_LIFT_CAR_LEAVE_HORIZON_ORIGIN_FAIL; //ERROR:电梯小车离开水平原点失败
 				}	
 			}
 		break;																																																	
@@ -2651,24 +2739,25 @@ void Op_ResetConnection(void)
 			}	
 		break;
 		case STEP4:
-			if (input_get_one(SN_CONNECTION_ORG) == SENSOR_TYPE_BEAM_ON) //Go to origin
+			if (input_get_one(SN_LIFT_HORIZON_ORG) == SENSOR_TYPE_BEAM_ON) //Go to origin
 			{
-				sm_stop(SM_CONNECTION); 	
+				sm_stop(SM_LIFT_HORIZON_MOVE); 	
 				CurrentOp->nStep = STEP5;
 			}	
-			else if (IsSmRunFinish(SM_CONNECTION)) //Motor action finish
+			else if (IsSmRunFinish(SM_LIFT_HORIZON_MOVE)) //Motor action finish
 			{
-				CurrentOp->nResult = ERROR_CONNECTION_RETURN_ORIGIN_FAIL; //10027 衔接模块返回原点失败
+				CurrentOp->nResult = ERROR_LIFT_CAR_RETURN_HORIZON_ORIGIN_FAIL; //ERROR:电梯小车回水平原点失败
 			}		
 		break;
 		case STEP5:
-			sm_run(SM_CONNECTION,DIR_SM_CONNECTION_ORG,20,180);  //Continue move a distance
+			sm_run(SM_LIFT_HORIZON_MOVE,DIR_SM_LIFT_HORIZON_BACK,20,180);  //Continue move a distance
 			CurrentOp->nStep = STEP6;
 		break;
 		case STEP6:
-			if (IsSmRunFinish(SM_CONNECTION))
+			if (IsSmRunFinish(SM_LIFT_HORIZON_MOVE))
 			{
-				gConnectionPosition = STATUS_ORG; //Connection at origin
+				sm_set_abs_zero(SM_LIFT_HORIZON_MOVE); //Clean step motor of absolute steps
+				gLiftHorizonPosition = ENUM_LIFT_HORIZON_ORG; //Connection at origin
 				CurrentOp->nResult  = 0xffff;	
 			}
 		break;
@@ -2679,9 +2768,9 @@ void Op_ResetConnection(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_ConnectionSendCard
+Function Name: Op_LiftHorizonMove
 *****************************************************
-Descriptions:  Connection module move to send card position
+Descriptions: Lift car horizontal Move
 *****************************************************
 Calls:
 *****************************************************
@@ -2693,61 +2782,65 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_ConnectionSendCard(void)
+void Op_LiftHorizonMove(void)
 {
-	stOpCtrl *CurrentOp = &OpConnectionSendCard;
+	stOpCtrl *CurrentOp = &OpLiftHorizonMove;
+	static unsigned char LiftHorizonPos = 0; //Receive Connection of position
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
-		return;
-	}
+		return;	
+	}	
 	switch (CurrentOp->nStep)
 	{
-		case START:
-			CurrentOp->nStep = STEP1;
-		break;
-		case STEP1:
-			if (gConnectionPosition == STATUS_POSITION)
+		case START:				
+			if (flag_Lift_H_MOVE == true) //Bottom call
 			{
-				CurrentOp->nResult = 0xffff;
+				flag_Lift_H_MOVE = false;
+				LiftHorizonPos = gLiftHorizonPosition; 
 			}
-			else if(gConnectionPosition == STATUS_UNKNOW) //Position unknow
+			else //Upper call
 			{
-				StartChildOp(CurrentOp,&OpResetConnection); //Call reset connection subprogram 
-				CurrentOp->nStep = STEP2;
+				LiftHorizonPos = cParamBuf[10];
+			}
+			if(LiftHorizonPos > 3)
+			{
+				CurrentOp->nResult = ERROR_LIFT_CAR_HORIZON_POSITION_PARA_MAX;//ERROR:电梯水平移动接收参数错误
 			}	
+			CurrentOp->nStep = STEP1;					
+		break;
+		case STEP1: 
+		 	if(gLiftHorizonPosition == ENUM_LIFT_HORIZON_UNKNOW) //Connection at position
+			{
+				StartChildOp(CurrentOp, &OpLiftHorizonReset);  //Reset connection
+				CurrentOp->nStep = STEP2;			
+			}
 			else
 			{
-				sm_run(SM_CONNECTION, DIR_SM_CONNECTION_CARD,20, parameter[PAR_CONNECTION_TO_SEND_CARD]); //Move to send card position
-				CurrentOp->nStep = STEP3;				
+				CurrentOp->nStep = STEP3;
 			}
 		break;
 		case STEP2:
-			if(IsChildOpOK(CurrentOp,&OpResetConnection) == true)
+			if(IsChildOpOK(CurrentOp, &OpLiftHorizonReset)) 
 			{
-				CurrentOp->nStep = STEP1;
+				CurrentOp->nStep = STEP3;
 			}
+		break; 
+		case STEP3:   //According Upper transfer of position go absolute step
+			sm_run_abs(SM_LIFT_HORIZON_MOVE,20,gAbsLiftHorizonMove[LiftHorizonPos]);	
+			CurrentOp->nStep= STEP4;
 		break;
-		case STEP3:
-			if(IsSmRunFinish(SM_CONNECTION) == true)  
-			{
-				if (input_get_one(SN_CONNECTION_ORG) == SENSOR_TYPE_BEAM_OFF) //Leave origin
-				{
-					CurrentOp->nStep = STEP4;	
-				}
-				else        	
-				{
-					CurrentOp->nResult = ERROR_CONNECTION_TO_SENDCARD_LEAVE_ORIGIN_FAIL; //11028 衔接模块到发卡位离开原点失败
-				}	
-			}
-		break;																																																	
 		case STEP4:
-			gConnectionPosition = STATUS_POSITION; // At send card position
-			CurrentOp->nResult  = 0xffff;	
+			if(IsSmRunFinish(SM_LIFT_HORIZON_MOVE))	
+			{
+				gLiftHorizonPosition = LiftHorizonPos; //SynchronizeUpper transfer of position
+				CurrentOp->nResult = 0xffff;
+			}
 		break;
 		default:
 		break;
 	}
-	DealResult(CurrentOp);
+	DealResult(CurrentOp);			
+
 }
 /****************************************************
 Function Name: Op_ReceiveCardVacuumOn
@@ -2906,9 +2999,9 @@ void Op_HeaterPowerOff(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_RWModuleInCard
+Function Name: Op_RWChannelInCardFromLiftSide
 *****************************************************
-Descriptions:  Read write module in card
+Descriptions: Read write channel in card from lift side
 *****************************************************
 Calls:
 *****************************************************
@@ -2920,10 +3013,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_RWModuleInCard(void)
+void Op_RWChannelInCardFromLiftSide(void)
 {
-	unsigned char count; //Retry timers
-	stOpCtrl *CurrentOp = &OpRWModuleInCard;
+	stOpCtrl *CurrentOp = &OpRWChannelInCardFromLiftSide;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;
@@ -2931,49 +3023,35 @@ void Op_RWModuleInCard(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
-			count = 0; 
+			if (input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON)
+			{
+				CurrentOp->nResult = ERROR_RWCHANNEL_HAVE_CARD_NOT_ENTER_CARD; //ERROR:通道有卡不能进卡
+			}
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1: //Read write module forward run
-			if(input_get_one(SN_RWMODULE_ENTER_CARD) == SENSOR_TYPE_BEAM_ON) //Enter card channel detected card
-			{
-				sm_run(SM_RWMODULE,DIR_SM_RWMODULE_IN_CARD,parameter[PAR_RWMODULE_SPEED],5000);
-				CurrentOp->nStep = STEP2;
-			}
-			else
-			{
-				CurrentOp->nResult = ERROR_RWMODULE_NOT_CHECK_CARD;//11029 读写模块没有检测到卡片	
-			}
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_IN_FROM_LIFT,parameter[PAR_RWMODULE_SPEED],5000); 
+			CurrentOp->nStep = STEP2;
 		break;
 		case STEP2:
-			if (input_get_one(SN_CARD_EXIT) == SENSOR_TYPE_BEAM_ON) //Exit card position detected card 
+			if (input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON)  
 			{
 				sm_stop(SM_RWMODULE);
-				CurrentOp->nStep = STEP5;
+				CurrentOp->nStep = STEP3;
 			}
 			else if(IsSmRunFinish(SM_RWMODULE))
 			{
-				if (count < 3)
-				{
-					count++;
-					CurrentOp->nStep = STEP3;
-				}
-				else
-				{
-					count = 0; //报错将count清零,没报错不用因为每次执行动作START那里会清零
-					CurrentOp->nResult = ERROR_RWMODULE_NOT_IN_CARD;//10030 读写模块没有卡片进入		
-				}
+				CurrentOp->nResult = ERROR_RWCHANNEL_ENTER_CARD_FAIL;		 //ERROR:读写器通道进卡失败
 			}
 		break;
 		case STEP3: //Go to out card exit
-			sm_run(SM_RWMODULE,DIR_SM_RWMODULE_OUT_CARD,parameter[PAR_RWMODULE_SPEED],5000);
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_IN_FROM_LIFT,parameter[PAR_RWMODULE_SPEED],10);
 			CurrentOp->nStep = STEP4;
 		break;
-		case STEP4: //Read write module enter card position detected card
-			if (input_get_one(SN_RWMODULE_ENTER_CARD) == SENSOR_TYPE_BEAM_ON)
+		case STEP4: 
+			if(IsSmRunFinish(SM_RWMODULE))
 			{
-				sm_stop(SM_RWMODULE);
-				CurrentOp->nStep = STEP1;
+				CurrentOp->nStep = STEP5;
 			}	
 		break;
 		case STEP5:
@@ -2985,9 +3063,9 @@ void Op_RWModuleInCard(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_RWModuleOutCard
+Function Name: Op_RWChannelOutCardToLiftSide
 *****************************************************
-Descriptions:  Read write module out card
+Descriptions:  Read write channel out card to lift side
 *****************************************************
 Calls:
 *****************************************************
@@ -2999,10 +3077,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_RWModuleOutCard(void)
+void Op_RWChannelOutCardToLiftSide(void)
 {
-	unsigned char count;
-	stOpCtrl *CurrentOp = &OpRWModuleOutCard;
+	stOpCtrl *CurrentOp = &OpRWChannelOutCardToLiftSide;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;
@@ -3010,57 +3087,37 @@ void Op_RWModuleOutCard(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
-			count = 0;
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1: 
 			//Read write module out card
-			sm_run(SM_RWMODULE,DIR_SM_RWMODULE_OUT_CARD,parameter[PAR_RWMODULE_SPEED],3000);
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_OUT_LIFT,parameter[PAR_RWMODULE_SPEED],3000);
 			CurrentOp->nStep = STEP2;
 		break;
 		case STEP2: //Read write module enter card position sensor detected have card
-			if (input_get_one(SN_RWMODULE_ENTER_CARD) == SENSOR_TYPE_BEAM_ON)
+			if (input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON)
 			{
 				sm_stop(SM_RWMODULE);
 				CurrentOp->nStep = STEP3;	
 			}
-		break;
-		case STEP3: //if elevator at read write moule to elevator position
-			if (gElevatorCarPosition == ENUM_RWMODULE_TO_ELEVATOR) //Continue go a distance
-			{
-				sm_run(SM_RWMODULE,DIR_SM_RWMODULE_OUT_CARD,parameter[PAR_RWMODULE_SPEED],3000);
-				CurrentOp->nStep = STEP4;
-			}
-			else //Not at return success
-			{
-				CurrentOp->nStep = STEP5;
-			}
-			
-		break;			
-		case STEP4: //Card slot detected have card
-			if (input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_ON)
-			{
-				sm_run(SM_RWMODULE,DIR_SM_RWMODULE_OUT_CARD,parameter[PAR_RWMODULE_SPEED],300);
-				CurrentOp->nStep = STEP5;
-			}	
 			else if(IsSmRunFinish(SM_RWMODULE))
 			{
-				if (count < 3)
-				{
-					count++;
-					CurrentOp->nStep = STEP3;
-				}
-				else
-				{
-					count = 0;
-					CurrentOp->nResult = ERROR_CARD_SLOT_NOT_IN_CARD;//11031 卡槽没有卡片进入
-				}	
+				CurrentOp->nResult = ERROR_RWCHANNEL_OUT_CARD_TO_LIFT_NO_CARD; //ERROR:读写通道出卡到电梯无卡
 			}
 		break;
-		case STEP5:
-			if(IsSmRunFinish(SM_RWMODULE))
+		case STEP3: 
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_OUT_LIFT,parameter[PAR_RWMODULE_SPEED],3000);
+			CurrentOp->nStep = STEP4;	
+		break;			
+		case STEP4: 
+	   		if ((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_OFF)
+			&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_OFF))
 			{
 				CurrentOp->nResult = 0xffff;
+			}
+			else if(IsSmRunFinish(SM_RWMODULE))
+			{
+				CurrentOp->nResult = ERROR_RWCHANNEL_OUT_CARD_TO_LIFT_FAIL; //ERROR:读写通道出卡到电梯失败;
 			}
 		break;
 		default:
@@ -3069,9 +3126,9 @@ void Op_RWModuleOutCard(void)
 	DealResult(CurrentOp);
 }
 /****************************************************
-Function Name: Op_ElevatorSendCardToRWModule
+Function Name: Op_LiftSuckSendCardToRWChannel
 *****************************************************
-Descriptions:  Elevator send card to read write module
+Descriptions:  Lift send card to read write channel
 *****************************************************
 Calls:
 *****************************************************
@@ -3083,9 +3140,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_ElevatorSendCardToRWModule(void)
+void Op_LiftSuckSendCardToRWChannel(void)
 {
-	stOpCtrl *CurrentOp = &OpElevatorSendCardToRWModule;
+	stOpCtrl *CurrentOp = &OpLiftSuckSendCardToRWChannel;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;
@@ -3093,39 +3150,60 @@ void Op_ElevatorSendCardToRWModule(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
+			dm_ctrl_one(DM_PNEUMATIC_SWITCH, RELAY_ON);			//Gas on
+			dm_ctrl_one(DM_RECEIVE_CARD, RELAY_ON); 		    //Receive card position vacuum open
+			sm_set_enable(SM_RWMODULE,SM_DISABLE);				//将读写模块电机释放这样容易把卡送进去
 			CurrentOp->nStep = STEP1;
-			dm_ctrl_one(DM_RECEIVE_CARD, RELAY_ON); //Receive card position vacuum open
 		break;
 		case STEP1:
-			gRWCheckCar_Flag	 = true; //Elevator car bottom call
-			gElevatorCarPosition = ENUM_ELEVATOR_TO_RWMODULE;  //Elevator car move read write module position
-			StartChildOp(CurrentOp,&OpElevatorCarMove); //Elevator car move
+			flag_LiftUpDnMove = true; 					   	   //Elevator car bottom call
+			gLiftUpDnPosition = ENUM_LIFT_SUCK_TO_RW_CHANNEL;  //Elevator car move read write module position
+			StartChildOp(CurrentOp,&OpLiftUpDnMove); 	  	   //Elevator car move
 			CurrentOp->nStep 	 = STEP2;			
 		break;
 		case STEP2:
-			if (IsChildOpOK(CurrentOp,&OpElevatorCarMove))
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnMove))
 			{
-				if(input_get_one(SN_RECEIVE_CARD) == SENSOR_TYPE_BEAM_ON) //Receive card position vacuum suck card success
+				if(input_get_one(SN_RECEIVE_CARD) == SENSOR_TYPE_BEAM_ON) 	  //Receive card position vacuum suck card success
 				{
-					StartChildOp(CurrentOp,&OpConnectionSendCard); //Connection module to send card position
+					flag_Lift_H_MOVE  = true; 				
+					gLiftHorizonPosition   = ENUM_LIFT_HORIZON_REC_AND_SEND;  // Receive send card position
+					StartChildOp(CurrentOp,&OpLiftHorizonMove); 
 					CurrentOp->nStep = STEP3;
 				}
 				else
 				{
-					CurrentOp->nResult = ERROR_RECEIVE_CARD_POSITION_NOT_CARD;//11032 电梯接卡位没有吸到卡
+					dm_ctrl_one(DM_RECEIVE_CARD, RELAY_OFF); 		   		  //Receive card position vacuum close
+					dm_ctrl_one(DM_PNEUMATIC_SWITCH, RELAY_OFF);
+					CurrentOp->nResult = ERROR_RECEIVE_CARD_POSITION_NOT_CARD;//ERROR:电梯接卡位没有吸到卡
 				} 
 			}
 		break;
 		case STEP3:
-			if (IsChildOpOK(CurrentOp,&OpConnectionSendCard))
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
 			{
-				dm_ctrl_one(DM_RECEIVE_CARD, RELAY_OFF); //Receive card position vacuum close
-				StartChildOp(CurrentOp,&OpRWModuleInCard); //Read write module in card
+				StartChildOp(CurrentOp,&OpRWChannelInCardFromLiftSide); 		//Read write module in card
+				SetOpTimeDelay(CurrentOp,70);
+				CurrentOp->nStep = STEP10;
+			}
+		break;
+		case STEP10:
+			if (CheckOpTimeDelay(CurrentOp))
+			{
+				dm_ctrl_one(DM_RECEIVE_CARD, RELAY_OFF);  		//Receive card position vacuum close
+				dm_ctrl_one(DM_PNEUMATIC_SWITCH, RELAY_OFF);	//Gas relay close
 				CurrentOp->nStep = STEP4;
 			}
 		break;
 		case STEP4:
-			if (IsChildOpOK(CurrentOp,&OpRWModuleInCard))
+			if (IsChildOpOK(CurrentOp,&OpRWChannelInCardFromLiftSide))
+			{
+				StartChildOp(CurrentOp,&OpLiftHorizonReset); 
+				CurrentOp->nStep = STEP5;
+			}			
+		break;
+		case STEP5:
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonReset))
 			{
 				CurrentOp->nResult = 0xffff;
 			}			
@@ -3163,58 +3241,46 @@ void Op_RWModuleSendCardToOCR(void)
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			if(gElevatorCarPosition != ENUM_RWMODULE_TO_ELEVATOR)
-			{
-				gRWCheckCar_Flag	 = true; //Elevator car bottom call
-				gElevatorCarPosition = ENUM_RWMODULE_TO_ELEVATOR;  //Read write module to elevator position
-				StartChildOp(CurrentOp,&OpElevatorCarMove); //Elevator car move
-			}
+			StartChildOp(CurrentOp,&OpRWChannelSendCardToLiftSlot); 	   //读写通道发卡到电梯卡槽
 			CurrentOp->nStep = STEP2;
 		break;
 		case STEP2:
-			if (IsChildOpOK(CurrentOp,&OpElevatorCarMove) == true)
+			if (IsChildOpOK(CurrentOp,&OpRWChannelSendCardToLiftSlot))
 			{
-				StartChildOp(CurrentOp,&OpConnectionSendCard); //Connection module to send card position
 				CurrentOp->nStep = STEP3; 
 			}
 		break;
 		case STEP3:
-			if (IsChildOpOK(CurrentOp,&OpConnectionSendCard) == true)
-			{
-				StartChildOp(CurrentOp,&OpRWModuleOutCard); //Read write module Out card
-				CurrentOp->nStep = STEP4;
-			}
+			flag_LiftUpDnMove = true; 				
+			gLiftUpDnPosition = ENUM_LIFT_SLOT_TO_OCR;  		
+			StartChildOp(CurrentOp,&OpLiftUpDnMove); 
+			CurrentOp->nStep = STEP4;
 		break;
 		case STEP4:
-			if (IsChildOpOK(CurrentOp,&OpRWModuleOutCard) == true)
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnMove))
 			{
-				CurrentOp->nStep = STEP5;	
-			}			
+				CurrentOp->nStep = STEP5;
+			}
 		break;
 		case STEP5:
-			StartChildOp(CurrentOp,&OpResetConnection); //Connection reset
-			CurrentOp->nStep = STEP6;
+			flag_Lift_H_MOVE     = true; 				
+			gLiftHorizonPosition = ENUM_LIFT_HORIZON_OUT_TO_OCR;  // Out to OCR position
+			StartChildOp(CurrentOp,&OpLiftHorizonMove); 
+			CurrentOp->nStep 	 = STEP6;
 		break;
 		case STEP6:
-			if (IsChildOpOK(CurrentOp,&OpResetConnection) == true)
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
 			{
-				gRWCheckCar_Flag	 = true; //Elevator car bottom call
-				gElevatorCarPosition = ENUM_OCR_CARD;  //Elevator car move OCR position
-				StartChildOp(CurrentOp,&OpElevatorCarMove); //Elevator car move
-				CurrentOp->nStep 	 = STEP7;					
+				flag_Lift_H_MOVE  	 = true; 				
+				gLiftHorizonPosition = ENUM_LIFT_HORIZON_GET_FROM_OCR;  // Get card form OCR position
+				StartChildOp(CurrentOp,&OpLiftHorizonMove); 
+				CurrentOp->nStep     = STEP7;
 			}
 		break;
 		case STEP7:
-			if (IsChildOpOK(CurrentOp,&OpElevatorCarMove) == true)
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
 			{
-				StartChildOp(CurrentOp,&OpConnectionSendCard); //Connection move to send card position
-				CurrentOp->nStep = STEP8;				
-			}
-		break;
-		case STEP8:
-			if (IsChildOpOK(CurrentOp,&OpConnectionSendCard) == true)
-			{
-				CurrentOp->nResult = 0xffff;
+				CurrentOp->nResult = 0xffff;					
 			}
 		break;
 		default:
@@ -3225,7 +3291,7 @@ void Op_RWModuleSendCardToOCR(void)
 /****************************************************
 Function Name: Op_OCRToRWModuleOutCard
 *****************************************************
-Descriptions:  Read write module send card to OCR
+Descriptions: OCR out card to read write module 
 *****************************************************
 Calls:
 *****************************************************
@@ -3247,44 +3313,88 @@ void Op_OCRToRWModuleOutCard(void)
 	switch (CurrentOp->nStep)
 	{
 		case START:
+//			flag_LiftUpDnMove = true; 					//Lift car bottom call
+//			gLiftUpDnPosition = ENUM_LIFT_SLOT_TO_OCR;  //Lift car move OCR position
+//			StartChildOp(CurrentOp,&OpLiftUpDnMove); 	//Lift car move
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			StartChildOp(CurrentOp,&OpResetConnection); //Connection reset
-			CurrentOp->nStep 	 = STEP2;
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnMove))
+			{
+				flag_Lift_H_MOVE  	   = true; 				
+				gLiftHorizonPosition   = ENUM_LIFT_HORIZON_GET_FROM_OCR;  // Get card form OCR position
+				StartChildOp(CurrentOp,&OpLiftHorizonMove); 
+				CurrentOp->nStep 	  = STEP2;
+			}
 		break;
 		case STEP2:
-			if (IsChildOpOK(CurrentOp,&OpResetConnection) == true)
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
 			{
-				gRWCheckCar_Flag	 = true; //Elevator car bottom call
-				gElevatorCarPosition = ENUM_RWMODULE_TO_ELEVATOR;  //Elevator car move read write module position
-				StartChildOp(CurrentOp,&OpElevatorCarMove); //Elevator car move
-				CurrentOp->nStep = STEP3; 
+				SetOpTimeDelay(CurrentOp,5000);
+				CurrentOp->nStep = STEP3;	
 			}
-		break;
+		break;		
 		case STEP3:
-			if (IsChildOpOK(CurrentOp,&OpElevatorCarMove) == true)
+			if(input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_ON)  //Card slot have card
 			{
-				StartChildOp(CurrentOp,&OpConnectionSendCard); //Connection reset
+				SetOpTimeDelay(CurrentOp,1000);
 				CurrentOp->nStep = STEP4;
 			}
-		break;
-		case STEP4:
-			if (IsChildOpOK(CurrentOp,&OpConnectionSendCard) == true)
+			else if(CheckOpTimeDelay(CurrentOp))
 			{
-				StartChildOp(CurrentOp,&OpRWModuleInCard);
-				CurrentOp->nStep =STEP5;
+				CurrentOp->nResult = ERROR_OCR_TO_RWCHANNEL_CARD_SLOT_NOT_CARD; //ERROR:OCR到读写通道卡槽无卡
 			}
-		break;
-		case STEP5:
-			if(IsChildOpOK(CurrentOp,&OpRWModuleInCard) == true)
+		break;	
+		case STEP4:
+			if(CheckOpTimeDelay(CurrentOp))
 			{
-				sm_run(SM_RWMODULE,DIR_SM_RWMODULE_IN_CARD,50,parameter[PAR_OUT_CARD]); //Read write module out card
-				CurrentOp->nStep = STEP6;
+				flag_Lift_H_MOVE  	   = true; 				
+				gLiftHorizonPosition   = ENUM_LIFT_HORIZON_REC_AND_SEND;  // Receive send card position
+				StartChildOp(CurrentOp,&OpLiftHorizonMove); 
+				CurrentOp->nStep = STEP5;
+			}
+		break;	
+		case STEP5:	
+			if(IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
+			{
+				StartChildOp(CurrentOp,&OpLiftHorizonReset);
+				CurrentOp->nStep = STEP6;	
 			}
 		break;
 		case STEP6:
-			if (IsSmRunFinish(SM_RWMODULE) == true)
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonReset))
+			{
+				flag_LiftUpDnMove = true; 							//Lift car bottom call
+				gLiftUpDnPosition = ENUM_LIFT_SLOT_GET_RW_CHANNEL;  //Lift car move read write module position
+				StartChildOp(CurrentOp,&OpLiftUpDnMove); 			//Lift car move
+				CurrentOp->nStep = STEP7; 
+			}
+		break;
+		case STEP7:
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnMove))
+			{
+				flag_Lift_H_MOVE  	  = true; 				
+				gLiftHorizonPosition  = ENUM_LIFT_HORIZON_REC_AND_SEND;   // Receive send card position
+				StartChildOp(CurrentOp,&OpLiftHorizonMove); 
+				CurrentOp->nStep = STEP8;
+			}
+		break;
+		case STEP8:
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
+			{
+				StartChildOp(CurrentOp,&OpRWChannelInCardFromLiftSide);
+				CurrentOp->nStep =STEP9;
+			}
+		break;
+		case STEP9:
+			if(IsChildOpOK(CurrentOp,&OpRWChannelInCardFromLiftSide))
+			{
+				StartChildOp(CurrentOp,&OpPerfectCardExit); 
+				CurrentOp->nStep = STEP10;
+			}
+		break;
+		case STEP10:
+			if(IsChildOpOK(CurrentOp,&OpPerfectCardExit))
 			{
 				CurrentOp->nResult = 0xffff;
 			}			
@@ -3294,11 +3404,10 @@ void Op_OCRToRWModuleOutCard(void)
 	}
 	DealResult(CurrentOp);
 }
-
 /****************************************************
-Function Name: Op_AutoMakeCard
+Function Name: Op_CutSendCardToRWModule
 *****************************************************
-Descriptions:  Auto make card
+Descriptions:  Cut send card
 *****************************************************
 Calls:
 *****************************************************
@@ -3310,9 +3419,9 @@ Return value: None
 *****************************************************
 Author:Jim Wong
 *****************************************************/
-void Op_AutoMakeCard(void)
+void Op_CutSendCardToRWModule(void)
 {
-	stOpCtrl *CurrentOp = &OpAutoMakeCard;
+	stOpCtrl *CurrentOp = &OpCutSendCardToRWModule;
 	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
 	{
 		return;
@@ -3323,54 +3432,755 @@ void Op_AutoMakeCard(void)
 			CurrentOp->nStep = STEP1;
 		break;
 		case STEP1:
-			gRWCheckCar_Flag	 = true; //Elevator car bottom call
-			gElevatorCarPosition = ENUM_RECEIVE_CARD;  //Elevator to receive card position
-			StartChildOp(CurrentOp,&OpElevatorCarMove); //Elevator car move
+			flag_LiftUpDnMove = true; 							//Lift car bottom call
+			gLiftUpDnPosition = ENUM_LIFT_SUCK_RECEIVE_CARD;    //Lift to receive card position
+			StartChildOp(CurrentOp,&OpLiftUpDnMove); 			//Lift car move
 			CurrentOp->nStep = STEP2;
 		break;
 		case STEP2:
-			if (IsChildOpOK(CurrentOp,&OpElevatorCarMove) == true)
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnMove))
 			{
-
-				StartChildOp(CurrentOp,&OpCuttingPlatformWork);	//Start cut card process
-				CurrentOp->nStep = STEP3;				
-			}
+				sm_run(SM_LIFT_HORIZON_MOVE,DIR_SM_LIFT_HORIZON_FRONT,20,200); //因为电梯到剪切位前有较大空隙会掉卡下来，这里电梯水平向前走一点
+				CurrentOp->nStep = STEP3;
+			}		
 		break;
 		case STEP3:
-			if (IsChildOpOK(CurrentOp,&OpCuttingPlatformWork) == true)
+			if(IsSmRunFinish(SM_LIFT_HORIZON_MOVE))
 			{
-				StartChildOp(CurrentOp,&OpElevatorSendCardToRWModule); //Elevator send card to read write module
-				CurrentOp->nStep = STEP4;
-			}	
-		break;	
-		case STEP4:
-			if (IsChildOpOK(CurrentOp,&OpElevatorSendCardToRWModule) == true)
-			{
-				StartChildOp(CurrentOp,&OpRWModuleSendCardToOCR); //Read write module send card to OCR
-				CurrentOp->nStep = STEP5;	
+				CurrentOp->nStep = STEP4;				
 			}
+		case STEP4:
+			StartChildOp(CurrentOp,&OpCuttingPlatformWork);				//Start cut card process
+			CurrentOp->nStep = STEP5;				
 		break;
 		case STEP5:
-			if (IsChildOpOK(CurrentOp,&OpRWModuleSendCardToOCR) == true)
+			if (IsChildOpOK(CurrentOp,&OpCuttingPlatformWork))
 			{
-				StartChildOp(CurrentOp,&OpOCRToRWModuleOutCard);	//OCR to read write module out card position
+				StartChildOp(CurrentOp,&OpLiftSuckSendCardToRWChannel); //Lift send card to read write channel
 				CurrentOp->nStep = STEP6;
 			}	
-		break;
+		break;	
 		case STEP6:
-			if (IsChildOpOK(CurrentOp,&OpOCRToRWModuleOutCard) == true)
-			{
+			if (IsChildOpOK(CurrentOp,&OpLiftSuckSendCardToRWChannel))
+			{	
 				CurrentOp->nResult = 0xffff;
 			}
 		break;
-
 		default:
 		break;
 	} 
 	DealResult(CurrentOp);
 }
+/****************************************************
+Function Name: Op_PerfectCardExit
+*****************************************************
+Descriptions:  Prefect card exit card
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_PerfectCardExit(void)
+{
+	stOpCtrl *CurrentOp = &OpPerfectCardExit;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_OUT_LIFT,parameter[PAR_RWMODULE_SPEED],2000);
+			CurrentOp->nStep = STEP1;
+		break;
+		case STEP1: 
+			if (input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON) //Exit detection have card
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP2;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE))
+			{
+				CurrentOp->nResult = ERROR_RWCHANNEL_EXIT_CARD_NOT_CARD; //ERROR:读写通道出卡无卡
+			}	
 
+		break;
+		case STEP2: 
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_IN_FROM_LIFT,parameter[PAR_RWMODULE_SPEED],parameter[PAR_OUT_CARD]);
+			CurrentOp->nStep = STEP3;
+		break;
+		case STEP3: 
+			if (IsSmRunFinish(SM_RWMODULE))
+			{
+				if (input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON)
+				{
+					sm_set_enable(SM_RWMODULE,SM_DISABLE);	//释放读写通道电机,取卡时比较方面，不然要很大力才能拔出来
+					CurrentOp->nResult = 0xffff;
+				}
+				else
+				{
+					CurrentOp->nResult = ERROR_CARD_NOT_MOV_TO_PERFECT_CARD_POSITON; //ERROR:卡片未移动到好卡位
+				}
+			}
+		break;
+		default:
+		break;
+	}
+	DealResult(CurrentOp);
+}
+/****************************************************
+Function Name: Op_PerfectCardEnter
+*****************************************************
+Descriptions:  Prefect card enter card
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_PerfectCardEnter(void)
+{
+	stOpCtrl *CurrentOp = &OpPerfectCardEnter;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			if (input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_OFF)
+			{
+				CurrentOp->nResult = ERROR_NONE_CARD_NOT_START_ENTER_CARD_ACTION;	//ERROR:无卡不能进行收卡动作
+			}
+			CurrentOp->nStep = STEP1;
+		break;
+		case STEP1: 
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_OUT_LIFT,parameter[PAR_RWMODULE_SPEED],5000);
+			CurrentOp->nStep = STEP2;
+		break;
+		case STEP2:
+			if (input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON) //Enter card sensor detection have card
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP3;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE))
+			{
+				CurrentOp->nResult = ERROR_PERFECT_CARD_ENTER_FAIL;	 	 //ERROR:好卡进卡失败
+			}
+		break;
+		case STEP3: 
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_IN_FROM_LIFT,parameter[PAR_RWMODULE_SPEED],2000);
+			CurrentOp->nStep = STEP4;
+		break;
+		case STEP4:
+			if (input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON)
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP5;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE))
+			{
+				CurrentOp->nResult = ERROR_PERFECT_CARD_ENTER_TO_EXIT_CARD_SENSOR_FAIL;	//ERROR:好卡进卡到出卡口位置失败
+			}
+		break;
+		case STEP5: 
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_IN_FROM_LIFT,parameter[PAR_RWMODULE_SPEED],10);
+			CurrentOp->nStep = STEP6;
+		break;
+		case STEP6:
+			if (IsSmRunFinish(SM_RWMODULE))
+			{
+				CurrentOp->nResult = 0xffff;
+			}
+		break;
+		default:
+		break;
+	}
+	DealResult(CurrentOp);
+}
+/****************************************************
+Function Name: UpdateStatus
+*****************************************************
+Descriptions:  Update sensor status
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void UpdateStatus(void)
+{
+	//判断预定位工位是否有卡
+	if (input_get_one(SN_PRETARGETING_CHECK_CARD) == SENSOR_TYPE_REFLECT_ON)		  		
+	{
+		CardStatus[STATION_LOADING_PLATFORM_HAS_CARD]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_LOADING_PLATFORM_HAS_CARD]=  STATION_HAS_CARD_NO;
+	}
 
+	//判断热压位检卡传感器是否有卡
+	if (input_get_one(SN_WARM_CHECK_CARD) == SENSOR_TYPE_BEAM_ON)		  		
+	{
+		CardStatus[STATION_HOT_PRESS_OUT_SENSOR_HAS_CARD]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_HOT_PRESS_OUT_SENSOR_HAS_CARD]=  STATION_HAS_CARD_NO;
+	}
+
+	//判断冷压位检卡传感器是否有卡
+	if (input_get_one(SN_COOL_CHECK_CARD) == SENSOR_TYPE_BEAM_ON)		  		
+	{
+		CardStatus[STATION_COLD_PRESS_OUT_SENSOR_HAS_CARD]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_COLD_PRESS_OUT_SENSOR_HAS_CARD]=  STATION_HAS_CARD_NO;
+	}
+
+	//判断电梯吸盘处是否有卡
+	if (input_get_one(SN_RECEIVE_CARD) == SENSOR_TYPE_VACUUM_ON)		  		
+	{
+		CardStatus[STATION_LIFT_SUCK_HAS_CARD]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_LIFT_SUCK_HAS_CARD]=  STATION_HAS_CARD_NO;
+	}
+
+	//判断电梯卡槽是否有卡
+	if (input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_ON)		  		
+	{
+		CardStatus[STATION_LIFT_MID_HAS_CARD]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_LIFT_MID_HAS_CARD]=  STATION_HAS_CARD_NO;
+	}
+
+	//判断出卡通道有卡是否有卡
+	if ((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON)||(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON))		  		
+	{
+		CardStatus[STATION_OUT_PORT_HAS_CARD]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_OUT_PORT_HAS_CARD]=  STATION_HAS_CARD_NO;
+	}
+
+	//判断回收箱满
+	if (input_get_one(SN_WASTER_CARD_BOX_FULL) == SENSOR_TYPE_BEAM_ON)		  		
+	{
+		CardStatus[STATION_RECYCLE_BOX_FULL]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_RECYCLE_BOX_FULL]=  STATION_HAS_CARD_NO;
+	}
+
+	//判断回收箱到位
+	if (input_get_one(SN_WASTER_CARD_BOX_CHECK) == SENSOR_TYPE_BEAM_OFF)		  		
+	{
+		CardStatus[STATION_RECYCLE_BOX_IN_PLACE]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_RECYCLE_BOX_IN_PLACE]=  STATION_HAS_CARD_NO;
+	}
+
+	//判断回收箱是否为空
+	if (input_get_one(SN_WASTER_CARD_BOX_EMPTY) == SENSOR_TYPE_REFLECT_ON)		  		
+	{
+		CardStatus[STATION_RECYCLE_BOX_HAS_CARD]=  STATION_HAS_CARD_YES;
+	}
+	else
+	{
+		CardStatus[STATION_RECYCLE_BOX_HAS_CARD]=  STATION_HAS_CARD_NO;
+	}
+}
+/****************************************************
+Function Name: Op_LiftSlotSendCardToRWChannel
+*****************************************************
+Descriptions:  Lift card slot send card to RWChannel
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_LiftSlotSendCardToRWChannel(void)
+{
+	static unsigned char retry_cnt1 = 0,retry_cnt2 = 0; //Lift horizontal move retry and read write channel retry
+	stOpCtrl *CurrentOp = &OpLiftSlotSendCardToRWChannel;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON)   //Read write channel lift direction enter card sensor detection have card
+			||(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON))//Perfect card out card sensor detection have card
+			{
+				CurrentOp->nResult = ERROR_LIFT_SLOT_TO_RWCH_SD_CARD_DETEC_HAV_CARD;//ERROR:电梯槽往读写通道送卡时检测到读写通道已经有卡
+			}
+
+			if(input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_OFF)
+			{
+				CurrentOp->nResult = ERROR_LIFT_SLOT_NO_CARD_NO_SEND_CARD_TO_RWCH;	//ERROR:电梯槽无卡,无法送卡到读写通道
+			}
+			retry_cnt1 = 0;
+			retry_cnt2 = 0;
+			CurrentOp->nStep = STEP1;
+		break;
+
+		case STEP1:
+			sm_set_enable(SM_RWMODULE,SM_DISABLE);				//释放读写通道电机,容易送卡进读写通道
+			CurrentOp->nStep = STEP2;
+		break;
+
+		case STEP2:
+			flag_LiftUpDnMove	 = true; 					   
+			gLiftUpDnPosition = ENUM_LIFT_SLOT_GET_RW_CHANNEL;  //电梯槽对准读写通道
+			StartChildOp(CurrentOp,&OpLiftUpDnMove); 	   
+			CurrentOp->nStep 	 = STEP3;			
+		break;
+
+		case STEP3:
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnMove))
+			{
+				CurrentOp->nStep = STEP4;
+			}
+		break;
+
+		case STEP4:
+			flag_Lift_H_MOVE  = true; 				
+			gLiftHorizonPosition   = ENUM_LIFT_HORIZON_REC_AND_SEND;  // OCR exit card connection
+			StartChildOp(CurrentOp,&OpLiftHorizonMove); 
+			CurrentOp->nStep = STEP5;
+		break;
+
+		case STEP5:
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
+			{
+				CurrentOp->nStep = STEP6;	
+			}
+		break;
+
+		case STEP6:
+			if(input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON)
+			{
+				CurrentOp->nStep = STEP7;	
+			}
+			else
+			{
+				if(retry_cnt1<3)
+				{
+					retry_cnt1++;
+					CurrentOp->nStep = STEP1;
+				}
+				else
+				{
+					retry_cnt1 = 0;
+					CurrentOp->nResult = ERROR_LIFT_SLOT_SEND_CARD_TO_RWCH_RETRY_FAIL;	//ERROR:电梯卡槽送卡到读写通道多次重试失败失败
+				}
+			}
+		break;
+		case STEP7:
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_IN_FROM_LIFT,parameter[PAR_RWMODULE_SPEED],5000);
+			CurrentOp->nStep = STEP8;
+		break;	
+		case STEP8: 
+			if (input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON) //Perfect card out sensor detection have card
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP_SUCCESS;	
+			}
+			else if(IsSmRunFinish(SM_RWMODULE))
+			{
+				if(retry_cnt2<3)
+				{
+					retry_cnt2++;
+					CurrentOp->nStep = STEP9;
+				}
+				else
+				{
+					retry_cnt2 = 0;
+					CurrentOp->nResult = ERROR_RWCHANNEL_ENTER_CARD_TO_EXIT_CARD_SENSOR_FAIL;//ERROR:读写通道进卡到出卡传感器位置失败
+				}
+			}	
+		break;
+		case STEP9:
+			sm_set_enable(SM_RWMODULE,SM_DISABLE);		//释放读写通道电机
+			CurrentOp->nStep = STEP10;
+		break;
+ 		case STEP10:
+			StartChildOp(CurrentOp,&OpLiftHorizonReset);
+			CurrentOp->nStep = STEP11;
+		break;
+ 		case STEP11:
+		if (IsChildOpOK(CurrentOp,&OpLiftHorizonReset))
+		{
+			CurrentOp->nStep = STEP4;
+		}
+		break;
+		case STEP_SUCCESS:
+			CurrentOp->nResult = 0xffff;
+		break;
+		default:
+		break;
+	}
+	DealResult(CurrentOp);
+}
+/****************************************************
+Function Name: Op_RWChannelSendCardToLiftSlot
+*****************************************************
+Descriptions:  Read write channel send card to lift slot
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_RWChannelSendCardToLiftSlot(void)
+{
+	stOpCtrl *CurrentOp = &OpRWChannelSendCardToLiftSlot;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			if(input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_ON)
+			{
+				CurrentOp->nResult = ERROR_LIFT_CARD_SLOT_HAVE_CARD_RWCHANNEL_NOT_SEND_CARD; //ERROR:电梯卡槽有卡,读写通道无法送卡到电梯卡槽
+			}
+			CurrentOp->nStep = STEP1;
+		break;
+		case STEP1:
+			if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_OFF)
+			&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_OFF))  		//读写通道没有检测到有卡
+			{
+				CurrentOp->nStep = STEP2;
+			}
+			else
+			{
+				CurrentOp->nStep = STEP4;
+			}
+		break;
+		case STEP2:
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_OUT_LIFT,parameter[PAR_RWMODULE_SPEED],500);
+			CurrentOp->nStep = STEP3;
+		break;
+		case STEP3:
+			if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON)
+			||(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON))
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP4;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE)) 		
+			{
+				CurrentOp->nResult = ERROR_RWCHANNEL_NO_CARD_NO_EXIT_CARD_TO_LIFT_SLOT;	//ERROR:读写通道无卡，无法出卡到电梯卡槽
+			}
+		break;
+		case STEP4:
+			flag_LiftUpDnMove	 = true; 					   
+			gLiftUpDnPosition = ENUM_LIFT_SLOT_GET_RW_CHANNEL;  //电梯槽对准读写通道
+			StartChildOp(CurrentOp,&OpLiftUpDnMove); 	   
+			CurrentOp->nStep 	 = STEP5;			
+		break;
+		case STEP5:
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnMove))
+			{
+				CurrentOp->nStep = STEP6;
+			}
+		break;
+		case STEP6:
+			flag_Lift_H_MOVE  	 = true; 				
+			gLiftHorizonPosition = ENUM_LIFT_HORIZON_REC_AND_SEND;  // 
+			StartChildOp(CurrentOp,&OpLiftHorizonMove); 
+			CurrentOp->nStep = STEP7;
+		break;
+		case STEP7:
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
+			{
+				CurrentOp->nStep = STEP8;	
+			}
+		break;
+		case STEP8:
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_OUT_LIFT,parameter[PAR_RWMODULE_SPEED],5000);
+			CurrentOp->nStep = STEP9;
+		break;
+	    case STEP9:
+			if(input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_ON) //Lift card slot detection have card
+			{
+				CurrentOp->nStep = STEP11;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE))
+			{
+				CurrentOp->nResult = ERROR_RWCHANNEL_EXIT_CARD_TO_LIFT_CARD_SLOT_FAIL;//ERROR:读写通道出卡到电梯卡槽失败
+			}
+		break;
+		case STEP11:
+	   		StartChildOp(CurrentOp,&OpLiftHorizonReset);
+			CurrentOp->nStep = STEP12;	
+		break;
+		case STEP12:
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonReset))
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP13;
+			}
+		break;
+	   	case STEP13:
+			if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_OFF)
+			&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_OFF)
+			&&(input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_ON))
+			{
+				CurrentOp->nStep = STEP_SUCCESS;
+			}
+			else
+			{
+				CurrentOp->nResult = ERROR_LIFT_CARD_SLOT_FROM_RWCHANNEL_PULL_CARD_FAIL;//ERROR:电梯卡槽从读写器通道拔卡失败
+			}
+		break;
+		case STEP_SUCCESS:
+			CurrentOp->nResult = 0xffff;
+		break;
+
+		default:
+		break;
+	}
+	DealResult(CurrentOp);
+}
+/****************************************************
+Function Name: Op_LiftSlotSendCardToRecycleBox
+*****************************************************
+Descriptions:  Lift slot send card to recucle box
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_LiftSlotSendCardToRecycleBox(void)
+{
+	stOpCtrl *CurrentOp = &OpLiftSlotSendCardToRecycleBox;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			if(input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_OFF) //Lift card slot no detection card
+			{
+				CurrentOp->nResult = ERROR_LIFT_CARD_NO_CARD_NO_EXIT_CARD_TO_RECYCLE_BOX; //ERROR:电梯卡槽无卡,无法出卡到回收箱
+			}
+			CurrentOp->nStep = STEP1;
+		break;
+		case STEP1:
+			sm_set_enable(SM_RWMODULE,SM_DISABLE);				//释放读写通道电机
+			flag_LiftUpDnMove	 = true; 					   
+			gLiftUpDnPosition = ENUM_LIFT_SLOT_TO_RECYCLE_BOX;  //电梯槽对准回收通道
+			StartChildOp(CurrentOp,&OpLiftUpDnMove); 	   
+			CurrentOp->nStep 	 = STEP2;			
+		break;
+		case STEP2:
+			if (IsChildOpOK(CurrentOp,&OpLiftUpDnMove))
+			{
+				CurrentOp->nStep = STEP3;
+			}
+		break;
+		case STEP3:
+			flag_Lift_H_MOVE  	 = true; 				
+			gLiftHorizonPosition = ENUM_LIFT_HORIZON_REC_AND_SEND;  // 
+			StartChildOp(CurrentOp,&OpLiftHorizonMove); 
+			CurrentOp->nStep = STEP4;
+		break;
+		case STEP4:
+			if (IsChildOpOK(CurrentOp,&OpLiftHorizonMove))
+			{
+				CurrentOp->nStep = STEP5;	
+			}
+		break;
+		case STEP5:
+			if(input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON) //Read write channel detection have card
+			{
+				sm_run(SM_RWMODULE,DIR_SM_ENTER_RECYCLE_BOX,parameter[PAR_RWMODULE_SPEED],5000);
+				CurrentOp->nStep = STEP6;
+			}
+			else
+			{
+				CurrentOp->nResult = ERROR_LIFT_CARD_SLOT_SEND_CARD_TO_RECYCLE_CHANNEL_FAIL;//ERROR:电梯卡槽送卡到回收通道入口失败
+			}
+		break;
+		case STEP6:
+			if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_OFF)
+			&&(input_get_one(SN_CARD_SLOT) == SENSOR_TYPE_REFLECT_OFF))
+			{
+				CurrentOp->nStep = STEP_SUCCESS;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE))
+			{
+				CurrentOp->nResult = ERROR_LIFT_CARD_SLOT_TO_RECYCLE_BOX_FAIL;//ERROR:电梯卡槽送卡到回收箱失败
+			}
+		break;
+		case STEP_SUCCESS:
+			CurrentOp->nResult = 0xffff;
+		break;
+		default:
+		break;
+	}
+	DealResult(CurrentOp);
+}
+/****************************************************
+Function Name: Op_RWModuleReset
+*****************************************************
+Descriptions: Read write module reset
+*****************************************************
+Calls:
+*****************************************************
+Input  parameter: None
+*****************************************************
+Output parameter: None
+*****************************************************
+Return value: None
+*****************************************************
+Author:Jim Wong
+*****************************************************/
+void Op_RWModuleReset(void)
+{
+	stOpCtrl *CurrentOp = &OpRWModuleReset;
+	if ((CurrentOp->bEn == false) || (CurrentOp->bFlagPause == true))
+	{
+		return;
+	}
+	switch (CurrentOp->nStep)
+	{
+		case START:
+			CurrentOp->nStep = STEP1;
+		break;
+		case STEP1:
+			if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_OFF)    //Read write channel no detection card 
+			&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_OFF)) //Exit card side no detection card 
+			{
+				CurrentOp->nStep = STEP2;
+			}
+			else if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON) //Read write channel detection card 
+			&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_OFF))
+			{
+			 	CurrentOp->nStep = STEP4;
+			}
+			else if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_OFF)
+			&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON))  //Exit card side detection card 
+			{
+				CurrentOp->nStep = STEP6;
+			}
+			else
+			{
+				CurrentOp->nResult = ERROR_RWCHANNEL_HAVE_MULTI_CARD; //读写通道有多张卡,或者传感器坏
+			}
+		break;
+		case STEP2:
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_IN_FROM_LIFT,parameter[PAR_RWMODULE_SPEED],3000);
+			CurrentOp->nStep = STEP3;
+		break;
+		case STEP3:
+			if(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON) //好卡出卡口传感器检测到有卡
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP_SUCCESS;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE)) 		
+			{
+				if((input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_OFF)
+				&&(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_OFF))
+				{
+		
+					CurrentOp->nStep = STEP_SUCCESS;					  	//通道无卡
+				}
+				else
+				{
+					CurrentOp->nResult = ERROR_RWCHANNEL_SEND_CARD_EIXT_CARD_FAIL; //读写通道送卡到出卡口传感器X128位置失败
+				}
+			}
+		break;
+		case STEP4:
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_IN_FROM_LIFT,parameter[PAR_RWMODULE_SPEED],5000);
+			CurrentOp->nStep = STEP5;
+		break;
+
+		case STEP5:
+			if(input_get_one(SN_RW_CH_NEAR_OUTSIDE) == SENSOR_TYPE_BEAM_ON)
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP_SUCCESS;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE)) 		
+			{
+				CurrentOp->nResult = ERROR_RWCHANNEL_ENTER_CARD_SENSOR_TO_EXIT_CARD_SENSOR_FAIL;//ERROR:读写通道进卡传感器X124位到出卡传感器X128位失败
+			}
+		break;
+		case STEP6:
+			sm_run(SM_RWMODULE,DIR_SM_RW_CH_OUT_LIFT,parameter[PAR_RWMODULE_SPEED],5000);
+			CurrentOp->nStep = STEP7;
+		break;
+		case STEP7:
+			if(input_get_one(SN_RW_CH_NEAR_LIFT) == SENSOR_TYPE_BEAM_ON)
+			{
+				sm_stop(SM_RWMODULE);
+				CurrentOp->nStep = STEP4;
+			}
+			else if (IsSmRunFinish(SM_RWMODULE)) 		
+			{
+				CurrentOp->nResult = ERROR_RWCHANNLE_EXIT_CARD_SENSOR_TO_ENTER_CARD_SENSOR_FAIL; //ERROR:读写通道出卡传感器X128位到进卡传感器X124位失败
+			}
+		break;
+		case STEP_SUCCESS:
+			CurrentOp->nResult = 0xffff;
+		break;
+		default:
+		break;
+	}
+	DealResult(CurrentOp);
+}
 /****************************************************
 Function Name: StepCtrlMachine
 *****************************************************
@@ -3412,28 +4222,34 @@ void StepCtrlMachine(void)
 	Op_WasteStorageDown();	   			//22 废料场下降
 	Op_PretargetingVacuumCupOpen();		//23 预定位真空吸打
 	Op_PretargetingVacuumCupClose();	//24 预定位真空吸关闭
-	Op_OpenGasSwitch();			  		//27 打开总气开关
-	Op_CloseGasSwitch();				//28 关闭总气开关
-	Op_WarmCoolMakeCard();				//29 冷热制卡
-	Op_GotoLoadingPlatform();			//30 去装料平台	
-	Op_CuttingPlatformWork();			//31 裁剪平台工作
-	Op_ScramProcess();					//32 紧急停止制剪卡流程
-	Op_ResetElevatorCar();				//31 复位读写检测下车 
-	Op_ElevatorCarMove();				//32 电梯小车移动
-	Op_ResetConnection();				//33 复位衔接模块
-	Op_ConnectionSendCard();			//34 衔接模块移动到发卡位
+	Op_OpenGasSwitch();			  		//25 打开总气开关
+	Op_CloseGasSwitch();				//26 关闭总气开关
+	Op_WarmCoolMakeCard();				//27 冷热制卡
+	Op_GotoLoadingPlatform();			//28 去装料平台	
+	Op_CuttingPlatformWork();			//29 裁剪平台工作
+	Op_LiftUpDnReset();					//30 电梯升降复位
+	Op_ResetLiftModule();				//31 复位电梯模块(包含水平和垂直复位) 
+	Op_LiftUpDnMove();					//32 电梯升降移动
+	Op_LiftHorizonReset();				//33 电梯水平复位
+	Op_LiftHorizonMove();				//34 电梯水平移动
 	Op_ReceiveCardVacuumOn();			//35 接卡位真空开
 	Op_ReceiveCardVacuumOff();			//36 接卡位真空关
 	Op_HeaterPowerOn();					//37 发热管电源开
 	Op_HeaterPowerOff();				//38 发热管电源关
-	Op_RWModuleInCard();				//39 读写模块进卡
-	Op_RWModuleOutCard();				//40 读写模块出卡
-	Op_ElevatorSendCardToRWModule();	//41 电梯发卡到读写模块
+ ////////////////////////////////////////////////////////////////////////
+	Op_RWChannelInCardFromLiftSide();	//39 读写模块从电梯侧进卡
+	Op_RWChannelOutCardToLiftSide();	//40 读写模块出卡到电梯侧
+	Op_LiftSuckSendCardToRWChannel();	//41 电梯吸盘发卡到读写通道
 	Op_RWModuleSendCardToOCR();			//42 读写模块发卡到OCR
 	Op_OCRToRWModuleOutCard();			//43 OCR到读写模块出卡
-
-
-	Op_AutoMakeCard();					//44 自动制卡
+	Op_CutSendCardToRWModule();			//44 剪发卡到读写模块
+	Op_PerfectCardEnter();				//45 好卡回读写通道
+	Op_PerfectCardExit();				//45 好卡出卡	
+/////////////////////////////////////////////////////////////////////////
+	Op_LiftSlotSendCardToRWChannel(); 	//46电梯槽发卡到读写通道
+	Op_RWChannelSendCardToLiftSlot();	//47读写通道发卡到电梯槽
+	Op_LiftSlotSendCardToRecycleBox();	//48电梯槽发卡到回收箱
+	Op_RWModuleReset();					//49读写模块复位
 }
 
 

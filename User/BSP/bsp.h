@@ -34,7 +34,7 @@ extern "C"
 #define MAX_NUM_DC_MOTOR	12
 #define MAX_NUM_ST_MOTOR	8
 #define MAX_NUM_INPUT		32
-#define OP_MAX_NUM			50	   
+#define OP_MAX_NUM			80	   
 
 #define APP_UDP_PORT    8080	//UDP通信的端口
 #define APP_TCP_PORT    8081	//TCP通信的端口

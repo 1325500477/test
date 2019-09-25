@@ -1,15 +1,13 @@
 ..\obj\communicate.o: ..\..\User\BSP\Communicate\communicate.c
-..\obj\communicate.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
-..\obj\communicate.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+..\obj\communicate.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\string.h
+..\obj\communicate.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdio.h
 ..\obj\communicate.o: ..\..\User\BSP\bsp.h
-..\obj\communicate.o: C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h
-..\obj\communicate.o: C:\Keil\ARM\RV31\INC\stdint.h
+..\obj\communicate.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdbool.h
+..\obj\communicate.o: D:\ProgramData\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\communicate.o: ..\..\User\BSP\./Driver/standard.h
 ..\obj\communicate.o: ..\..\User\BSP\./Driver/my_fun.h
-..\obj\communicate.o: C:\Keil\ARM\RV31\INC\stdio.h
 ..\obj\communicate.o: ..\..\User\BSP\./Driver/hardware.h
 ..\obj\communicate.o: ..\..\User\BSP\./Driver/driver.h
-..\obj\communicate.o: C:\Keil\ARM\RV31\INC\stdbool.h
 ..\obj\communicate.o: ..\..\User\BSP\./OpCtrl/OpCtrl.h
 ..\obj\communicate.o: ..\..\User\BSP\./Driver/driver.h
 ..\obj\communicate.o: ..\..\User\BSP\./Serial/Serial.h
@@ -19,7 +17,6 @@
 ..\obj\communicate.o: ..\..\User\BSP\./EEPROM/eeprom.h
 ..\obj\communicate.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 ..\obj\communicate.o: ..\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-..\obj\communicate.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\obj\communicate.o: ..\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
 ..\obj\communicate.o: ..\..\User\BSP\Stm32f10x\stm32f10x_conf.h
 ..\obj\communicate.o: ..\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h

@@ -106,6 +106,7 @@ void ProcessUserCmd(void)
 
 	case CMD_GET_CARD_STATUS:
 		// 获取工位状态（有卡/无卡）
+		UpdateStatus();
 		for(i=0; i<10; i++)
 		{
 			comm_send_buf[POS_DATA_0+i] = CardStatus[i];
