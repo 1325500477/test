@@ -83,7 +83,6 @@ extern "C"
     #define DIR_DM_PUNCH_DN                 DM_CCW // 切卡下降  
     #define DIR_DM_WASTER_UP                 DM_CW  // 废料升起 
     #define DIR_DM_WASTER_DN                 DM_CCW // 废料下降  
-
     //***** 步进电机动作状态定义********************************************************
     #define SMS_ENABLE              	SM_ENABLE  // 使能电机
     #define SMS_DISABLE             	SM_DISABLE // 去电机使能
