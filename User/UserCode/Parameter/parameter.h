@@ -20,23 +20,15 @@ enum ENUM_PARAMETER
     PAR_WASTE,                              //5 到废料工位
     PAR_SM_CHANNAL_SPEED,                   //6 抓卡小车速度
     PAR_PRETARGET_UP_POSITION,              //7 预定位电机上升步数
-<<<<<<< HEAD
     PAR_WARMCOOL_PRESS_SPEED,               //8 热冷压电机速度
     PAR_WARM_TIME,							//9 热压时间 
     PAR_COOL_TIME,							//10 冷压时间
     PAR_LIFT_UP_DN_SPEED,					//11 电梯小车的速度
-=======
-    PAR_WASTESTORAGE_DN_POSTION,            //8 废料场电机下降步数
-    PAR_WARM_TIME,							//9 热压时间 
-    PAR_COOL_TIME,							//10 冷压时间
-    PAR_LIFT_UP_DN_SPEED,					//11 电梯小车的速度s
->>>>>>> e58908bfac133081514ec13bb451e3754d11a839
     PAR_RECEIVE_CARD,                       //12 电梯小车接卡位    
     PAR_ELEVATOR_TO_RWMODULE,               //13 电梯到读写模块
     PAR_RWMODULE_TO_ELEVATOR,				//14 读写模块到电梯
     PAR_WASTE_CARD,                         //15 电梯小车废卡位
     PAR_OCR_CARD,	        				//16 电梯小车OCR位   
-<<<<<<< HEAD
     PAR_LIFT_H_RS,			                //17 电梯水平接送卡位置 
     PAR_LIFT_H_ENTER_OCR,				    //18 电梯水平进卡到OCR
     PAR_LIFT_H_EXIT_OCR,			        //19 OCR出卡到电梯水平
@@ -44,15 +36,6 @@ enum ENUM_PARAMETER
     PAR_RWMODULE_SPEED,				        //21 读写模块速度
     PAR_WARM_DN_STEP,				        //22 热压下降步数
     PAR_COOL_DN_STEP,				        //23 冷压下降步数
-=======
-    PAR_CONNECTION_NORMA,			        //17 衔接模块正常位置 
-    PAR_RWMODULE_SPEED,				        //18 读写模块速度
-    PAR_RWMODULE_OUT_CARD,				    //19 读写模块出卡步数
-    PAR_OUT_CARD,           				//20 读写模块出好卡的步数
-    PAR_CONNECTION_ENTER_OCR,				//21 衔接模块进卡到OCR
-    PAR_CONNECTION_EXIT_OCR,			    //22 衔接模块出卡到OCR
-    PAR_BAK23,				//23
->>>>>>> e58908bfac133081514ec13bb451e3754d11a839
     PAR_BAK24,			    //24
     PAR_BAK25,				//25
     PAR_BAK26,				//26
