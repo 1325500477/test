@@ -13,7 +13,11 @@ void DefaultParameter(void)
     parameter[PAR_WASTE]                       = 580;   //5 到废料位
     parameter[PAR_SM_CHANNAL_SPEED]            = 350;   //6 小车速度
     parameter[PAR_PRETARGET_UP_POSITION]       = 660;   //7 预定位上升步数
+<<<<<<< HEAD
     parameter[PAR_WARMCOOL_PRESS_SPEED] 	   = 200;   //8 热冷压电机速度
+=======
+    parameter[PAR_WASTESTORAGE_DN_POSTION] 	   = 600;   //8 废料场下降步数
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
     parameter[PAR_WARM_TIME]                   = 100; 	//9 加热时间s
     parameter[PAR_COOL_TIME]                   = 40;    //10 冷却时间s
     parameter[PAR_LIFT_UP_DN_SPEED] 		   = 250;   //11 电梯小车速度
@@ -22,6 +26,7 @@ void DefaultParameter(void)
     parameter[PAR_RWMODULE_TO_ELEVATOR] 	   = 195;   //14 电梯槽对读写通道
     parameter[PAR_WASTE_CARD]                  = 176;   //15 电梯槽对回收箱 
     parameter[PAR_OCR_CARD] 		           = 12;    //16 电梯槽到OCR
+<<<<<<< HEAD
     parameter[ PAR_LIFT_H_RS] 	               = 470;   //17 电梯水平接送卡位置  
     parameter[PAR_LIFT_H_ENTER_OCR]            = 600;   //18 电梯水平进卡到OCR
     parameter[PAR_LIFT_H_EXIT_OCR]             = 280;   //19 OCR出卡到电梯水平
@@ -30,6 +35,15 @@ void DefaultParameter(void)
     parameter[PAR_WARM_DN_STEP]                = 1000;  //22 热压下降的步数
     parameter[PAR_COOL_DN_STEP]                = 1000;  //23 冷压下降的步数 
 
+=======
+    parameter[PAR_CONNECTION_NORMA] 	       = 470;   //17 接送卡位  
+    parameter[PAR_RWMODULE_SPEED]              = 100;   //18 读写模块的速度
+    parameter[PAR_RWMODULE_OUT_CARD]           = 1450;  //19 读写模块出卡步数
+    parameter[PAR_OUT_CARD]                    = 2200; 	//20 读写模块出好卡的步数 
+    parameter[PAR_CONNECTION_ENTER_OCR]        = 600;   //21 电梯水平进卡到OCR
+    parameter[PAR_CONNECTION_EXIT_OCR]         = 280;   //22 OCR出卡到电梯水平
+    parameter[PAR_BAK23] = 270;    //23             
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
     parameter[PAR_BAK24] = 500;    //24 
     parameter[PAR_BAK25] = 1000;   //25 
     parameter[PAR_BAK26] = 80;     //26

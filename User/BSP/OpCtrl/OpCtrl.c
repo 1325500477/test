@@ -1,7 +1,11 @@
 #include <string.h>
 #include "stm32f10x.h"
 #include "bsp.h"
+<<<<<<< HEAD
 #include "IOCfg.h"
+=======
+
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
 /***************************************************************************************************************
   * 函数名称： SetOpTimeDelay
   * 函数描述： 设置延时时间
@@ -219,6 +223,7 @@ void DealResult(stOpCtrl *Operation)
 	else if(Operation->nResult > 0)
 	{
 		Operation->bFlagPause = 1;
+<<<<<<< HEAD
 		//这里特殊处理只有报错就把所有气路和液压都关闭
 		dm_ctrl_one(DM_PRETARGETING_VACUUMCUP, RELAY_OFF);  //预定位真空吸
 		dm_ctrl_one(DM_RECEIVE_CARD, RELAY_OFF);			//接卡真空吸关闭
@@ -230,6 +235,8 @@ void DealResult(stOpCtrl *Operation)
 		dm_ctrl_one(DM_HYDRULIC_POWER, RELAY_OFF);			//液压电源关闭
 
 
+=======
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
 	}
 }
 

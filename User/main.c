@@ -38,7 +38,11 @@ uint32_t packet_sent=1;
 uint32_t packet_receive=1;
 
 char * prj_designer = "ChenWenjian";;
+<<<<<<< HEAD
 char * prj_version = "V2.19.1112.1";
+=======
+char * prj_version = "V2.17.1116.1";
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
 char * FPGA_version = "V1.YY.MMDD.C";
 
 unsigned char board_addr = 1;  //内存中的设备ID,RS485通讯时会用到。

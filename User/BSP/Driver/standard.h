@@ -63,8 +63,13 @@ typedef signed long			int32;
 #define SENSOR_TYPE_MICRO_OFF   1		// 未检测到双卡
 
 // 真空检测传感器
+<<<<<<< HEAD
 #define SENSOR_TYPE_VACUUM_ON   0		// 真空状态（已经吸到卡片）
 #define SENSOR_TYPE_VACUUM_OFF  1		// 非真空状态
+=======
+#define SENSOR_TYPE_VACUUM_ON   1		// 真空状态（已经吸到卡片）
+#define SENSOR_TYPE_VACUUM_OFF  0		// 非真空状态
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
 
 // 按键开关宏定义
 #define BUTTON_TYPE_PRESSED     0		// 按下按键

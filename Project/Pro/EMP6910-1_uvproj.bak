@@ -144,7 +144,11 @@
             <UsePdscDebugDescription>1</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
+<<<<<<< HEAD
           <TargetSelection>6</TargetSelection>
+=======
+          <TargetSelection>7</TargetSelection>
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -170,7 +174,11 @@
             <Capability>1</Capability>
             <DriverSelection>4099</DriverSelection>
           </Flash1>
+<<<<<<< HEAD
           <bUseTDR>1</bUseTDR>
+=======
+          <bUseTDR>0</bUseTDR>
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
           <Flash2>Segger\JL2CM3.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>

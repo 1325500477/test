@@ -5,7 +5,11 @@
 
 #define  MAX_CNT        200
 
+<<<<<<< HEAD
 char * BSP_version = "BSP:393R2+227R4 V2.19.1112.1";
+=======
+char * BSP_version = "BSP:393R2+227R4 V2.17.1027.1";
+>>>>>>> e58908bfac133081514ec13bb451e3754d11a839
 unsigned long m_Input_All_now = 0;			// ‰»Î1~32
 unsigned long m_Input_All_now2 = 0;			// ‰»Î33~40
 //unsigned long m_Input_All_now_last;	
